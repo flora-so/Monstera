@@ -6,8 +6,8 @@ defineProps<{
 
 <template>
   <div class="greetings">
-    <h1 class="green underline text-6xl">{{ msg }}</h1>
-    <h3 class="text-green-900">
+    <h1 class="green">{{ msg }}</h1>
+    <h3 class="underline">
       You’ve successfully created a project with
       <a target="_blank" href="https://vitejs.dev/">Vite</a> +
       <a target="_blank" href="https://vuejs.org/">Vue 3</a>.
@@ -17,13 +17,13 @@ defineProps<{
 
 <style scoped>
 h1 {
-    font-weight: 500;
-    font-size: 2.6rem;
-    top: -10px;
+  font-weight: 500;
+  font-size: 2.6rem;
+  top: -10px;
 }
 
 h3 {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .greetings h1,
