@@ -6,7 +6,7 @@
         <div class="msr-switch__toggle"></div>
       </div>
 
-      <div>{{ label }}</div>
+      <div class="msr-switch__label">{{ label }}</div>
     </label>
   </div>
 </template>

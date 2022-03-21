@@ -12,3 +12,13 @@ export type TextFieldContext = {
   validate: () => void,
   setError: (message: string) => void,
 }
+
+export type DropdownItem = {
+  label: string,
+  value: string,
+}
+
+export enum DropdownAlignment {
+  left = "ltr",
+  right = "rtl"
+}
