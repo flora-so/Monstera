@@ -2,7 +2,7 @@
   <div class="msr-chips">
     <input
       :id="_id"
-      name="group"
+      :name="group"
       :type="multiselect ? 'checkbox' : 'radio'"
       @change="$emit('selected', _selected)"
       v-model="_selected"
