@@ -1,0 +1,208 @@
+<template>
+  <div class="msr-animated-text-field" :error="_error">
+    <div class="msr-animated-text-field__input">
+      <input
+        :id="_id"
+        :type="type"
+        placeholder=" "
+        :disabled="disabled"
+        v-model="_value"
+        @blur="validate"
+      />
+      <label :for="_id">{{ label }}</label>
+    </div>
+    <p class="msr-animated-text-field__message">{{ _message }}</p>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import type { Context } from "./index";
+import { TextFieldType } from "./index";
+
+export default defineComponent({
+  name: "AnimatedTextField",
+  props: {
+    label: {
+      type: String,
+      required: true
+    },
+    colour: {
+      type: String,
+      default: () => "primary",
+      validator: (value: string) =>
+        ['primary', 'accent']
+          .includes(value) ||
+        new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
+    },
+    type: {
+      type: String as () => TextFieldType,
+      default: () => TextFieldType.text
+    },
+    validator: {
+      type: Function as unknown as () => (value: string) => string
+    },
+    value: String,
+    disabled: Boolean,
+    helperText: String,
+  },
+  data() {
+    return {
+      _value: "",
+      _message: "",
+      _error: false,
+    }
+  },
+  emits: {
+    blur(value: string) {
+      return typeof value === "string";
+    },
+    context(ctx: Context) {
+      return ctx;
+    }
+  },
+  computed: {
+    _id() {
+      return `msr-animated-text-field${Math.random().toString(16).slice(2)}`;
+    },
+    _colour() {
+      if (['primary', 'accent']
+        .includes(this.colour)) {
+        return `rgb(var(--${this.colour}))`;
+      } else {
+        return this.colour;
+      }
+    },
+    _backgroundColour() {
+      if (['primary', 'accent']
+        .includes(this.colour)) {
+        return `rgba(var(--${this.colour}), 0.13)`;
+      } else {
+        return `${this.colour}21`;
+      }
+    },
+  },
+  methods: {
+    getValue() {
+      return this._value;
+    },
+    validate() {
+      if (this.validator) {
+        let message = this.validator(this._value);
+
+        this.setError(message);
+      }
+
+      this.$emit("blur", this._value);
+    },
+    setError(message: string) {
+      if (message.length == 0) {
+        this._error = false;
+        this._message = this.helperText ?? "";
+      } else {
+        this._error = true;
+        this._message = message;
+      }
+    }
+  },
+  mounted() {
+    let ctx: Context = {
+      value: this.getValue,
+      validate: this.validate,
+      setError: this.setError,
+    }
+
+    this._value = this.value ?? "";
+    this._message = this.helperText ?? "";
+    this.$emit("context", ctx);
+  }
+});
+</script>
+
+<style scoped>
+.msr-animated-text-field {
+  cursor: text;
+}
+
+.msr-animated-text-field .msr-animated-text-field__input {
+  display: flex;
+}
+
+.msr-animated-text-field input {
+  padding: 18px 13px 8px 13px;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  background-color: #7f7f7f1a;
+  transition: all ease-out 300ms;
+}
+
+.msr-animated-text-field label {
+  display: flex;
+  position: absolute;
+  user-select: none;
+
+  cursor: text;
+  color: #585858;
+  font-size: 1rem;
+  line-height: 1.313rem;
+  font-weight: 500;
+  transform: translate(13px, 15px);
+
+  transition: all ease-out 100ms;
+}
+
+/* Input Focus */
+.msr-animated-text-field input:focus + label,
+.msr-animated-text-field input:not(:placeholder-shown) + label {
+  font-size: 0.625rem;
+  line-height: 0.813rem;
+  font-weight: normal;
+
+  transform: translate(13px, 5px);
+}
+
+.msr-animated-text-field input:focus {
+  background-color: v-bind(_backgroundColour);
+}
+
+.msr-animated-text-field input:focus + label {
+  color: v-bind(_colour);
+}
+
+/* Message */
+.msr-animated-text-field .msr-animated-text-field__message {
+  user-select: none;
+  cursor: default;
+
+  margin-top: 2px;
+  margin-left: 13px;
+  margin-bottom: 0.9rem;
+
+  color: #585858;
+  font-size: 0.625rem;
+  line-height: 0.813rem;
+  transform: translate(0px, -0.85rem);
+
+  transition: transform ease-out 100ms;
+}
+
+.msr-animated-text-field .msr-animated-text-field__message:not(:empty) {
+  transform: translate(0px, 0px);
+  margin-bottom: 0rem;
+  z-index: 0;
+}
+
+/* Error */
+.msr-animated-text-field[error="true"] input {
+  background-color: #ff595921;
+}
+
+.msr-animated-text-field[error="true"] label,
+.msr-animated-text-field[error="true"] .msr-animated-text-field__message {
+  color: #ff5959 !important;
+}
+</style>
