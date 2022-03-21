@@ -1,13 +1,13 @@
 <template>
-  <div class="msr-chips">
-    <input
-      :id="_id"
-      ref="input"
-      :name="group"
-      :type="multiselect ? 'checkbox' : 'radio'"
-      @change="_change"
-    />
-    <label :for="_id">{{ label }}</label>
+  <div class="msr-switch">
+    <input :id="_id" ref="input" type="checkbox" @change="_change" />
+    <label :for="_id">
+      <div class="msr-switch__background">
+        <div class="msr-switch__toggle"></div>
+      </div>
+
+      <div>{{ label }}</div>
+    </label>
   </div>
 </template>
 
@@ -15,16 +15,9 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "Chips",
+  name: "Switch",
   props: {
-    label: {
-      type: String,
-      required: true
-    },
-    group: {
-      type: String,
-      default: "chips"
-    },
+    label: String,
     colour: {
       type: String,
       default: () => "primary",
@@ -70,30 +63,57 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-chips input {
+.msr-switch input {
   display: none;
 }
 
-.msr-chips label {
+.msr-switch label {
   user-select: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   font-size: 1.125rem;
   line-height: 1.5rem;
   font-weight: 500;
+}
 
-  padding: 10px 20px;
-  background-color: #7f7f7f1a;
+.msr-switch .msr-switch__background {
+  padding: 5px;
+  background-color: #7f7f7f36;
   border-radius: 20px;
+  margin-right: 13px;
+
+  transition: all ease-out 300ms;
+}
+
+.msr-switch .msr-switch__toggle {
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+
+  background-color: white;
 
   transition: all ease-out 150ms;
 }
 
-.msr-chips label:hover {
+.msr-switch label:hover .msr-switch__background {
   background-color: v-bind(_hoverColour);
 }
 
-.msr-chips input:checked + label {
+.msr-switch
+  input:not(:checked)
+  + label
+  .msr-switch__background
+  .msr-switch__toggle {
+  margin-right: 24px;
+}
+
+.msr-switch input:checked + label .msr-switch__background .msr-switch__toggle {
+  margin-left: 24px;
+}
+
+.msr-switch input:checked + label .msr-switch__background {
   color: white;
   background-color: v-bind(_colour);
 }
