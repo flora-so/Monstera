@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+import type { PropType } from "vue";
 import { defineComponent } from "vue";
 import type { TextFieldContext } from "./index";
 import { TextFieldType } from "./index";
@@ -40,7 +41,7 @@ export default defineComponent({
       default: () => TextFieldType.text
     },
     validator: {
-      type: Function as unknown as () => (value: string) => string
+      type: Function as PropType<(value: string) => string>
     },
     value: String,
     disabled: Boolean,
