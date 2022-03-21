@@ -1,36 +1,17 @@
 <script setup lang="ts">
-import Component from "./components/input/Dropdown.vue";
+import Component from "./components/content/OutlinedCard.vue";
 import Button from "./components/button/SmallButton.vue";
-
-import type { DropdownItem } from "./components/input";
 
 function show(val: any) {
   console.log(val)
 }
-
-const items: DropdownItem[] = [
-  {
-    value: "1",
-    label: "One"
-  },
-  {
-    value: "2",
-    label: "two"
-  },
-  {
-    value: "3",
-    label: "three"
-  },
-];
 </script>
 
 <template>
   <div class="flex justify-center items-center w-screen h-screen">
     <div>
-      <Component @change="val => show(val)" :items="items">
-        <template #component>
-          <Button label="Dropdown"></Button>
-        </template>
+      <Component>
+        <Button label="Dropdown"></Button>
       </Component>
     </div>
   </div>
