@@ -101,7 +101,7 @@ export default defineComponent({
   background-color: white;
 
   border-radius: 8px;
-  box-shadow: 0px 2px 13px rgba(0, 0, 0, 0.13);
+  box-shadow: 0px 2px 13px rgba(125, 125, 125, 0.21);
   transform-origin: left top;
   margin-top: 5px;
 

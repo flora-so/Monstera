@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Component from "./components/content/OutlinedCard.vue";
+import Component from "./components/input/Dropdown.vue";
 import Button from "./components/button/SmallButton.vue";
 
 function show(val: any) {
@@ -10,8 +10,10 @@ function show(val: any) {
 <template>
   <div class="flex justify-center items-center w-screen h-screen">
     <div>
-      <Component>
-        <Button label="Dropdown"></Button>
+      <Component :items="[{ label: 'hello', value: 'hello' }]">
+        <template #component>
+          <Button label="Dropdown"></Button>
+        </template>
       </Component>
     </div>
   </div>
