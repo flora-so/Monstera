@@ -2,10 +2,10 @@
   <div class="msr-chips">
     <input
       :id="_id"
+      ref="input"
       :name="group"
       :type="multiselect ? 'checkbox' : 'radio'"
-      @change="$emit('selected', _selected)"
-      v-model="_selected"
+      @change="_change"
     />
     <label :for="_id">{{ label }}</label>
   </div>
@@ -22,6 +22,7 @@ export default defineComponent({
     },
     group: {
       type: String,
+      default: "chips"
     },
     colour: {
       type: String,
@@ -34,13 +35,8 @@ export default defineComponent({
     multiselect: Boolean
   },
   emits: {
-    selected(value: Boolean) {
-      return typeof value === "boolean";
-    }
-  },
-  data() {
-    return {
-      _selected: null,
+    change: (value: Boolean) => {
+      return typeof value === "boolean"
     }
   },
   computed: {
@@ -63,6 +59,11 @@ export default defineComponent({
         return `${this.colour}57`;
       }
     },
+  },
+  methods: {
+    _change() {
+      this.$emit("change", (this.$refs.input as HTMLInputElement).checked);
+    }
   }
 });
 </script>

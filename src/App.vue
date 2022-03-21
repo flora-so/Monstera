@@ -8,10 +8,10 @@ function show(val: any) {
 
 <template>
   <div class="flex justify-center items-center w-screen h-screen">
-    <Component group="chip" label="chip 1" multiselect @selected="val => show(val)" />
-    <Component group="chip" label="chip 2" multiselect @selected="val => show(val)" />
-    <Component group="chip" label="chip 3" multiselect @selected="val => show(val)" />
-    <Component group="chip" label="chip 4" multiselect @selected="val => show(val)" />
+    <Component group="chip" label="chip 1" multiselect @change="val => show(val)" />
+    <Component group="chip" label="chip 2" multiselect @change="val => show(val)" />
+    <Component group="chip" label="chip 3" multiselect @change="val => show(val)" />
+    <Component group="chip" label="chip 4" multiselect @change="val => show(val)" />
   </div>
 </template>
 
