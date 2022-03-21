@@ -32,11 +32,6 @@ const items: DropdownItem[] = [
           <Button label="Dropdown"></Button>
         </template>
       </Component>
-      <Component @change="val => show(val)" :items="items">
-        <template #component>
-          <Button label="Dropdown"></Button>
-        </template>
-      </Component>
     </div>
   </div>
 </template>
