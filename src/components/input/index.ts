@@ -7,7 +7,7 @@ export enum TextFieldType {
   url = "url",
 }
 
-export type Context = {
+export type TextFieldContext = {
   value: () => string,
   validate: () => void,
   setError: (message: string) => void,
