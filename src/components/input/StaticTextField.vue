@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import type { Context } from "./index";
+import type { TextFieldContext } from "./index";
 import { TextFieldType } from "./index";
 
 export default defineComponent({
@@ -59,7 +59,7 @@ export default defineComponent({
     blur(value: string) {
       return typeof value === "string";
     },
-    context(ctx: Context) {
+    context(ctx: TextFieldContext) {
       return ctx;
     }
   },
@@ -108,7 +108,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: Context = {
+    let ctx: TextFieldContext = {
       value: this.getValue,
       validate: this.validate,
       setError: this.setError,
