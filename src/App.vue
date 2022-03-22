@@ -1,19 +1,36 @@
 <script setup lang="ts">
-import Component from "./components/input/Dropdown.vue";
+import { DataFrame } from "./components/content";
+import Component from "./components/content/DataTable.vue";
 import Button from "./components/button/SmallButton.vue";
 
 function show(val: any) {
   console.log(val)
 }
+
+const df = new DataFrame(
+  ["Id", "Name", "Age"],
+  [
+    {
+      Id: 1,
+      Name: "John",
+      Age: 20,
+    },
+    {
+      Id: 2,
+      Name: "Jane",
+      Age: 21,
+    }
+  ]
+)
 </script>
 
 <template>
   <div class="flex justify-center items-center w-screen h-screen">
     <div>
-      <Component :items="[{ label: 'hello', value: 'hello' }]">
-        <template #component>
-          <Button label="Dropdown"></Button>
-        </template>
+      <Component :dataframe="df">
+        <!-- <template #Age="{ data }">
+          <Button :label="data.toString()"></Button>
+        </template>-->
       </Component>
     </div>
   </div>
