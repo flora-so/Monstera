@@ -1,6 +1,13 @@
 <template>
   <div class="msr-checkbox">
-    <input :id="_id" type="checkbox" @change="_change" />
+    <input
+      :id="_id"
+      ref="input"
+      type="checkbox"
+      :checked="checked"
+      :intermediate="intermediate"
+      @change="_change"
+    />
     <label :for="_id">
       <div class="msr-checkbox__box">
         <svg
@@ -12,6 +19,19 @@
           <path
             fill-rule="evenodd"
             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clip-rule="evenodd"
+          />
+        </svg>
+
+        <svg
+          class="msr-checkbox__intermediate"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
             clip-rule="evenodd"
           />
         </svg>
@@ -37,7 +57,9 @@ export default defineComponent({
     size: {
       type: Number,
       default: () => 18,
-    }
+    },
+    checked: Boolean,
+    intermediate: Boolean
   },
   computed: {
     _id() {
@@ -53,6 +75,11 @@ export default defineComponent({
     },
     _size() {
       return `${this.size}px`;
+    }
+  },
+  emits: {
+    change(value: boolean) {
+      return typeof value == "boolean";
     }
   },
   methods: {
@@ -77,25 +104,37 @@ export default defineComponent({
   transition: all ease-out 150ms;
 }
 
-.msr-checkbox .msr-checkbox__box .msr-checkbox__tick {
+.msr-checkbox .msr-checkbox__box .msr-checkbox__tick,
+.msr-checkbox .msr-checkbox__box .msr-checkbox__intermediate {
   width: v-bind(_size);
+  filter: invert(1);
 
   transition: all ease-out 150ms;
 }
 
-.msr-checkbox input:checked + label .msr-checkbox__box {
-  border: 1px solid transparent;
-  background-color: v-bind(_colour);
-}
-
+/* Checkbox States */
 .msr-checkbox input:not(:checked) + label .msr-checkbox__box {
   border: 1px solid #7f7f7f36;
   background-color: transparent;
 }
 
+.msr-checkbox input:checked + label .msr-checkbox__box,
+.msr-checkbox input[intermediate="true"] + label .msr-checkbox__box {
+  border: 1px solid transparent;
+  background-color: v-bind(_colour);
+}
+
+/* Tick States */
 .msr-checkbox input:checked + label .msr-checkbox__box .msr-checkbox__tick {
   transform: scale(1, 1);
-  filter: invert(1);
+}
+
+.msr-checkbox
+  input:not(:checked)[intermediate="true"]
+  + label
+  .msr-checkbox__box
+  .msr-checkbox__tick {
+  display: none;
 }
 
 .msr-checkbox
@@ -104,6 +143,27 @@ export default defineComponent({
   .msr-checkbox__box
   .msr-checkbox__tick {
   transform: scale(0, 0);
-  filter: invert(1);
+}
+
+/* Intermediate State */
+.msr-checkbox
+  input[intermediate="false"]
+  + label
+  .msr-checkbox__box
+  .msr-checkbox__intermediate,
+.msr-checkbox
+  input:checked[intermediate="true"]
+  + label
+  .msr-checkbox__box
+  .msr-checkbox__intermediate {
+  display: none;
+}
+
+.msr-checkbox
+  input:not(:checked)[intermediate="true"]
+  + label
+  .msr-checkbox__box
+  .msr-checkbox__intermediate {
+  transform: scale(1, 1);
 }
 </style>

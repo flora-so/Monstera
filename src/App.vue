@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { DataFrame } from "./components/content";
 import Component from "./components/content/DataTable.vue";
-import Checkbox from "./components/input/Checkbox.vue";
+// import Checkbox from "./components/input/Checkbox.vue";
 
 function show(val: any) {
   console.log(val)
@@ -27,7 +27,7 @@ const df = new DataFrame(
 <template>
   <div class="flex justify-center items-center w-screen h-screen">
     <div>
-      <Checkbox />
+      <Component :dataframe="df" checkbox />
       <!-- <Component :dataframe="df">
         <template #Age="{ data }">
           <Button :label="data.toString()"></Button>

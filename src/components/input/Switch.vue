@@ -1,6 +1,6 @@
 <template>
   <div class="msr-switch">
-    <input :id="_id" ref="input" type="checkbox" @change="_change" />
+    <input :id="_id" ref="input" type="checkbox" @change="_change" :checked="checked" />
     <label :for="_id">
       <div class="msr-switch__background">
         <div class="msr-switch__toggle"></div>
@@ -26,7 +26,8 @@ export default defineComponent({
           .includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
-    multiselect: Boolean
+    multiselect: Boolean,
+    checked: Boolean
   },
   emits: {
     change: (value: Boolean) => {
