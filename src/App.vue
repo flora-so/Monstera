@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { DataFrame } from "./components/content";
-import Component from "./components/content/DataTable.vue";
+// import { DataFrame } from "./components/content";
+import Component from "./components/informative/LinearLoader.vue";
 // import Checkbox from "./components/input/Checkbox.vue";
 
 function show(val: any) {
   console.log(val)
 }
 
-const df = new DataFrame(
-  ["Id", "Name", "Age"],
-  [
-    {
-      Id: 1,
-      Name: "John",
-      Age: 20,
-    },
-    {
-      Id: 2,
-      Name: "Jane",
-      Age: 21,
-    }
-  ]
-)
+// const df = new DataFrame(
+//   ["Id", "Name", "Age"],
+//   [
+//     {
+//       Id: 1,
+//       Name: "John",
+//       Age: 20,
+//     },
+//     {
+//       Id: 2,
+//       Name: "Jane",
+//       Age: 21,
+//     }
+//   ]
+// )
 </script>
 
 <template>
