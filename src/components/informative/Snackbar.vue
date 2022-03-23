@@ -1,5 +1,5 @@
 <template>
-  <div class="msr-snackbar">
+  <div class="msr-snackbar" :show="_isShown">
     <h4>{{ message }}</h4>
 
     <div class="msr-snackbar__action">
@@ -10,6 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import type { SnackbarContext } from "./index";
 
 export default defineComponent({
   name: "Snackbar",
@@ -23,6 +24,10 @@ export default defineComponent({
       default: () => "#ffffff",
       validator: (value: string) => new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
+    duration: {
+      type: Number,
+      default: () => 4000
+    },
     backgroundColour: {
       type: String,
       default: () => "primary",
@@ -32,7 +37,17 @@ export default defineComponent({
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
-
+  emits: {
+    context(ctx: SnackbarContext) {
+      return ctx;
+    }
+  },
+  data() {
+    return {
+      _isShown: false,
+      _timer: null as number | null
+    }
+  },
   computed: {
     _backgroundColour() {
       if (['primary', 'accent', 'success', 'danger', 'warning']
@@ -50,6 +65,27 @@ export default defineComponent({
         return `${this.backgroundColour}57`;
       }
     },
+  },
+  methods: {
+    _show() {
+      this._isShown = true;
+
+      if (this._timer == null) {
+        this._timer = setTimeout(this._hide, this.duration);
+      }
+    },
+    _hide() {
+      this._isShown = false;
+      this._timer = null;
+    }
+  },
+  mounted() {
+    let ctx: SnackbarContext = {
+      show: this._show,
+      hide: this._hide,
+    }
+
+    this.$emit("context", ctx);
   }
 });
 </script>
@@ -57,7 +93,6 @@ export default defineComponent({
 <style scoped>
 .msr-snackbar {
   position: absolute;
-  bottom: 0;
   left: 0;
   right: 0;
 
@@ -77,14 +112,31 @@ export default defineComponent({
 
   background-color: v-bind(_backgroundColour);
   box-shadow: 0px 2px 13px v-bind(_shadowColour);
+
+  transition: all ease-out 300ms;
+}
+
+.msr-snackbar[show="false"] {
+  bottom: -13%;
+}
+
+.msr-snackbar[show="true"] {
+  bottom: 0;
 }
 
 @media (min-width: 768px) {
   .msr-snackbar {
-    top: 0;
-    bottom: unset;
+    bottom: unset !important;
     left: unset;
     margin: 13px;
+  }
+
+  .msr-snackbar[show="false"] {
+    top: -13%;
+  }
+
+  .msr-snackbar[show="true"] {
+    top: 0;
   }
 }
 

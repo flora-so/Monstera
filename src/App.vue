@@ -1,11 +1,13 @@
 <script setup lang="ts">
-// import { DataFrame } from "./components/content";
+import type { SnackbarContext } from "./components/informative";
 import Component from "./components/informative/Snackbar.vue";
-// import Checkbox from "./components/input/Checkbox.vue";
+import Button from "./components/button/SmallButton.vue";
 
 function show(val: any) {
   console.log(val)
 }
+
+let context: SnackbarContext;
 
 // const df = new DataFrame(
 //   ["Id", "Name", "Age"],
@@ -27,10 +29,12 @@ function show(val: any) {
 <template>
   <div class="flex justify-center items-center w-screen h-screen">
     <div>
-      <Component message="This is a snackbar" />
+      <Component message="This is a snackbar" @context="ctx => context = ctx" />
+
+      <Button label="Show" @click="() => context.show()"></Button>
+
       <!-- <Component :dataframe="df">
         <template #Age="{ data }">
-          <Button :label="data.toString()"></Button>
         </template>
       </Component>-->
     </div>
