@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { InformativeContext } from "./components/informative";
-import Component from "./components/informative/AlertDialog.vue";
+import Component from "./components/informative/Banner.vue";
 import Button from "./components/button/TextButton.vue";
 
 function show(val: any) {
@@ -27,13 +27,13 @@ let context: InformativeContext;
 </script>
 
 <template>
-  <Component content="This is a alert dialog" @context="ctx => context = ctx">
-    <template #actions>
-      <Button label="Cancel"></Button>
-      <Button label="Ok"></Button>
-    </template>
-  </Component>
   <div class="flex justify-center items-center w-screen h-screen">
+    <Component content="This is a alert dialog" @context="ctx => context = ctx">
+      <template #actions>
+        <Button label="Cancel"></Button>
+        <Button label="Ok"></Button>
+      </template>
+    </Component>
     <div>
       <Button label="Show" @click="() => context.show()"></Button>
 
