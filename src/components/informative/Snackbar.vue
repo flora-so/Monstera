@@ -32,6 +32,7 @@ export default defineComponent({
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
+
   computed: {
     _backgroundColour() {
       if (['primary', 'accent', 'success', 'danger', 'warning']
