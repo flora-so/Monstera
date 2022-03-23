@@ -1,6 +1,6 @@
 <template>
   <div class="msr-snackbar" :show="_isShown">
-    <h4>{{ message }}</h4>
+    <h4 class="msr-snackbar__message">{{ message }}</h4>
 
     <div class="msr-snackbar__action">
       <slot name="action"></slot>
@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import type { SnackbarContext } from "./index";
+import type { InformativeContext } from "./index";
 
 export default defineComponent({
   name: "Snackbar",
@@ -38,7 +38,7 @@ export default defineComponent({
     }
   },
   emits: {
-    context(ctx: SnackbarContext) {
+    context(ctx: InformativeContext) {
       return ctx;
     }
   },
@@ -80,7 +80,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: SnackbarContext = {
+    let ctx: InformativeContext = {
       show: this._show,
       hide: this._hide,
     }
@@ -92,7 +92,7 @@ export default defineComponent({
 
 <style scoped>
 .msr-snackbar {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
 
@@ -101,9 +101,9 @@ export default defineComponent({
   justify-content: space-between;
 
   border-radius: 8px;
-  padding: 8px 8px 8px 16px;
   width: 100%;
   max-width: 377px;
+  padding: 8px 8px 8px 16px;
   margin: 13px auto;
 
   color: v-bind(colour);
