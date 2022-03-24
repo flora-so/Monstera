@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import type { InformativeContext } from "./index";
+import type { InformativeContext } from "../../types";
 import TextButton from "../button/TextButton.vue";
 
 export default defineComponent({

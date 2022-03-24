@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import type { InformativeContext } from "./components/informative";
+import type { InformativeContext } from "./types";
 import Component from "./components/informative/Banner.vue";
 import Button from "./components/button/TextButton.vue";
 
+// import Button from "../dist/button";
 function show(val: any) {
   console.log(val)
 }
-
 let context: InformativeContext;
-
 // const df = new DataFrame(
 //   ["Id", "Name", "Age"],
 //   [
@@ -27,16 +26,15 @@ let context: InformativeContext;
 </script>
 
 <template>
-  <div class="flex justify-center items-center w-screen h-screen">
+  <div>
     <Component content="This is a alert dialog" @context="ctx => context = ctx">
       <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>
       </template>
     </Component>
+    <Button label="Show" @click="() => context.show()"></Button>
     <div>
-      <Button label="Show" @click="() => context.show()"></Button>
-
       <!-- <Component :dataframe="df">
         <template #Age="{ data }">
         </template>
@@ -46,6 +44,8 @@ let context: InformativeContext;
 </template>
 
 <style>
+@import "./reset.css";
+
 :root {
   --primary: 23, 105, 255;
   --accent: 131, 72, 255;

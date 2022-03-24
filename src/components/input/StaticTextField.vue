@@ -20,8 +20,8 @@
 <script lang="ts">
 import type { PropType } from "vue";
 import { defineComponent } from "vue";
-import type { TextFieldContext } from "./index";
-import { TextFieldType } from "./index";
+import type { TextFieldContext } from "../../types";
+import { TextFieldType } from "../../types";
 
 export default defineComponent({
   name: "StaticTextField",

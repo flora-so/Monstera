@@ -9,7 +9,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "SmallButton",
+  name: "BigButton",
   props: {
     label: {
       type: String,

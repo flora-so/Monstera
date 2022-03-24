@@ -20,7 +20,7 @@
 import { defineComponent } from "vue";
 
 import TextButton from "../button/TextButton.vue";
-import type { InformativeContext } from "./index";
+import type { InformativeContext } from "../../types";
 
 export default defineComponent({
   name: "AlertDialog",

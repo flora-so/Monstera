@@ -16,8 +16,8 @@
 <script lang="ts">
 import type { DirectiveBinding, Prop, PropType } from "vue";
 import { defineComponent } from "vue";
-import type { DropdownItem } from "./index";
-import { DropdownAlignment } from "./index";
+import type { DropdownItem } from "../../types";
+import { DropdownAlignment } from "../../types";
 
 export default defineComponent({
   name: "Dropdown",

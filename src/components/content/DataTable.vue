@@ -34,7 +34,7 @@ import type { PropType } from "vue";
 import { defineComponent } from "vue";
 
 import Checkbox from "../input/Checkbox.vue";
-import type { DataFrame } from "./index";
+import type { DataFrame } from "../../types";
 
 export default defineComponent({
   name: "DataTable",
@@ -77,6 +77,13 @@ export default defineComponent({
     }
   },
   methods: {
+    _emitChange() {
+      let selected = [];
+      for (let key in this._selected) {
+        selected.push(this._selected[key]);
+      }
+      this.$emit("change", selected);
+    },
     _checkAll(value: boolean) {
       this._allChecked = value;
 
@@ -90,7 +97,7 @@ export default defineComponent({
         this._selected = {};
       }
 
-      this.$emit("change", Object.values(this._selected));
+      this._emitChange();
     },
     _toggleSelected(row: object, index: number, value: boolean) {
       if (value) {
@@ -107,7 +114,7 @@ export default defineComponent({
         }
       }
 
-      this.$emit("change", Object.values(this._selected));
+      this._emitChange();
     }
   },
 });
