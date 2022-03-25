@@ -21,6 +21,10 @@
   "files": [
     "dist/*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pilea-eco/Monsetra"
+  },
   "scripts": {
     "dev": "vite",
     "build:setup": "rm -rf dist && npm run typecheck",
