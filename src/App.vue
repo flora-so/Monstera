@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import type { InformativeContext } from "./types";
-import Component from "./components/informative/Banner.vue";
-import Button from "./components/button/TextButton.vue";
+// import type { InformativeContext } from "./types";
+// import Component from "./components/informative/Banner.vue";
+// import Button from "./components/button/TextButton.vue";
+
+import { AlertDialog } from "../dist/components/informative";
+import { BigButton } from "../dist/components/button";
+import type { InformativeContext } from "../dist/types";
 
 // import Button from "../dist/button";
 function show(val: any) {
@@ -27,13 +31,15 @@ let context: InformativeContext;
 
 <template>
   <div>
-    <Component content="This is a alert dialog" @context="ctx => context = ctx">
+    <!-- <Component content="This is a alert dialog" @context="ctx => context = ctx">
       <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>
       </template>
     </Component>
-    <Button label="Show" @click="() => context.show()"></Button>
+    <Button label="Show" @click="() => context.show()"></Button>-->
+    <AlertDialog content="This is a alert dialog" @context="ctx => context = ctx"></AlertDialog>
+    <BigButton label="Show" @click="context.show()"></BigButton>
     <div>
       <!-- <Component :dataframe="df">
         <template #Age="{ data }">
@@ -44,7 +50,7 @@ let context: InformativeContext;
 </template>
 
 <style>
-@import "./reset.css";
+@import "./styles/reset.css";
 
 :root {
   --primary: 23, 105, 255;
