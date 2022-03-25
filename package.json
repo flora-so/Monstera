@@ -20,7 +20,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build:setup": "npm run typecheck && rm -rf dist",
+    "build:setup": "rm -rf dist && npm run typecheck",
     "build:types": "tsc --build tsconfigtypes.json",
     "build": "npm run build:setup && rollup -c rollup.config.js -f es && npm run build:types",
     "preview": "vite preview --port 5050",
