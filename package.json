@@ -1,6 +1,6 @@
 {
   "name": "monsetra-vue",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Monsetra is a Vue 3 UI Library based on the Monsetra Design Principles",
   "license": "MIT",
   "keywords": [
@@ -18,6 +18,9 @@
   "module": "dist/esm/index.js",
   "unpkg": "dist/vuelib.min.js",
   "types": "types/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "dev": "vite",
     "build:setup": "rm -rf dist && npm run typecheck",

@@ -209,7 +209,7 @@ if (!argv.format || argv.format === "es") {
     external,
     output: {
       format: "esm",
-      file: "dist/vuelib.esm.js"
+      file: "dist/monsetra-vue.esm.js"
     },
     plugins: [
       typescript(),
@@ -239,9 +239,9 @@ if (!argv.format || argv.format === "iife") {
     external,
     output: {
       compact: true,
-      file: "dist/vuelib-browser.min.js",
+      file: "dist/monsetra-vue-browser.min.js",
       format: "iife",
-      name: "vuelib",
+      name: "monsetra-vue",
       exports: "named",
       globals
     },
