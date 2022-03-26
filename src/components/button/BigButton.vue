@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { Colors } from "../../types";
+import { Colours } from "../../types";
 
 export default defineComponent({
   name: "BigButton",
@@ -24,23 +24,23 @@ export default defineComponent({
       validator: (value: string) => new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     backgroundColour: {
-      type: String as PropType<Colors | string>,
-      default: () => Colors.primary,
-      validator: (value: Colors | string) =>
-        Object.keys(Colors).includes(value) ||
+      type: String as PropType<Colours | string>,
+      default: () => Colours.primary,
+      validator: (value: Colours | string) =>
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
   computed: {
     _backgroundColour() {
-      if (Object.keys(Colors).includes(this.backgroundColour)) {
+      if (Object.keys(Colours).includes(this.backgroundColour)) {
         return `rgb(var(--${this.backgroundColour}))`;
       } else {
         return this.backgroundColour;
       }
     },
     _shadowColour() {
-      if (Object.keys(Colors).includes(this.backgroundColour)) {
+      if (Object.keys(Colours).includes(this.backgroundColour)) {
         return `rgba(var(--${this.backgroundColour}), 0.34)`;
       } else {
         return `${this.backgroundColour}57`;

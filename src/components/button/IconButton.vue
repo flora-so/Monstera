@@ -6,16 +6,16 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
-import { Colors } from "../../types";
+import { Colours } from "../../types";
 
 export default defineComponent({
   name: "IconButton",
   props: {
     colour: {
-      type: String as PropType<Colors | string>,
-      default: () => Colors.primary,
+      type: String as PropType<Colours | string>,
+      default: () => Colours.primary,
       validator: (value: string) =>
-        Object.keys(Colors).includes(value) ||
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     filled: Boolean
@@ -25,7 +25,7 @@ export default defineComponent({
       if (this.filled) {
         return "#ffffff";
       } else {
-        if (Object.keys(Colors).includes(this.colour)) {
+        if (Object.keys(Colours).includes(this.colour)) {
           return `rgb(var(--${this.colour}))`;
         } else {
           return this.colour;
@@ -34,13 +34,13 @@ export default defineComponent({
     },
     _backgroundColour() {
       if (this.filled) {
-        if (Object.keys(Colors).includes(this.colour)) {
+        if (Object.keys(Colours).includes(this.colour)) {
           return `rgb(var(--${this.colour}))`;
         } else {
           return this.colour;
         }
       } else {
-        if (Object.keys(Colors).includes(this.colour)) {
+        if (Object.keys(Colours).includes(this.colour)) {
           return `rgba(var(--${this.colour}), 0.21)`;
         } else {
           return `${this.colour}36`;
@@ -48,7 +48,7 @@ export default defineComponent({
       }
     },
     _shadowColour() {
-      if (Object.keys(Colors).includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.34)`;
       } else {
         return `${this.colour}57`;

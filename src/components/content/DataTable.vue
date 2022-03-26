@@ -4,6 +4,7 @@
       <tr class="msr-table__row">
         <th v-if="checkbox" class="msr-table__column">
           <checkbox
+            :colour="colour"
             :intermediate="_intermediate"
             :checked="_allChecked"
             @change="(value) => _checkAll(value)"
@@ -17,6 +18,7 @@
       <tr class="msr-table__row" v-for="(row, index) in dataframe.data">
         <td v-if="checkbox" class="msr-table__data">
           <checkbox
+            :colour="colour"
             :checked="_triggerCheck(index)"
             @change="(value) => _toggleSelected(row, index, value)"
           ></checkbox>
@@ -30,11 +32,10 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from "vue";
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 
 import Checkbox from "../input/Checkbox.vue";
-import type { DataFrame } from "../../types";
+import { type DataFrame, Colours } from "../../types";
 
 export default defineComponent({
   name: "DataTable",
@@ -45,6 +46,13 @@ export default defineComponent({
     dataframe: {
       type: Object as PropType<DataFrame>,
       required: true,
+    },
+    colour: {
+      type: String as PropType<Colours | string>,
+      default: () => Colours.primary,
+      validator: (value: string) =>
+        Object.keys(Colours).includes(value) ||
+        new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     checkbox: Boolean
   },

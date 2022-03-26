@@ -1,36 +1,40 @@
 <script setup lang="ts">
-import type { InformativeContext } from "./types";
-import Component from "./components/informative/Banner.vue";
+import { type InformativeContext, DataFrame } from "./types";
+import Component from "./components/informative/LinearLoader.vue";
 import Button from "./components/button/IconButton.vue";
 
 function show(val: any) {
   console.log(val)
 }
 let context: InformativeContext;
-// const df = new DataFrame(
-//   ["Id", "Name", "Age"],
-//   [
-//     {
-//       Id: 1,
-//       Name: "John",
-//       Age: 20,
-//     },
-//     {
-//       Id: 2,
-//       Name: "Jane",
-//       Age: 21,
-//     }
-//   ]
-// )
+const df = new DataFrame(
+  ["Id", "Full Name", "Age"],
+  [
+    {
+      Id: 1,
+      "Full Name": "John",
+      Age: 20,
+    },
+    {
+      Id: 2,
+      "Full Name": "Jane",
+      Age: 21,
+    }
+  ]
+)
 </script>
 
 <template>
-  <div>
-    <Component content="This is a alert dialog" @context="ctx => context = ctx">
-      <template #actions>
+  <div id="main">
+    <Component
+      title="my title"
+      content="This is an awesome alert dialog!"
+      @context="ctx => context = ctx"
+    >
+      <!-- <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>
-      </template>
+      </template>-->
     </Component>
     <Button @click="() => context.show()">
       <template #icon="{ width, height, colour }">
@@ -63,5 +67,14 @@ let context: InformativeContext;
   --danger: 255, 89, 89;
 
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 </style>

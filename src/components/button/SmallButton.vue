@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Colors } from "../../types";
+import { Colours } from "../../types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -24,22 +24,22 @@ export default defineComponent({
     },
     backgroundColour: {
       type: String,
-      default: () => Colors.primary,
+      default: () => Colours.primary,
       validator: (value: string) =>
-        Object.keys(Colors).includes(value) ||
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
   computed: {
     _backgroundColour() {
-      if (Object.keys(Colors).includes(this.backgroundColour)) {
+      if (Object.keys(Colours).includes(this.backgroundColour)) {
         return `rgb(var(--${this.backgroundColour}))`;
       } else {
         return this.backgroundColour;
       }
     },
     _shadowColour() {
-      if (Object.keys(Colors).includes(this.backgroundColour)) {
+      if (Object.keys(Colours).includes(this.backgroundColour)) {
         return `rgba(var(--${this.backgroundColour}), 0.34)`;
       } else {
         return `${this.backgroundColour}57`;

@@ -2,7 +2,10 @@
   <div class="msr-banner" :show="_isShown">
     <div class="msr-banner__content">
       <slot name="leading"></slot>
-      <h4>{{ content }}</h4>
+      <div>
+        <h4 class="msr-banner__title">{{ title }}</h4>
+        <p class="msr-banner__content">{{ content }}</p>
+      </div>
     </div>
 
     <div class="msr-banner__action">
@@ -14,24 +17,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 
-import type { InformativeContext } from "../../types";
+import { type InformativeContext, Colours } from "../../types";
 import TextButton from "../button/TextButton.vue";
 
 export default defineComponent({
   name: "Banner",
   props: {
+    title: {
+      type: String,
+      default: "",
+    },
     content: {
       type: String,
       required: true,
     },
     colour: {
-      type: String,
-      default: () => "primary",
-      validator: (value: string) =>
-        ['primary', 'accent', 'success', 'danger', 'warning']
-          .includes(value) ||
+      type: String as PropType<Colours | string>,
+      default: () => Colours.primary,
+      validator: (value: Colours | string) =>
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     duration: Number,
@@ -52,16 +58,14 @@ export default defineComponent({
   },
   computed: {
     _colour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
       }
     },
     _backgroundColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.34)`;
       } else {
         return `${this.colour}57`;
@@ -96,9 +100,9 @@ export default defineComponent({
 
 <style>
 .msr-banner {
-  display: flex;
   align-items: center;
   justify-content: space-between;
+  overflow: hidden;
 
   padding: 13px;
   margin: 13px;
@@ -107,22 +111,37 @@ export default defineComponent({
   transform-origin: top;
 
   border-radius: 8px;
-  border: 1px solid v-bind(_colour);
   background-color: v-bind(_backgroundColour);
 
   transition: all ease-out 300ms;
 }
 
 .msr-banner[show="false"] {
-  transform: scaleY(0);
+  display: flex;
+
+  max-height: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin: 0px;
+
+  border: 0px solid transparent;
 }
 
 .msr-banner[show="true"] {
-  transform: scaleY(1);
+  display: flex;
+
+  max-height: 233px;
+
+  border: 1px solid v-bind(_colour);
 }
 
 .msr-banner .msr-banner__content {
   display: flex;
   align-items: center;
+}
+
+.msr-banner .msr-banner__content .msr-banner__title {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 </style>

@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
-import { Colors } from "../../types";
+import { Colours } from "../../types";
 
 export default defineComponent({
   name: "OutlinedButton",
@@ -18,23 +18,23 @@ export default defineComponent({
       required: true
     },
     colour: {
-      type: String as PropType<Colors | string>,
-      default: () => Colors.primary,
+      type: String as PropType<Colours | string>,
+      default: () => Colours.primary,
       validator: (value: string) =>
-        Object.keys(Colors).includes(value) ||
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
   computed: {
     _colour() {
-      if (Object.keys(Colors).includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
       }
     },
     _backgroundColour() {
-      if (Object.keys(Colors).includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.21)`;
       } else {
         return `${this.colour}36`;
