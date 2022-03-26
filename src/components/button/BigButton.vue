@@ -1,12 +1,15 @@
 <template>
-  <button class="msr-link-button">
+  <button class="msr-big-button">
     <slot name="leading"></slot>
-    <h4>{{ label }}</h4>
+    <h4 class="msr-big-button__label">{{ label }}</h4>
+    <slot name="trailing"></slot>
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
+
+import { Colors } from "../../types";
 
 export default defineComponent({
   name: "BigButton",
@@ -21,37 +24,34 @@ export default defineComponent({
       validator: (value: string) => new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     backgroundColour: {
-      type: String,
-      default: () => "primary",
-      validator: (value: string) =>
-        ['primary', 'accent', 'success', 'danger', 'warning']
-          .includes(value) ||
+      type: String as PropType<Colors | string>,
+      default: () => Colors.primary,
+      validator: (value: Colors | string) =>
+        Object.keys(Colors).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
   computed: {
     _backgroundColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.backgroundColour)) {
+      if (Object.keys(Colors).includes(this.backgroundColour)) {
         return `rgb(var(--${this.backgroundColour}))`;
       } else {
         return this.backgroundColour;
       }
     },
     _shadowColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.backgroundColour)) {
+      if (Object.keys(Colors).includes(this.backgroundColour)) {
         return `rgba(var(--${this.backgroundColour}), 0.34)`;
       } else {
         return `${this.backgroundColour}57`;
       }
     },
-  },
+  }
 });
 </script>
 
 <style scoped>
-.msr-link-button {
+.msr-big-button {
   width: 100%;
   max-width: 377px;
 
@@ -62,6 +62,7 @@ export default defineComponent({
   padding: 14px 20px;
   border-radius: 8px;
   background-color: v-bind(_backgroundColour);
+  box-shadow: 0px 5px 13px -5px v-bind(_backgroundColour);
 
   user-select: none;
   color: v-bind(colour);
@@ -73,7 +74,7 @@ export default defineComponent({
   transition: all ease-out 300ms;
 }
 
-.msr-link-button:hover {
-  box-shadow: 0px 2px 13px v-bind(_shadowColour);
+.msr-big-button:hover {
+  box-shadow: 0px 13px 21px -5px v-bind(_shadowColour);
 }
 </style>

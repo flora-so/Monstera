@@ -1,12 +1,14 @@
 <template>
   <button class="msr-outlined-button">
     <slot name="leading"></slot>
-    <h4>{{ label }}</h4>
+    <h4 class="msr-outlined-button__label">{{ label }}</h4>
+    <slot name="trailing"></slot>
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
+import { Colors } from "../../types";
 
 export default defineComponent({
   name: "OutlinedButton",
@@ -16,39 +18,28 @@ export default defineComponent({
       required: true
     },
     colour: {
-      type: String,
-      default: () => "primary",
+      type: String as PropType<Colors | string>,
+      default: () => Colors.primary,
       validator: (value: string) =>
-        ['primary', 'accent', 'success', 'danger', 'warning']
-          .includes(value) ||
+        Object.keys(Colors).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
   computed: {
     _colour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colors).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
       }
     },
     _backgroundColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colors).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.21)`;
       } else {
         return `${this.colour}36`;
       }
-    },
-    _shadowColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
-        return `rgba(var(--${this.colour}), 0.34)`;
-      } else {
-        return `${this.colour}57`;
-      }
-    },
+    }
   },
 });
 </script>
@@ -74,9 +65,6 @@ export default defineComponent({
 }
 
 .msr-outlined-button:hover {
-  border: 1px solid transparent;
   background-color: v-bind(_backgroundColour);
-
-  box-shadow: 0px 2px 13px v-bind(_shadowColour);
 }
 </style>

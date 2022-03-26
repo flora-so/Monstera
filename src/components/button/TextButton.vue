@@ -1,7 +1,8 @@
 <template>
   <button class="msr-text-button">
     <slot name="leading"></slot>
-    <h4>{{ label }}</h4>
+    <h4 class="msr-text-button__label">{{ label }}</h4>
+    <slot name="trailing"></slot>
   </button>
 </template>
 
@@ -40,15 +41,7 @@ export default defineComponent({
       } else {
         return `${this.colour}36`;
       }
-    },
-    _shadowColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
-        return `rgba(var(--${this.colour}), 0.34)`;
-      } else {
-        return `${this.colour}57`;
-      }
-    },
+    }
   },
 });
 </script>
@@ -74,7 +67,5 @@ export default defineComponent({
 
 .msr-text-button:hover {
   background-color: v-bind(_backgroundColour);
-
-  box-shadow: 0px 2px 13px v-bind(_shadowColour);
 }
 </style>

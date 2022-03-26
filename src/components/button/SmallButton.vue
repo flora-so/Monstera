@@ -1,11 +1,13 @@
 <template>
   <button class="msr-small-button">
     <slot name="leading"></slot>
-    <h4>{{ label }}</h4>
+    <h4 class="msr-small-button__label">{{ label }}</h4>
+    <slot name="trailing"></slot>
   </button>
 </template>
 
 <script lang="ts">
+import { Colors } from "../../types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -22,25 +24,22 @@ export default defineComponent({
     },
     backgroundColour: {
       type: String,
-      default: () => "primary",
+      default: () => Colors.primary,
       validator: (value: string) =>
-        ['primary', 'accent', 'success', 'danger', 'warning']
-          .includes(value) ||
+        Object.keys(Colors).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
   computed: {
     _backgroundColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.backgroundColour)) {
+      if (Object.keys(Colors).includes(this.backgroundColour)) {
         return `rgb(var(--${this.backgroundColour}))`;
       } else {
         return this.backgroundColour;
       }
     },
     _shadowColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.backgroundColour)) {
+      if (Object.keys(Colors).includes(this.backgroundColour)) {
         return `rgba(var(--${this.backgroundColour}), 0.34)`;
       } else {
         return `${this.backgroundColour}57`;
@@ -58,6 +57,7 @@ export default defineComponent({
   padding: 10px 20px;
   border-radius: 8px;
   background-color: v-bind(_backgroundColour);
+  box-shadow: 0px 5px 13px -5px v-bind(_backgroundColour);
 
   user-select: none;
   color: v-bind(colour);
@@ -70,6 +70,6 @@ export default defineComponent({
 }
 
 .msr-small-button:hover {
-  box-shadow: 0px 2px 13px v-bind(_shadowColour);
+  box-shadow: 0px 13px 21px -5px v-bind(_shadowColour);
 }
 </style>

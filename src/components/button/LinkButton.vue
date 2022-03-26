@@ -1,11 +1,12 @@
 <template>
   <button class="msr-link-button">
-    <h4>{{ label }}</h4>
+    <h4 class="msr-link-button__label">{{ label }}</h4>
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
+import { Colors } from "../../types";
 
 export default defineComponent({
   name: "LinkButton",
@@ -15,18 +16,16 @@ export default defineComponent({
       required: true
     },
     colour: {
-      type: String,
-      default: () => "primary",
-      validator: (value: string) =>
-        ['primary', 'accent', 'success', 'danger', 'warning']
-          .includes(value) ||
+      type: String as PropType<Colors | string>,
+      default: () => Colors.primary,
+      validator: (value: Colors | string) =>
+        Object.keys(Colors).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
   computed: {
     _colour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colors).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;

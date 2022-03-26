@@ -37,3 +37,11 @@ export enum DropdownAlignment {
   left = "ltr",
   right = "rtl"
 }
+
+export enum Colors {
+  primary = "primary",
+  accent = "accent",
+  success = "success",
+  danger = "danger",
+  warning = "warning",
+}
