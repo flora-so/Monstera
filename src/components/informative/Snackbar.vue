@@ -1,6 +1,14 @@
 <template>
-  <div class="msr-snackbar" :show="_isShown">
-    <h4 class="msr-snackbar__message">{{ message }}</h4>
+  <div
+    class="msr-snackbar"
+    :show="_isShown"
+    ref="snackbar"
+    @touchstart="event => _startY = event.changedTouches[0].clientY"
+    @mousedown="event => _startY = event.clientY"
+    @touchend="event => _handleDismiss(event.changedTouches[0].clientY)"
+    @mouseleave="event => _handleDismiss(event.clientY)"
+  >
+    <h4 class="msr-snackbar__content">{{ content }}</h4>
 
     <div class="msr-snackbar__action">
       <slot name="action"></slot>
@@ -10,12 +18,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import type { InformativeContext } from "../../types";
+
+import { Colours, type InformativeContext } from "../../types";
 
 export default defineComponent({
   name: "Snackbar",
   props: {
-    message: {
+    content: {
       type: String,
       required: true,
     },
@@ -30,10 +39,9 @@ export default defineComponent({
     },
     backgroundColour: {
       type: String,
-      default: () => "primary",
+      default: () => Colours.primary,
       validator: (value: string) =>
-        ['primary', 'accent', 'success', 'danger', 'warning']
-          .includes(value) ||
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
@@ -45,21 +53,20 @@ export default defineComponent({
   data() {
     return {
       _isShown: false,
-      _timer: null as number | null
+      _timer: null as number | null,
+      _startY: 0
     }
   },
   computed: {
     _backgroundColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.backgroundColour)) {
+      if (Object.keys(Colours).includes(this.backgroundColour)) {
         return `rgb(var(--${this.backgroundColour}))`;
       } else {
         return this.backgroundColour;
       }
     },
     _shadowColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.backgroundColour)) {
+      if (Object.keys(Colours).includes(this.backgroundColour)) {
         return `rgba(var(--${this.backgroundColour}), 0.34)`;
       } else {
         return `${this.backgroundColour}57`;
@@ -77,6 +84,17 @@ export default defineComponent({
     _hide() {
       this._isShown = false;
       this._timer = null;
+    },
+    _handleDismiss(endY: number) {
+      if (endY > this._startY && window.innerWidth <= 768) {
+        this._hide();
+      }
+
+      if (endY < this._startY && window.innerWidth > 768) {
+        this._hide();
+      }
+
+      this._startY = 0;
     }
   },
   mounted() {

@@ -4,18 +4,18 @@ import { registerComponent } from "../../utils/plugins";
 
 import AlertDialog from "./AlertDialog.vue";
 import Banner from "./Banner.vue";
-import LinearLoader from "./LinearLoader.vue";
+import ProgressIndicator from "./ProgressIndicator.vue";
 import Snackbar from "./Snackbar.vue";
 
 const Plugin = {
   install(app: App) {
     registerComponent(app, AlertDialog);
     registerComponent(app, Banner);
-    registerComponent(app, LinearLoader);
+    registerComponent(app, ProgressIndicator);
     registerComponent(app, Snackbar);
   }
 }
 
 export default Plugin;
 
-export { AlertDialog, Banner, LinearLoader, Snackbar };
+export { AlertDialog, Banner, ProgressIndicator, Snackbar };

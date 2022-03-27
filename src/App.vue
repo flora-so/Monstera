@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type InformativeContext, DataFrame } from "./types";
-import Component from "./components/informative/LinearLoader.vue";
+import Component from "./components/informative/Snackbar.vue";
 import Button from "./components/button/IconButton.vue";
 
 function show(val: any) {
@@ -28,8 +28,9 @@ const df = new DataFrame(
   <div id="main">
     <Component
       title="my title"
-      content="This is an awesome alert dialog!"
+      content="This is an awesome snackbar!"
       @context="ctx => context = ctx"
+      :value="0.99"
     >
       <!-- <template #actions>
         <Button label="Cancel"></Button>
