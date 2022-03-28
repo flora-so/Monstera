@@ -2,7 +2,7 @@
 import { reactive } from "vue";
 
 import { type InformativeContext, DataFrame } from "./types";
-import Component from "./components/input/Chips.vue";
+import Component from "./components/input/Checkbox.vue";
 import Button from "./components/button/IconButton.vue";
 
 const d = reactive({
@@ -33,13 +33,13 @@ const df = new DataFrame(
 
 <template>
   <div id="main">
-    <Component label="Name" v-model="d.first" @change="show(d.first)">
+    <Component value="Name" v-model="d.first" @change="show(d.first)">
       <!-- <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>
       </template>-->
     </Component>
-    <Component label="Cool" v-model="d.first" @change="show(d.first)">
+    <Component value="Cool" v-model="d.first" @change="show(d.first)">
       <!-- <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>

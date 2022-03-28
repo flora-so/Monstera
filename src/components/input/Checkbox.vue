@@ -3,11 +3,12 @@
     <input
       :id="_id"
       ref="input"
+      :value="value"
       type="checkbox"
-      :checked="modelValue == undefined ? checked : modelValue"
+      :checked="checked"
       :intermediate="intermediate"
       @change="$emit('change', ($refs.input as HTMLInputElement).checked)"
-      @input="$emit('update:modelValue', ($refs.input as HTMLInputElement).checked)"
+      v-model="_value"
     />
     <label :for="_id">
       <div class="msr-checkbox__box">
@@ -60,20 +61,20 @@ export default defineComponent({
       type: Number,
       default: () => 18,
     },
+    value: String,
     modelValue: {
-      type: Boolean,
-      default: () => undefined,
+      type: [Boolean, Array],
     },
     checked: Boolean,
     intermediate: Boolean
   },
   emits: {
-    "update:modelValue"(value: boolean) {
-      return typeof value == "boolean";
-    },
     change(value: boolean) {
       return typeof value == "boolean";
-    }
+    },
+    "update:modelValue"(value: boolean | [string]) {
+      return true;
+    },
   },
   computed: {
     _id() {
@@ -95,6 +96,14 @@ export default defineComponent({
     },
     _size() {
       return `${this.size}px`;
+    },
+    _value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value: boolean | [string]) {
+        this.$emit("update:modelValue", value);
+      }
     }
   }
 });
