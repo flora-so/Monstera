@@ -1,6 +1,13 @@
 <template>
   <div class="msr-switch">
-    <input :id="_id" ref="input" type="checkbox" @change="_change" :checked="checked" />
+    <input
+      :id="_id"
+      ref="input"
+      type="checkbox"
+      @change="$emit('change', ($refs.input as HTMLInputElement).checked)"
+      :checked="checked"
+      v-model="_value"
+    />
     <label :for="_id">
       <div class="msr-switch__background">
         <div class="msr-switch__toggle"></div>
@@ -14,6 +21,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import { Colours } from "../../types";
+
 export default defineComponent({
   name: "Switch",
   props: {
@@ -22,9 +31,11 @@ export default defineComponent({
       type: String,
       default: () => "primary",
       validator: (value: string) =>
-        ['primary', 'accent']
-          .includes(value) ||
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
+    },
+    modelValue: {
+      type: [Boolean, Array],
     },
     multiselect: Boolean,
     checked: Boolean
@@ -32,32 +43,36 @@ export default defineComponent({
   emits: {
     change: (value: Boolean) => {
       return typeof value === "boolean"
-    }
+    },
+    "update:modelValue"(value: boolean | string[]) {
+      return true;
+    },
   },
   computed: {
     _id() {
       return `msr-chips${Math.random().toString(16).slice(2)}`;
     },
     _colour() {
-      if (['primary', 'accent']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
       }
     },
     _hoverColour() {
-      if (['primary', 'accent']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.34)`;
       } else {
         return `${this.colour}57`;
       }
     },
-  },
-  methods: {
-    _change() {
-      this.$emit("change", (this.$refs.input as HTMLInputElement).checked);
+    _value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value: boolean | string[]) {
+        this.$emit("update:modelValue", value);
+      }
     }
   }
 });
@@ -80,7 +95,7 @@ export default defineComponent({
 }
 
 .msr-switch .msr-switch__background {
-  padding: 5px;
+  padding: 3px;
   background-color: #7f7f7f36;
   border-radius: 20px;
   margin-right: 13px;
@@ -89,9 +104,9 @@ export default defineComponent({
 }
 
 .msr-switch .msr-switch__toggle {
-  width: 24px;
-  height: 24px;
-  border-radius: 24px;
+  width: 21px;
+  height: 21px;
+  border-radius: 21px;
 
   background-color: white;
 
@@ -107,11 +122,11 @@ export default defineComponent({
   + label
   .msr-switch__background
   .msr-switch__toggle {
-  margin-right: 24px;
+  margin-right: 21px;
 }
 
 .msr-switch input:checked + label .msr-switch__background .msr-switch__toggle {
-  margin-left: 24px;
+  margin-left: 21px;
 }
 
 .msr-switch input:checked + label .msr-switch__background {

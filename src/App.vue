@@ -2,7 +2,7 @@
 import { reactive } from "vue";
 
 import { type InformativeContext, DataFrame, type DropdownItem, DropdownAlignment, Colours } from "./types";
-import Component from "./components/input/Dropdown.vue";
+import Component from "./components/input/Switch.vue";
 import Button from "./components/button/IconButton.vue";
 
 const d = reactive({
