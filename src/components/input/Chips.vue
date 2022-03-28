@@ -4,8 +4,10 @@
       :id="_id"
       ref="input"
       :name="group"
+      :value="label"
       :type="multiselect ? 'checkbox' : 'radio'"
-      @change="_change"
+      @change="$emit('change', ($refs.input as HTMLInputElement).checked)"
+      v-model="value"
     />
     <label :for="_id">{{ label }}</label>
   </div>
@@ -33,11 +35,17 @@ export default defineComponent({
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
+    modelValue: {
+      type: [String, Array],
+    },
     multiselect: Boolean
   },
   emits: {
     change: (value: boolean) => {
       return typeof value === "boolean"
+    },
+    "update:modelValue": (value: string | [string]) => {
+      return true
     }
   },
   computed: {
@@ -58,10 +66,13 @@ export default defineComponent({
         return `${this.colour}57`;
       }
     },
-  },
-  methods: {
-    _change() {
-      this.$emit("change", (this.$refs.input as HTMLInputElement).checked);
+    value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value: string | [string]) {
+        this.$emit("update:modelValue", value)
+      }
     }
   }
 });
@@ -69,7 +80,7 @@ export default defineComponent({
 
 <style scoped>
 .msr-chips {
-  padding: 10px 20px;
+  padding: 10px 0px;
 }
 
 .msr-chips input {

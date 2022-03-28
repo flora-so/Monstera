@@ -2,12 +2,12 @@
 import { reactive } from "vue";
 
 import { type InformativeContext, DataFrame } from "./types";
-import Component from "./components/input/AnimatedTextField.vue";
+import Component from "./components/input/Chips.vue";
 import Button from "./components/button/IconButton.vue";
 
 const d = reactive({
-  first: "hello",
-  second: "mate"
+  first: [],
+  // second: "mate"
 });
 
 function show(val: any) {
@@ -33,13 +33,13 @@ const df = new DataFrame(
 
 <template>
   <div id="main">
-    <Component label="Name" v-model="d.first" @blur="val => show(val)" value="shit">
+    <Component label="Name" v-model="d.first" @change="show(d.first)">
       <!-- <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>
       </template>-->
     </Component>
-    <Component label="Name" v-model="d.second" @change="show(d.second)">
+    <Component label="Cool" v-model="d.first" @change="show(d.first)">
       <!-- <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>
@@ -80,7 +80,7 @@ const df = new DataFrame(
 
 #main {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
   height: 100vh;
