@@ -4,7 +4,7 @@
       :id="_id"
       ref="input"
       type="checkbox"
-      :checked="modelValue"
+      :checked="modelValue == undefined ? checked : modelValue"
       :intermediate="intermediate"
       @change="$emit('change', ($refs.input as HTMLInputElement).checked)"
       @input="$emit('update:modelValue', ($refs.input as HTMLInputElement).checked)"
@@ -60,8 +60,20 @@ export default defineComponent({
       type: Number,
       default: () => 18,
     },
-    modelValue: Boolean,
+    modelValue: {
+      type: Boolean,
+      default: () => undefined,
+    },
+    checked: Boolean,
     intermediate: Boolean
+  },
+  emits: {
+    "update:modelValue"(value: boolean) {
+      return typeof value == "boolean";
+    },
+    change(value: boolean) {
+      return typeof value == "boolean";
+    }
   },
   computed: {
     _id() {
@@ -83,14 +95,6 @@ export default defineComponent({
     },
     _size() {
       return `${this.size}px`;
-    }
-  },
-  emits: {
-    "update:modelValue"(value: boolean) {
-      return typeof value == "boolean";
-    },
-    change(value: boolean) {
-      return typeof value == "boolean";
     }
   }
 });
