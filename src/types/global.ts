@@ -33,6 +33,7 @@ export type TextFieldValidator = (value: string) => string;
 export type DropdownItem = {
   label: string,
   value: string,
+  colour?: string,
 }
 
 export enum DropdownAlignment {

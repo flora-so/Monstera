@@ -6,6 +6,7 @@ import AnimatedTextField from "./AnimatedTextField.vue";
 import Checkbox from "./Checkbox.vue";
 import Chips from "./Chips.vue";
 import Dropdown from "./Dropdown.vue";
+import DropdownListItem from "./DropdownListItem.vue";
 import StaticTextField from "./StaticTextField.vue";
 import Switch from "./Switch.vue";
 
@@ -15,6 +16,7 @@ const Plugin = {
     registerComponent(app, Checkbox);
     registerComponent(app, Chips);
     registerComponent(app, Dropdown);
+    registerComponent(app, DropdownListItem);
     registerComponent(app, StaticTextField);
     registerComponent(app, Switch);
   }
@@ -22,4 +24,4 @@ const Plugin = {
 
 export default Plugin;
 
-export { AnimatedTextField, Checkbox, Chips, Dropdown, StaticTextField, Switch };
+export { AnimatedTextField, Checkbox, Chips, Dropdown, DropdownListItem, StaticTextField, Switch };

@@ -14,8 +14,9 @@
 </template>
 
 <script lang="ts">
-import { Colours } from "../../types";
 import { defineComponent, type PropType } from "vue";
+
+import { Colours } from "../../types";
 
 export default defineComponent({
   name: "Chips",
@@ -44,7 +45,7 @@ export default defineComponent({
     change: (value: boolean) => {
       return typeof value === "boolean"
     },
-    "update:modelValue": (value: string | [string]) => {
+    "update:modelValue": (value: string | string[]) => {
       return true
     }
   },
@@ -70,7 +71,7 @@ export default defineComponent({
       get() {
         return this.modelValue;
       },
-      set(value: string | [string]) {
+      set(value: string | string[]) {
         this.$emit("update:modelValue", value)
       }
     }

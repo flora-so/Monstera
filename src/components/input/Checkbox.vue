@@ -72,7 +72,7 @@ export default defineComponent({
     change(value: boolean) {
       return typeof value == "boolean";
     },
-    "update:modelValue"(value: boolean | [string]) {
+    "update:modelValue"(value: boolean | string[]) {
       return true;
     },
   },
@@ -101,7 +101,7 @@ export default defineComponent({
       get() {
         return this.modelValue;
       },
-      set(value: boolean | [string]) {
+      set(value: boolean | string[]) {
         this.$emit("update:modelValue", value);
       }
     }
