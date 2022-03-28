@@ -18,10 +18,9 @@
 </template>
 
 <script lang="ts">
-import type { PropType } from "vue";
-import { defineComponent } from "vue";
-import type { TextFieldContext } from "../../types";
-import { TextFieldType } from "../../types";
+import { defineComponent, type PropType } from "vue";
+
+import { Colours, TextFieldType, type TextFieldContext } from "../../types";
 
 export default defineComponent({
   name: "StaticTextField",
@@ -31,15 +30,14 @@ export default defineComponent({
       required: true
     },
     colour: {
-      type: String,
-      default: () => "primary",
-      validator: (value: string) =>
-        ['primary', 'accent']
-          .includes(value) ||
+      type: String as PropType<Colours | string>,
+      default: () => Colours.primary,
+      validator: (value: Colours | string) =>
+        [Colours.primary as string, Colours.accent as string].includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     type: {
-      type: String as () => TextFieldType,
+      type: String as PropType<TextFieldType>,
       default: () => TextFieldType.text
     },
     validator: {
@@ -69,16 +67,14 @@ export default defineComponent({
       return `msr-static-text-field${Math.random().toString(16).slice(2)}`;
     },
     _colour() {
-      if (['primary', 'accent']
-        .includes(this.colour)) {
+      if ([Colours.primary as string, Colours.accent as string].includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
       }
     },
     _backgroundColour() {
-      if (['primary', 'accent']
-        .includes(this.colour)) {
+      if ([Colours.primary as string, Colours.accent as string].includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.13)`;
       } else {
         return `${this.colour}21`;
@@ -147,7 +143,6 @@ export default defineComponent({
   font-size: 1rem;
   line-height: 1.313rem;
   font-weight: 500;
-  /* transform: translate(13px, 15px); */
 
   transition: all ease-out 100ms;
 }

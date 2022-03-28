@@ -1,7 +1,13 @@
 <script setup lang="ts">
+import { reactive } from "vue";
+
 import { type InformativeContext, DataFrame } from "./types";
-import Component from "./components/informative/Snackbar.vue";
+import Component from "./components/input/Checkbox.vue";
 import Button from "./components/button/IconButton.vue";
+
+const d = reactive({
+  value: true
+});
 
 function show(val: any) {
   console.log(val)
@@ -26,12 +32,7 @@ const df = new DataFrame(
 
 <template>
   <div id="main">
-    <Component
-      title="my title"
-      content="This is an awesome snackbar!"
-      @context="ctx => context = ctx"
-      :value="0.99"
-    >
+    <Component label="Name" v-model="d.value" @change="show(d.value)">
       <!-- <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>

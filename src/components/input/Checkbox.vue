@@ -4,9 +4,10 @@
       :id="_id"
       ref="input"
       type="checkbox"
-      :checked="checked"
+      :checked="modelValue"
       :intermediate="intermediate"
-      @change="_change"
+      @change="$emit('change', ($refs.input as HTMLInputElement).checked)"
+      @input="$emit('update:modelValue', ($refs.input as HTMLInputElement).checked)"
     />
     <label :for="_id">
       <div class="msr-checkbox__box">
@@ -41,24 +42,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
+
+import { Colours } from "../../types";
 
 export default defineComponent({
   name: "Checkbox",
   props: {
     colour: {
-      type: String,
-      default: () => "primary",
-      validator: (value: string) =>
-        ['primary', 'accent']
-          .includes(value) ||
+      type: String as PropType<Colours | string>,
+      default: () => Colours.primary,
+      validator: (value: Colours | string) =>
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     size: {
       type: Number,
       default: () => 18,
     },
-    checked: Boolean,
+    modelValue: Boolean,
     intermediate: Boolean
   },
   computed: {
@@ -66,11 +68,17 @@ export default defineComponent({
       return `msr-animated-text-field${Math.random().toString(16).slice(2)}`;
     },
     _colour() {
-      if (['primary', 'accent']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
+      }
+    },
+    _backgroundColour() {
+      if (Object.keys(Colours).includes(this.colour)) {
+        return `rgba(var(--${this.colour}), 0.34)`;
+      } else {
+        return `${this.colour}57`;
       }
     },
     _size() {
@@ -78,13 +86,11 @@ export default defineComponent({
     }
   },
   emits: {
+    "update:modelValue"(value: boolean) {
+      return typeof value == "boolean";
+    },
     change(value: boolean) {
       return typeof value == "boolean";
-    }
-  },
-  methods: {
-    _change() {
-      this.$emit("change", (this.$refs.input as HTMLInputElement).checked);
     }
   }
 });
@@ -97,6 +103,10 @@ export default defineComponent({
 
 .msr-checkbox label {
   cursor: pointer;
+}
+
+.msr-checkbox label:hover .msr-checkbox__box {
+  box-shadow: 0px 0px 0px 3px v-bind(_backgroundColour);
 }
 
 .msr-checkbox .msr-checkbox__box {

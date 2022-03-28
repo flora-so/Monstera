@@ -12,7 +12,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Colours } from "../../types";
+import { defineComponent, type PropType } from "vue";
 
 export default defineComponent({
   name: "Chips",
@@ -26,17 +27,16 @@ export default defineComponent({
       default: "chips"
     },
     colour: {
-      type: String,
-      default: () => "primary",
-      validator: (value: string) =>
-        ['primary', 'accent']
-          .includes(value) ||
+      type: String as PropType<Colours | string>,
+      default: () => Colours.primary,
+      validator: (value: Colours | string) =>
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     multiselect: Boolean
   },
   emits: {
-    change: (value: Boolean) => {
+    change: (value: boolean) => {
       return typeof value === "boolean"
     }
   },
@@ -45,16 +45,14 @@ export default defineComponent({
       return `msr-chips${Math.random().toString(16).slice(2)}`;
     },
     _colour() {
-      if (['primary', 'accent']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
       }
     },
     _hoverColour() {
-      if (['primary', 'accent']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.34)`;
       } else {
         return `${this.colour}57`;
@@ -70,6 +68,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.msr-chips {
+  padding: 10px 20px;
+}
+
 .msr-chips input {
   display: none;
 }
@@ -96,5 +98,6 @@ export default defineComponent({
 .msr-chips input:checked + label {
   color: white;
   background-color: v-bind(_colour);
+  box-shadow: 0px 5px 13px -5px v-bind(_colour);
 }
 </style>
