@@ -2,11 +2,12 @@
 import { reactive } from "vue";
 
 import { type InformativeContext, DataFrame } from "./types";
-import Component from "./components/input/Checkbox.vue";
+import Component from "./components/input/AnimatedTextField.vue";
 import Button from "./components/button/IconButton.vue";
 
 const d = reactive({
-  value: true
+  first: "hello",
+  second: "mate"
 });
 
 function show(val: any) {
@@ -32,7 +33,13 @@ const df = new DataFrame(
 
 <template>
   <div id="main">
-    <Component label="Name" v-model="d.value" @change="show(d.value)">
+    <Component label="Name" v-model="d.first" @blur="val => show(val)" value="shit">
+      <!-- <template #actions>
+        <Button label="Cancel"></Button>
+        <Button label="Ok"></Button>
+      </template>-->
+    </Component>
+    <Component label="Name" v-model="d.second" @change="show(d.second)">
       <!-- <template #actions>
         <Button label="Cancel"></Button>
         <Button label="Ok"></Button>

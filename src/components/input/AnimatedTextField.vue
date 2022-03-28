@@ -4,9 +4,11 @@
       <input
         :id="_id"
         :type="type"
+        ref="input"
         placeholder=" "
         :disabled="disabled"
-        v-model="_value"
+        :value="modelValue == undefined ? value : modelValue"
+        @input="$emit('update:modelValue', ($refs.input as HTMLInputElement).value)"
         @blur="validate"
       />
       <label :for="_id">{{ label }}</label>
@@ -18,7 +20,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { Colours, TextFieldType, type TextFieldContext } from "../../types";
+import { Colours, TextFieldType, type TextFieldContext, type TextFieldValidator } from "../../types";
 
 export default defineComponent({
   name: "AnimatedTextField",
@@ -39,7 +41,11 @@ export default defineComponent({
       default: () => TextFieldType.text
     },
     validator: {
-      type: Function as PropType<(value: string) => string>
+      type: Function as PropType<TextFieldValidator>
+    },
+    modelValue: {
+      type: String,
+      default: () => undefined
     },
     value: String,
     disabled: Boolean,
@@ -47,12 +53,14 @@ export default defineComponent({
   },
   data() {
     return {
-      _value: "",
       _message: "",
       _error: false,
     }
   },
   emits: {
+    "update:modelValue"(value: string) {
+      return typeof value == "string";
+    },
     blur(value: string) {
       return typeof value === "string";
     },
@@ -80,17 +88,17 @@ export default defineComponent({
     },
   },
   methods: {
-    getValue() {
-      return this._value;
+    _value() {
+      return (this.$refs.input as HTMLInputElement).value;
     },
     validate() {
       if (this.validator) {
-        let message = this.validator(this._value);
+        let message = this.validator(this._value());
 
         this.setError(message);
       }
 
-      this.$emit("blur", this._value);
+      this.$emit("blur", this._value());
     },
     setError(message: string) {
       if (message.length == 0) {
@@ -104,12 +112,11 @@ export default defineComponent({
   },
   mounted() {
     let ctx: TextFieldContext = {
-      value: this.getValue,
+      value: this._value,
       validate: this.validate,
       setError: this.setError,
     }
 
-    this._value = this.value ?? "";
     this._message = this.helperText ?? "";
     this.$emit("context", ctx);
   }

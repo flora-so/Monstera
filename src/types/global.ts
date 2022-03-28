@@ -28,6 +28,8 @@ export type TextFieldContext = {
   setError: (message: string) => void,
 }
 
+export type TextFieldValidator = (value: string) => string;
+
 export type DropdownItem = {
   label: string,
   value: string,
