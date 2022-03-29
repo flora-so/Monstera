@@ -5,10 +5,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
+
+import { Colours } from "../../types";
 
 export default defineComponent({
-  name: "FloatingCard"
+  name: "FloatingCard",
+  props: {
+    hover: Boolean,
+    colour: {
+      type: String as PropType<Colours | string>,
+      default: () => "unset",
+      validator: (value: Colours | string) =>
+        Object.keys(Colours).includes(value) ||
+        new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
+    }
+  },
+  computed: {
+    _colour() {
+      if (Object.keys(Colours).includes(this.colour)) {
+        return `rgb(var(--${this.colour}))`;
+      } else {
+        return this.colour;
+      }
+    },
+  }
 });
 </script>
 
@@ -16,6 +37,7 @@ export default defineComponent({
 .msr-floating-card {
   border-radius: 8px;
   box-shadow: 0px 5px 13px #7d7d7d36;
+  background-color: v-bind(_colour);
   padding: 8px;
 }
 </style>
