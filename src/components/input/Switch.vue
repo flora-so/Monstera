@@ -4,9 +4,9 @@
       :id="_id"
       ref="input"
       type="checkbox"
-      @change="$emit('change', ($refs.input as HTMLInputElement).checked)"
       :checked="checked"
       v-model="_value"
+      @change="_change"
     />
     <label :for="_id">
       <div class="msr-switch__background">
@@ -73,6 +73,11 @@ export default defineComponent({
       set(value: boolean | string[]) {
         this.$emit("update:modelValue", value);
       }
+    }
+  },
+  methods: {
+    _change() {
+      this.$emit('change', (this.$refs.input as HTMLInputElement).checked)
     }
   }
 });

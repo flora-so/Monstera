@@ -7,8 +7,8 @@
       type="checkbox"
       :checked="checked"
       :intermediate="intermediate"
-      @change="$emit('change', ($refs.input as HTMLInputElement).checked)"
       v-model="_value"
+      @change="_change"
     />
     <label :for="_id">
       <div class="msr-checkbox__box">
@@ -104,6 +104,11 @@ export default defineComponent({
       set(value: boolean | string[]) {
         this.$emit("update:modelValue", value);
       }
+    }
+  },
+  methods: {
+    _change() {
+      this.$emit('change', (this.$refs.input as HTMLInputElement).checked);
     }
   }
 });

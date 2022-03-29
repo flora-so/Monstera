@@ -6,8 +6,8 @@
       :name="group"
       :value="label"
       :type="multiselect ? 'checkbox' : 'radio'"
-      @change="$emit('change', ($refs.input as HTMLInputElement).checked)"
       v-model="value"
+      @change="_change"
     />
     <label :for="_id">{{ label }}</label>
   </div>
@@ -74,6 +74,11 @@ export default defineComponent({
       set(value: string | string[]) {
         this.$emit("update:modelValue", value)
       }
+    }
+  },
+  methods: {
+    _change() {
+      this.$emit('change', (this.$refs.input as HTMLInputElement).checked);
     }
   }
 });

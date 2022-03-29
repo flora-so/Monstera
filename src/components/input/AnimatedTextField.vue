@@ -8,7 +8,7 @@
         placeholder=" "
         :disabled="disabled"
         :value="modelValue == undefined ? value : modelValue"
-        @input="$emit('update:modelValue', ($refs.input as HTMLInputElement).value)"
+        @input="_input"
         @blur="validate"
       />
       <label :for="_id">{{ label }}</label>
@@ -88,6 +88,9 @@ export default defineComponent({
     },
   },
   methods: {
+    _input() {
+      this.$emit('update:modelValue', (this.$refs.input as HTMLInputElement).value);
+    },
     _value() {
       return (this.$refs.input as HTMLInputElement).value;
     },

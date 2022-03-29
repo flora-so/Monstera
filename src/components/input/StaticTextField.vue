@@ -11,7 +11,7 @@
         placeholder=" "
         :disabled="disabled"
         :value="modelValue == undefined ? value : modelValue"
-        @input="$emit('update:modelValue', ($refs.input as HTMLInputElement).value)"
+        @input="_input"
         @blur="validate"
       />
     </div>
@@ -90,6 +90,9 @@ export default defineComponent({
     },
   },
   methods: {
+    _input() {
+      this.$emit('update:modelValue', (this.$refs.input as HTMLInputElement).value)
+    },
     _value() {
       return (this.$refs.input as HTMLInputElement).value;
     },

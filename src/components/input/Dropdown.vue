@@ -42,15 +42,16 @@ export default defineComponent({
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     }
   },
-  data() {
-    return {
-      _show: false,
-    };
-  },
   emits: {
     change(value: string) {
       return typeof value == "string";
     }
+  },
+  components: { DropdownListItem },
+  data() {
+    return {
+      _show: false,
+    };
   },
   methods: {
     _update(item: string) {
@@ -69,7 +70,6 @@ export default defineComponent({
       }
     });
   },
-  components: { DropdownListItem }
 });
 </script>
 
