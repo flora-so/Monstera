@@ -63,13 +63,10 @@ export default defineComponent({
   display: flex;
   align-items: center;
 
-  padding: 10px;
+  padding: 8px;
   border-radius: 8px;
 
   user-select: none;
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  font-weight: 500;
   white-space: nowrap;
 
   transition: all ease-out 300ms;

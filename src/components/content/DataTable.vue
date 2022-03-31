@@ -15,15 +15,20 @@
     </thead>
 
     <tbody class="msr-table__body">
-      <tr class="msr-table__row" v-for="(row, index) in dataframe.data">
-        <td v-if="checkbox" class="msr-table__data">
+      <tr
+        class="msr-table__row"
+        :row-check="rowCheck"
+        v-for="(row, index) in dataframe.data"
+        @click="_rowSelected(row, index)"
+      >
+        <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
           <checkbox
             :colour="colour"
             :checked="_triggerCheck(index)"
             @change="(value) => _toggleSelected(row, index, value)"
           ></checkbox>
         </td>
-        <td class="msr-table__data" v-for="col in dataframe.columns" @click="$emit('row', row)">
+        <td class="msr-table__data" v-for="col in dataframe.columns">
           <slot :name="col" :data="row[col]">{{ row[col] }}</slot>
         </td>
       </tr>
@@ -54,7 +59,8 @@ export default defineComponent({
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
-    checkbox: Boolean
+    checkbox: Boolean,
+    rowCheck: Boolean,
   },
   data() {
     return {
@@ -123,6 +129,13 @@ export default defineComponent({
       }
 
       this._emitChange();
+    },
+    _rowSelected(row: object, index: number) {
+      this.$emit("row", row);
+
+      if (this.rowCheck) {
+        this._toggleSelected(row, index, !this._triggerCheck(index));
+      }
     }
   },
 });
@@ -152,12 +165,24 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
+.msr-table .msr-table__body .msr-table__row[row-check="true"] {
+  cursor: pointer;
+}
+
 .msr-table .msr-table__body .msr-table__row:hover {
   background-color: #7f7f7f21;
 }
 
 .msr-table .msr-table__body .msr-table__row .msr-table__data {
   padding: 10px 16px;
+}
+
+.msr-table
+  .msr-table__body
+  .msr-table__row
+  .msr-table__data[row-check="true"]
+  > * {
+  pointer-events: none;
 }
 
 .msr-table

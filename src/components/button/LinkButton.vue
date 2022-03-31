@@ -37,13 +37,12 @@ export default defineComponent({
 
 <style scoped>
 .msr-link-button {
-  margin: 0px 5px;
   background-color: transparent;
   border-bottom: 0.5px solid transparent;
 
   color: v-bind(_colour);
-  font-size: 1.125rem;
-  line-height: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
 
   transition: all ease-out 300ms;
 }
