@@ -19,7 +19,10 @@
   "unpkg": "dist/vuelib.min.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "dist/*"
+    "dist/components/*",
+    "dist/cjs/*",
+    "dist/esm/*",
+    "dist/types/*"
   ],
   "repository": {
     "type": "git",
