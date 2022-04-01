@@ -69,6 +69,7 @@ export default defineComponent({
   overflow: hidden;
 
   background-color: v-bind(_backgroundColour);
+  backdrop-filter: blur(5px);
 }
 
 .msr-progress-indicator .msr-progress-indicator__bar {

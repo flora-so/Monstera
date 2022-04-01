@@ -9,6 +9,7 @@ import {
   Colours,
   TextFieldType,
   type TextFieldContext,
+  DropdownPosition,
   type TextFieldValidator,
 } from "./types";
 
@@ -204,7 +205,8 @@ let log = (value: any) => {
     <chips class="cpt-margin" label="Chips" group="chips" :colour="Colours.primary"></chips>
 
     <dropdown
-      :alignment="DropdownAlignment.left"
+      :alignment="DropdownAlignment.right"
+      :position="DropdownPosition.left"
       :items="dropdownItems"
       :colour="Colours.primary"
       @change="item => alert(item)"

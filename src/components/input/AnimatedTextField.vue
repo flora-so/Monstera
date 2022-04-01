@@ -188,12 +188,12 @@ export default defineComponent({
 
   margin-top: 2px;
   margin-left: 13px;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.938rem;
 
   color: #585858;
   font-size: 0.625rem;
   line-height: 0.813rem;
-  transform: translate(0px, -0.85rem);
+  transform: translate(0px, -1rem);
 
   transition: transform ease-out 100ms;
 }

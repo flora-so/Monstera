@@ -3,7 +3,7 @@
     <div class="msr-dropdown__component" @click="_show = !_show">
       <slot></slot>
     </div>
-    <ul class="msr-dropdown__list" :show="_show">
+    <ul class="msr-dropdown__list" :show="_show" :position="position">
       <DropdownListItem
         v-for="item in items"
         :item="item"
@@ -22,7 +22,7 @@
 import { defineComponent, type PropType } from "vue";
 
 import DropdownListItem from "./DropdownListItem.vue";
-import { DropdownAlignment, type DropdownItem, Colours } from "../../types";
+import { DropdownAlignment, DropdownPosition, type DropdownItem, Colours } from "../../types";
 
 export default defineComponent({
   name: "Dropdown",
@@ -30,6 +30,10 @@ export default defineComponent({
     alignment: {
       type: String as PropType<DropdownAlignment>,
       default: () => DropdownAlignment.left,
+    },
+    position: {
+      type: String as PropType<DropdownPosition>,
+      default: () => DropdownPosition.bottom,
     },
     items: {
       type: Array as PropType<DropdownItem[]>,
@@ -75,12 +79,14 @@ export default defineComponent({
 
 <style scoped>
 .msr-dropdown {
+  position: relative;
   direction: v-bind(alignment);
 }
 
 .msr-dropdown .msr-dropdown__list {
   position: absolute;
   direction: ltr;
+  white-space: nowrap;
 
   background-color: white;
 
@@ -92,11 +98,30 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
-.msr-dropdown__list[show="false"] {
+.msr-dropdown .msr-dropdown__list[show="false"] {
   transform: scaleY(0);
 }
 
-.msr-dropdown__list[show="true"] {
+.msr-dropdown .msr-dropdown__list[show="true"] {
   transform: scaleY(1);
+}
+
+.msr-dropdown .msr-dropdown__list[position="right"] {
+  top: 0%;
+  left: 100%;
+  margin-top: 0px;
+  margin-left: 5px;
+}
+
+.msr-dropdown .msr-dropdown__list[position="left"] {
+  top: 0%;
+  right: 100%;
+  margin-top: 0px;
+  margin-right: 5px;
+}
+
+.msr-dropdown .msr-dropdown__list[position="top"] {
+  bottom: calc(0% + 34px);
+  transform-origin: left bottom;
 }
 </style>
