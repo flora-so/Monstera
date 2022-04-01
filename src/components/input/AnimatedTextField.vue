@@ -7,7 +7,7 @@
         ref="input"
         placeholder=" "
         :disabled="disabled"
-        :value="modelValue == undefined ? value : modelValue"
+        v-model="_modelValue"
         @input="_input"
         @blur="validate"
       />
@@ -53,6 +53,7 @@ export default defineComponent({
   },
   data() {
     return {
+      _value: "",
       _message: "",
       _error: false,
     }
@@ -86,22 +87,30 @@ export default defineComponent({
         return `${this.colour}21`;
       }
     },
+    _modelValue: {
+      get() {
+        return this.modelValue ?? this._value;
+      },
+      set(value: boolean | string[]) {
+        this.$emit("update:modelValue", value);
+      }
+    }
   },
   methods: {
-    _input() {
-      this.$emit('update:modelValue', (this.$refs.input as HTMLInputElement).value);
+    _input(e: Event) {
+      this._value = (e.target as HTMLInputElement).value;
     },
-    _value() {
-      return (this.$refs.input as HTMLInputElement).value;
+    getValue() {
+      return this._modelValue;
     },
     validate() {
       if (this.validator) {
-        let message = this.validator(this._value());
+        let message = this.validator(this._modelValue);
 
         this.setError(message);
       }
 
-      this.$emit("blur", this._value());
+      this.$emit("blur", this._modelValue);
     },
     setError(message: string) {
       if (message.length == 0) {
@@ -115,13 +124,17 @@ export default defineComponent({
   },
   mounted() {
     let ctx: TextFieldContext = {
-      value: this._value,
+      value: this.getValue,
       validate: this.validate,
       setError: this.setError,
     }
 
     this._message = this.helperText ?? "";
     this.$emit("context", ctx);
+
+    if (!this.modelValue && this.value) {
+      this._value = this.value;
+    }
   }
 });
 </script>

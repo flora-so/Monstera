@@ -49,6 +49,10 @@ import {
   Switch
 } from "./components/input";
 
+let data = reactive({
+  value: "test"
+});
+
 const tableData = new DataFrame(
   ["Column 1", "Column 2", "Column 3"],
   [
@@ -198,6 +202,7 @@ let log = (value: any) => {
       :colour="Colours.primary"
       :type="TextFieldType.email"
       :validator="emailValidator"
+      v-model="data.value"
     ></animated-text-field>
 
     <checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></checkbox>
@@ -220,6 +225,7 @@ let log = (value: any) => {
       :colour="Colours.primary"
       :type="TextFieldType.email"
       :validator="emailValidator"
+      v-model="data.value"
     ></static-text-field>
 
     <Switch class="cpt-margin" label="Switch" :colour="Colours.primary" :checked="true"></Switch>
