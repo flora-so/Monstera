@@ -1,8 +1,8 @@
 <template>
-  <button class="msr-small-button">
-    <slot name="leading"></slot>
+  <button class="msr-small-button" :disabled="disabled" :ignore="ignore">
+    <slot name="leading" width="21px" height="21px" :colour="colour"></slot>
     <h4 class="msr-small-button__label">{{ label }}</h4>
-    <slot name="trailing"></slot>
+    <slot name="trailing" width="21px" height="21px" :colour="colour"></slot>
   </button>
 </template>
 
@@ -28,7 +28,10 @@ export default defineComponent({
       validator: (value: string) =>
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
-    }
+    },
+    ignore: Boolean,
+    disabled: Boolean,
+    loading: Boolean
   },
   computed: {
     _backgroundColour() {
@@ -71,5 +74,19 @@ export default defineComponent({
 
 .msr-small-button:hover {
   box-shadow: 0px 13px 21px -5px v-bind(_shadowColour);
+}
+
+.msr-small-button:disabled {
+  cursor: not-allowed;
+
+  color: grey;
+  background-color: lightgrey;
+  box-shadow: none;
+}
+
+.msr-small-button[ignore="true"] {
+  pointer-events: none;
+  box-shadow: none;
+  opacity: 0.89;
 }
 </style>

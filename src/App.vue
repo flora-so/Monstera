@@ -37,7 +37,7 @@ import {
   ProgressIndicator,
   Snackbar
 } from "./components/informative";
-import SpinnerLoader from "./components/informative/SpinnerLoader.vue";
+import SpinnerLoader from "./components/informative/CircularProgress.vue";
 
 // Inputs
 import {
@@ -94,10 +94,26 @@ let log = (value: any) => {
       label="Big Button"
       colour="#ffffff"
       :backgroundColour="Colours.primary"
-    ></big-button>
+    >
+      <template #leading="{ width, height, colour }">
+        <svg
+          :width="width"
+          :height="height"
+          :fill="colour"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </template>
+    </big-button>
 
     <div class="cpt-space-x cpt-margin">
-      <icon-button :colour="Colours.primary" :filled="true">
+      <icon-button :colour="Colours.primary" filled>
         <template #icon="{ width, height, colour }">
           <svg
             :width="width"
@@ -115,7 +131,7 @@ let log = (value: any) => {
         </template>
       </icon-button>
 
-      <icon-button :colour="Colours.primary" :filled="true">
+      <icon-button :colour="Colours.primary">
         <template #icon="{ width, height, colour }">
           <svg
             :width="width"
@@ -131,7 +147,7 @@ let log = (value: any) => {
         </template>
       </icon-button>
 
-      <icon-button :colour="Colours.primary" :filled="true">
+      <icon-button :colour="Colours.primary" filled>
         <template #icon="{ width, height, colour }">
           <svg
             :width="width"
@@ -261,6 +277,8 @@ let log = (value: any) => {
     ></banner>
 
     <progress-indicator :colour="Colours.primary" :value="0.1"></progress-indicator>
+
+    <spinner-loader></spinner-loader>
 
     <outlined-button
       @click="ctx_snackbar.show()"

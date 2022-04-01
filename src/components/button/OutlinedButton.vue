@@ -1,8 +1,8 @@
 <template>
-  <button class="msr-outlined-button">
-    <slot name="leading"></slot>
+  <button class="msr-outlined-button" :disabled="disabled" :ignore="ignore">
+    <slot name="leading" width="21px" height="21px" :colour="_colour"></slot>
     <h4 class="msr-outlined-button__label">{{ label }}</h4>
-    <slot name="trailing"></slot>
+    <slot name="trailing" width="21px" height="21px" :colour="_colour"></slot>
   </button>
 </template>
 
@@ -23,7 +23,10 @@ export default defineComponent({
       validator: (value: string) =>
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
-    }
+    },
+    ignore: Boolean,
+    disabled: Boolean,
+    loading: Boolean,
   },
   computed: {
     _colour() {
@@ -66,5 +69,18 @@ export default defineComponent({
 
 .msr-outlined-button:hover {
   background-color: v-bind(_backgroundColour);
+}
+
+.msr-outlined-button:disabled {
+  cursor: not-allowed;
+
+  color: grey;
+  background-color: #f1f1f1;
+  border: 1px solid lightgrey;
+}
+
+.msr-outlined-button[ignore="true"] {
+  pointer-events: none;
+  opacity: 0.89;
 }
 </style>

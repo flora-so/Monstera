@@ -1,5 +1,5 @@
 <template>
-  <button class="msr-link-button">
+  <button class="msr-link-button" :disabled="disabled" :ignore="ignore">
     <h4 class="msr-link-button__label">{{ label }}</h4>
   </button>
 </template>
@@ -21,7 +21,9 @@ export default defineComponent({
       validator: (value: Colours | string) =>
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
-    }
+    },
+    ignore: Boolean,
+    disabled: Boolean,
   },
   computed: {
     _colour() {
@@ -49,5 +51,17 @@ export default defineComponent({
 
 .msr-link-button:hover {
   border-bottom: 0.21px solid v-bind(_colour);
+}
+
+.msr-link-button:disabled {
+  cursor: not-allowed;
+
+  color: grey;
+  border: none;
+}
+
+.msr-link-button[ignore="true"] {
+  pointer-events: none;
+  opacity: 0.89;
 }
 </style>
