@@ -1,5 +1,5 @@
 <template>
-  <div class="msr-floating-card">
+  <div class="msr-floating-card" :tight-fit="tightFit">
     <slot></slot>
   </div>
 </template>
@@ -19,7 +19,8 @@ export default defineComponent({
       validator: (value: Colours | string) =>
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
-    }
+    },
+    tightFit: Boolean,
   },
   computed: {
     _colour() {
@@ -29,7 +30,7 @@ export default defineComponent({
         return this.colour;
       }
     },
-  }
+  },
 });
 </script>
 
@@ -38,6 +39,13 @@ export default defineComponent({
   border-radius: 8px;
   box-shadow: 0px 5px 13px #7d7d7d36;
   background-color: v-bind(_colour);
+}
+
+.msr-floating-card[tight-fit="false"] {
+  padding: 21px;
+}
+
+.msr-floating-card[tight-fit="true"] {
   padding: 8px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="msr-outlined-card" :hover="hover">
+  <div class="msr-outlined-card" :hover="hover" :tight-fit="tightFit">
     <slot></slot>
   </div>
 </template>
@@ -26,7 +26,8 @@ export default defineComponent({
       validator: (value: Colours | string) =>
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
-    }
+    },
+    tightFit: Boolean,
   },
   computed: {
     _borderColour() {
@@ -52,9 +53,16 @@ export default defineComponent({
   border-radius: 8px;
   border: 1px solid v-bind(_borderColour);
   background-color: v-bind(_colour);
-  padding: 8px;
 
   transition: all ease-out 300ms;
+}
+
+.msr-outlined-card[tight-fit="false"] {
+  padding: 21px;
+}
+
+.msr-outlined-card[tight-fit="true"] {
+  padding: 8px;
 }
 
 .msr-outlined-card[hover="true"]:hover {
