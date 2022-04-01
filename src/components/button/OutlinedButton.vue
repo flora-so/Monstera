@@ -26,7 +26,6 @@ export default defineComponent({
     },
     ignore: Boolean,
     disabled: Boolean,
-    loading: Boolean,
   },
   computed: {
     _colour() {

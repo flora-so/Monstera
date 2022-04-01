@@ -132,17 +132,18 @@ const globals = {
 };
 
 const baseFolder = "./src/";
+const componentsFolder = "components/";
 
 const components = fs
-  .readdirSync(baseFolder)
+  .readdirSync(baseFolder + componentsFolder)
   .filter(f =>
-    fs.statSync(path.join(baseFolder, f)).isDirectory()
+    fs.statSync(path.join(baseFolder + componentsFolder, f)).isDirectory()
   );
 
 const entriespath = {
   index: "./src/index.ts",
   ...components.reduce((obj, name) => {
-    obj[name] = baseFolder + name + "/index.ts";
+    obj[name] = baseFolder + componentsFolder + name + "/index.ts";
     return obj;
   }, {})
 };
@@ -157,7 +158,7 @@ let buildFormats = [];
 const mapComponent = name => {
   return [
     {
-      input: baseFolder + `${name}/index.ts`,
+      input: baseFolder + componentsFolder + `${name}/index.ts`,
       external,
       output: {
         format: "umd",
