@@ -1,6 +1,6 @@
 <template>
   <button class="msr-icon-button" :filled="filled">
-    <slot name="icon" width="21px" height="21px" :colour="_colour"></slot>
+    <slot name="icon" width="20px" height="20px" :colour="_colour" :tailwind="_tailwind"></slot>
   </button>
 </template>
 
@@ -54,6 +54,17 @@ export default defineComponent({
         return `${this.colour}57`;
       }
     },
+    _tailwind() {
+      if (this.filled) {
+        return `w-5 h-5 text-white scale-125`;
+      } else {
+        if (Object.keys(Colours).includes(this.colour)) {
+          return `w-5 h-5 text-${this.colour} scale-125`;
+        } else {
+          return `w-5 h-5 text-[${this.colour}] scale-125`;
+        }
+      }
+    }
   },
 });
 </script>

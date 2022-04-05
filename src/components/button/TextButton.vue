@@ -1,12 +1,13 @@
 <template>
   <button class="msr-text-button" :disabled="disabled" :ignore="ignore">
-    <slot name="leading" width="21px" height="21px" :colour="_colour"></slot>
+    <slot name="leading" width="21px" height="21px" :colour="_colour" :tailwind="_tailwind"></slot>
     <h4 class="msr-text-button__label">{{ label }}</h4>
-    <slot name="trailing" width="21px" height="21px" :colour="_colour"></slot>
+    <slot name="trailing" width="21px" height="21px" :colour="_colour" :tailwind="_tailwind"></slot>
   </button>
 </template>
 
 <script lang="ts">
+import { Colours } from "../../types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -18,10 +19,9 @@ export default defineComponent({
     },
     colour: {
       type: String,
-      default: () => "primary",
+      default: () => Colours.primary,
       validator: (value: string) =>
-        ['primary', 'accent', 'success', 'danger', 'warning']
-          .includes(value) ||
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     ignore: Boolean,
@@ -29,19 +29,24 @@ export default defineComponent({
   },
   computed: {
     _colour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
       }
     },
     _backgroundColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.21)`;
       } else {
         return `${this.colour}36`;
+      }
+    },
+    _tailwind() {
+      if (Object.keys(Colours).includes(this.colour)) {
+        return `w-5 h-5 text-${this.colour} scale-125`;
+      } else {
+        return `w-5 h-5 text-[${this.colour}] scale-125`;
       }
     }
   },

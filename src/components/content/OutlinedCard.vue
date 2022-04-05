@@ -18,14 +18,14 @@ export default defineComponent({
       default: () => "#7f7f7f36",
       validator: (value: Colours | string) =>
         Object.keys(Colours).includes(value) ||
-        new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
+        new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$").test(value)
     },
     colour: {
       type: String as PropType<Colours | string>,
       default: () => "unset",
       validator: (value: Colours | string) =>
         Object.keys(Colours).includes(value) ||
-        new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
+        new RegExp("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$").test(value)
     },
     tightFit: Boolean,
   },

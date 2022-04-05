@@ -10,7 +10,7 @@
 
     <div class="msr-banner__action">
       <slot name="action">
-        <TextButton :colour="colour" @click="_hide" label="Ok" />
+        <text-button :colour="colour" @click="_hide" label="Ok"></text-button>
       </slot>
     </div>
   </div>

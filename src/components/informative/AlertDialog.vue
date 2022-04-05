@@ -1,5 +1,5 @@
 <template>
-  <div class="msr-alert-dialog__wrapper" :show="_isShown" @click="e => _checkHide(e)">
+  <div class="msr-alert-dialog__wrapper" :show="_isShown" @click="e => $_checkHide(e)">
     <div class="msr-alert-dialog" ref="dialog">
       <div class="msr-alert-dialog__title">
         <h4>{{ title }}</h4>
@@ -9,7 +9,7 @@
 
       <div class="msr-alert-dialog__actions">
         <slot name="actions">
-          <TextButton @click="_hide" label="Ok" />
+          <text-button @click="hide" label="Ok"></text-button>
         </slot>
       </div>
     </div>
@@ -48,13 +48,13 @@ export default defineComponent({
     }
   },
   methods: {
-    _show() {
+    show() {
       this._isShown = true;
     },
-    _hide() {
+    hide() {
       this._isShown = false;
     },
-    _checkHide(e: MouseEvent) {
+    $_checkHide(e: MouseEvent) {
       let dialog = this.$refs.dialog as HTMLElement;
 
       if (e.target == dialog || e.composedPath().includes(dialog)) {
@@ -66,8 +66,8 @@ export default defineComponent({
   },
   mounted() {
     let ctx: InformativeContext = {
-      show: this._show,
-      hide: this._hide,
+      show: this.show,
+      hide: this.hide,
     }
 
     this.$emit("context", ctx);

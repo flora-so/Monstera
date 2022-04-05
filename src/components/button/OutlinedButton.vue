@@ -1,8 +1,8 @@
 <template>
   <button class="msr-outlined-button" :disabled="disabled" :ignore="ignore">
-    <slot name="leading" width="21px" height="21px" :colour="_colour"></slot>
+    <slot name="leading" width="21px" height="21px" :colour="_colour" :tailwind="_tailwind"></slot>
     <h4 class="msr-outlined-button__label">{{ label }}</h4>
-    <slot name="trailing" width="21px" height="21px" :colour="_colour"></slot>
+    <slot name="trailing" width="21px" height="21px" :colour="_colour" :tailwind="_tailwind"></slot>
   </button>
 </template>
 
@@ -40,6 +40,13 @@ export default defineComponent({
         return `rgba(var(--${this.colour}), 0.21)`;
       } else {
         return `${this.colour}36`;
+      }
+    },
+    _tailwind() {
+      if (Object.keys(Colours).includes(this.colour)) {
+        return `w-5 h-5 text-${this.colour} scale-125`;
+      } else {
+        return `w-5 h-5 text-[${this.colour}] scale-125`;
       }
     }
   },

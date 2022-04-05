@@ -1,8 +1,8 @@
 <template>
   <button class="msr-big-button" :disabled="disabled" :ignore="ignore">
-    <slot name="leading" width="21px" height="21px" :colour="colour"></slot>
+    <slot name="leading" width="20px" height="20px" :colour="colour" :tailwind="_tailwind"></slot>
     <h4 class="msr-big-button__label">{{ label }}</h4>
-    <slot name="trailing" width="21px" height="21px" :colour="colour"></slot>
+    <slot name="trailing" width="20px" height="20px" :colour="colour" :tailwind="_tailwind"></slot>
   </button>
 </template>
 
@@ -48,6 +48,13 @@ export default defineComponent({
         return `${this.backgroundColour}57`;
       }
     },
+    _tailwind() {
+      if (this.colour == "#ffffff") {
+        return `w-5 h-5 text-white scale-125`;
+      } else {
+        return `w-5 h-5 text-[${this.colour}] scale-125`;
+      }
+    }
   }
 });
 </script>

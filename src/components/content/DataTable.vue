@@ -4,13 +4,14 @@
       <tr class="msr-table__row">
         <th v-if="checkbox" class="msr-table__column">
           <checkbox
+            ref="checkbox"
             :colour="colour"
             :intermediate="_intermediate"
             :checked="_allChecked"
             @change="(value) => _checkAll(value)"
           ></checkbox>
         </th>
-        <th class="msr-table__column" v-for="col in dataframe.columns">{{ col }}</th>
+        <th class="msr-table__column" v-for="col in dataframe.columns" :key="col">{{ col }}</th>
       </tr>
     </thead>
 
@@ -19,6 +20,7 @@
         class="msr-table__row"
         :row-check="rowCheck"
         v-for="(row, index) in dataframe.data"
+        :key="index"
         @click="_rowSelected(row, index)"
       >
         <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
@@ -28,7 +30,7 @@
             @change="(value) => _toggleSelected(row, index, value)"
           ></checkbox>
         </td>
-        <td class="msr-table__data" v-for="col in dataframe.columns">
+        <td class="msr-table__data" v-for="col in dataframe.columns" :key="col">
           <slot :name="col" :data="row[col]">{{ row[col] }}</slot>
         </td>
       </tr>

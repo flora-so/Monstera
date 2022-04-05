@@ -11,6 +11,7 @@
 </template>
 
 <script lang="ts">
+import { Colours } from "../../types";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -18,10 +19,9 @@ export default defineComponent({
   props: {
     colour: {
       type: String,
-      default: () => "primary",
+      default: () => Colours.primary,
       validator: (value: string) =>
-        ['primary', 'accent', 'success', 'danger', 'warning']
-          .includes(value) ||
+        Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     size: {
@@ -35,16 +35,14 @@ export default defineComponent({
   },
   computed: {
     _colour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
         return this.colour;
       }
     },
     _backgroundColour() {
-      if (['primary', 'accent', 'success', 'danger', 'warning']
-        .includes(this.colour)) {
+      if (Object.keys(Colours).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.21)`;
       } else {
         return `${this.colour}36`;
