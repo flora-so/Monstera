@@ -7,6 +7,7 @@ import LinkButton from "./LinkButton.vue";
 import OutlinedButton from "./OutlinedButton.vue";
 import SmallButton from "./SmallButton.vue";
 import TextButton from "./TextButton.vue";
+import IconButton from "./IconButton.vue";
 
 const Plugin = {
   install(app: App) {
@@ -15,9 +16,10 @@ const Plugin = {
     registerComponent(app, OutlinedButton);
     registerComponent(app, SmallButton);
     registerComponent(app, TextButton);
+    registerComponent(app, IconButton);
   }
 }
 
 export default Plugin;
 
-export { BigButton, LinkButton, OutlinedButton, SmallButton, TextButton };
+export { BigButton, LinkButton, OutlinedButton, SmallButton, TextButton, IconButton };
