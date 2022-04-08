@@ -1,7 +1,7 @@
 <template>
-  <button class="msr-link-button" :disabled="disabled" :ignore="ignore">
+  <a class="msr-link-button" :disabled="disabled" :ignore="ignore" :href="href">
     <h4 class="msr-link-button__label">{{ label }}</h4>
-  </button>
+  </a>
 </template>
 
 <script lang="ts">
@@ -22,6 +22,7 @@ export default defineComponent({
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
+    href: String,
     ignore: Boolean,
     disabled: Boolean,
   },
@@ -39,6 +40,8 @@ export default defineComponent({
 
 <style scoped>
 .msr-link-button {
+  cursor: pointer;
+
   background-color: transparent;
   border-bottom: 0.5px solid transparent;
 
