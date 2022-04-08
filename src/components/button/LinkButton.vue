@@ -43,16 +43,19 @@ export default defineComponent({
   cursor: pointer;
 
   background-color: transparent;
-  border-bottom: 0.5px solid transparent;
 
   color: v-bind(_colour);
   font-size: 1rem;
   line-height: 1.25rem;
-
-  transition: all ease-out 300ms;
 }
 
-.msr-link-button:hover {
+.msr-link-button .msr-link-button__label {
+  border-bottom: 0.5px solid transparent;
+
+  transition: border ease-out 300ms;
+}
+
+.msr-link-button .msr-link-button__label:hover {
   border-bottom: 0.21px solid v-bind(_colour);
 }
 
