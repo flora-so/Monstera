@@ -45,7 +45,7 @@ import SpinnerLoader from "./components/informative/CircularProgress.vue";
 import {
   AnimatedTextField,
   Checkbox,
-  Chips,
+  ChoiceChips,
   DropdownList,
   DropdownListItem,
   StaticTextField,
@@ -181,7 +181,7 @@ let log = (value: any) => {
 
     <checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></checkbox>
 
-    <chips class="cpt-margin" label="Chips" group="chips" :colour="Colours.primary"></chips>
+    <choice-chips class="cpt-margin" label="Chips" group="chips" :colour="Colours.primary"></choice-chips>
 
     <dropdown-list :alignment="DropdownAlignment.right" :position="DropdownPosition.left" :items="dropdownItems"
       :colour="Colours.primary" @change="item => log(item)">

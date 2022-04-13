@@ -16,6 +16,10 @@ export default defineComponent({
       type: String as PropType<Theme>,
       default: () => Theme.light
     },
+    fontFamily: {
+      type: String,
+      default: () => "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+    },
     primary: {
       type: String,
       default: () => "23,105,255",
@@ -72,7 +76,7 @@ export default defineComponent({
   color: v-bind(colour);
   background-color: v-bind(backgroundColour);
 
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: v-bind(fontFamily);
 
   transition: all 500ms ease-in-out;
 }
