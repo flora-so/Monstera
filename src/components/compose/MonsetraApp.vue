@@ -75,6 +75,8 @@ export default defineComponent({
 
   color: v-bind(colour);
   background-color: v-bind(backgroundColour);
+  height: 100vh;
+  width: 100vw;
 
   font-family: v-bind(fontFamily);
 
