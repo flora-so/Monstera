@@ -1,6 +1,6 @@
 <template>
   <span class="msr-dropdown-list-item">
-    <slot :name="item.value" :label="item.label" :value="item.value">
+    <slot>
       <li>{{ item.label }}</li>
     </slot>
   </span>
