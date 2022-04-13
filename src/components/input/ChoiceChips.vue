@@ -1,5 +1,5 @@
 <template>
-  <div class="msr-chips">
+  <div class="msr-choice-chips">
     <input :id="_id" ref="input" :name="group" :value="label" :type="multiselect ? 'checkbox' : 'radio'" v-model="value"
       @change="_change" />
     <label :for="_id">{{ label }}</label>
@@ -12,7 +12,7 @@ import { defineComponent, type PropType } from "vue";
 import { Colours } from "../../types";
 
 export default defineComponent({
-  name: "Chips",
+  name: "ChoiceChips",
   props: {
     label: {
       type: String,
@@ -44,7 +44,7 @@ export default defineComponent({
   },
   computed: {
     _id() {
-      return `msr-chips${Math.random().toString(16).slice(2)}`;
+      return `msr-choice-chips${Math.random().toString(16).slice(2)}`;
     },
     _colour() {
       if (Object.keys(Colours).includes(this.colour)) {
@@ -78,15 +78,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-chips {
+.msr-choice-chips {
   padding: 10px 0px;
 }
 
-.msr-chips input {
+.msr-choice-chips input {
   display: none;
 }
 
-.msr-chips label {
+.msr-choice-chips label {
   user-select: none;
   cursor: pointer;
 
@@ -101,11 +101,11 @@ export default defineComponent({
   transition: all ease-out 150ms;
 }
 
-.msr-chips label:hover {
+.msr-choice-chips label:hover {
   background-color: v-bind(_hoverColour);
 }
 
-.msr-chips input:checked+label {
+.msr-choice-chips input:checked+label {
   color: white;
   background-color: v-bind(_colour);
   box-shadow: 0px 5px 13px -5px v-bind(_colour);

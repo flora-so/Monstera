@@ -1,19 +1,12 @@
 <template>
-  <div class="msr-switch">
-    <input
-      :id="_id"
-      ref="input"
-      type="checkbox"
-      :checked="checked"
-      v-model="_value"
-      @change="_change"
-    />
+  <div class="msr-toggle-switch">
+    <input :id="_id" ref="input" type="checkbox" :checked="checked" v-model="_value" @change="_change" />
     <label :for="_id">
-      <div class="msr-switch__background">
-        <div class="msr-switch__toggle"></div>
+      <div class="msr-toggle-switch__background">
+        <div class="msr-toggle-switch__toggle"></div>
       </div>
 
-      <div class="msr-switch__label">{{ label }}</div>
+      <div class="msr-toggle-switch__label">{{ label }}</div>
     </label>
   </div>
 </template>
@@ -24,7 +17,8 @@ import { defineComponent } from "vue";
 import { Colours } from "../../types";
 
 export default defineComponent({
-  name: "Switch",
+  name: "ToggleSwitch",
+  inheritAttrs: false,
   props: {
     label: String,
     colour: {
@@ -84,11 +78,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-switch input {
+.msr-toggle-switch input {
   display: none;
 }
 
-.msr-switch label {
+.msr-toggle-switch label {
   user-select: none;
   cursor: pointer;
   display: flex;
@@ -99,7 +93,7 @@ export default defineComponent({
   font-weight: 500;
 }
 
-.msr-switch .msr-switch__background {
+.msr-toggle-switch .msr-toggle-switch__background {
   padding: 3px;
   background-color: #7f7f7f36;
   border-radius: 20px;
@@ -108,7 +102,7 @@ export default defineComponent({
   transition: all ease-out 300ms;
 }
 
-.msr-switch .msr-switch__toggle {
+.msr-toggle-switch .msr-toggle-switch__toggle {
   width: 21px;
   height: 21px;
   border-radius: 21px;
@@ -118,23 +112,19 @@ export default defineComponent({
   transition: all ease-out 150ms;
 }
 
-.msr-switch label:hover .msr-switch__background {
+.msr-toggle-switch label:hover .msr-toggle-switch__background {
   background-color: v-bind(_hoverColour);
 }
 
-.msr-switch
-  input:not(:checked)
-  + label
-  .msr-switch__background
-  .msr-switch__toggle {
+.msr-toggle-switch input:not(:checked)+label .msr-toggle-switch__background .msr-toggle-switch__toggle {
   margin-right: 21px;
 }
 
-.msr-switch input:checked + label .msr-switch__background .msr-switch__toggle {
+.msr-toggle-switch input:checked+label .msr-toggle-switch__background .msr-toggle-switch__toggle {
   margin-left: 21px;
 }
 
-.msr-switch input:checked + label .msr-switch__background {
+.msr-toggle-switch input:checked+label .msr-toggle-switch__background {
   color: white;
   background-color: v-bind(_colour);
 }

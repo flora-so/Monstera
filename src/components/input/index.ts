@@ -4,24 +4,24 @@ import { registerComponent } from "../../utils/plugins";
 
 import AnimatedTextField from "./AnimatedTextField.vue";
 import Checkbox from "./Checkbox.vue";
-import Chips from "./Chips.vue";
+import ChoiceChips from "./ChoiceChips.vue";
 import DropdownList from "./DropdownList.vue";
 import DropdownListItem from "./DropdownListItem.vue";
 import StaticTextField from "./StaticTextField.vue";
-import Switch from "./Switch.vue";
+import ToggleSwitch from "./ToggleSwitch.vue";
 
 const Plugin = {
   install(app: App) {
     registerComponent(app, AnimatedTextField);
     registerComponent(app, Checkbox);
-    registerComponent(app, Chips);
+    registerComponent(app, ChoiceChips);
     registerComponent(app, DropdownList);
     registerComponent(app, DropdownListItem);
     registerComponent(app, StaticTextField);
-    registerComponent(app, Switch);
+    registerComponent(app, ToggleSwitch);
   }
 }
 
 export default Plugin;
 
-export { AnimatedTextField, Checkbox, Chips, DropdownList, DropdownListItem, StaticTextField, Switch };
+export { AnimatedTextField, Checkbox, ChoiceChips, DropdownList, DropdownListItem, StaticTextField, ToggleSwitch };

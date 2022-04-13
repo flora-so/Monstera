@@ -16,10 +16,11 @@
 import { defineComponent, type PropType } from "vue";
 
 import DropdownListItem from "./DropdownListItem.vue";
-import { DropdownAlignment, DropdownPosition, type DropdownItem, Colours } from "../../types";
+import { DropdownAlignment, DropdownPosition, type DropdownItem, Colours, Theme } from "../../types";
 
 export default defineComponent({
   name: "DropdownList",
+  inject: ["theme"],
   props: {
     alignment: {
       type: String as PropType<DropdownAlignment>,
@@ -50,6 +51,11 @@ export default defineComponent({
     return {
       _show: false,
     };
+  },
+  computed: {
+    backgroundColour() {
+      return this.theme == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
+    }
   },
   methods: {
     _update(item: string) {
@@ -82,7 +88,7 @@ export default defineComponent({
   direction: ltr;
   white-space: nowrap;
 
-  background-color: white;
+  background-color: v-bind(backgroundColour);
 
   border-radius: 8px;
   box-shadow: 0px 2px 13px rgba(125, 125, 125, 0.21);
