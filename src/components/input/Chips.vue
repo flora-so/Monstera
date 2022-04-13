@@ -1,14 +1,7 @@
 <template>
   <div class="msr-chips">
-    <input
-      :id="_id"
-      ref="input"
-      :name="group"
-      :value="label"
-      :type="multiselect ? 'checkbox' : 'radio'"
-      v-model="value"
-      @change="_change"
-    />
+    <input :id="_id" ref="input" :name="group" :value="label" :type="multiselect ? 'checkbox' : 'radio'" v-model="value"
+      @change="_change" />
     <label :for="_id">{{ label }}</label>
   </div>
 </template>
@@ -112,7 +105,7 @@ export default defineComponent({
   background-color: v-bind(_hoverColour);
 }
 
-.msr-chips input:checked + label {
+.msr-chips input:checked+label {
   color: white;
   background-color: v-bind(_colour);
   box-shadow: 0px 5px 13px -5px v-bind(_colour);

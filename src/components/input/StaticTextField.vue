@@ -1,19 +1,11 @@
 <template>
   <div class="msr-static-text-field" :error="_error">
     <div class="msr-static-text-field__input">
-      <div>
+      <div class="msr-static-text-field__label">
         <label :for="_id">{{ label }}</label>
       </div>
-      <input
-        :id="_id"
-        :type="type"
-        ref="input"
-        placeholder=" "
-        :disabled="disabled"
-        v-model="_modelValue"
-        @input="_input"
-        @blur="validate"
-      />
+      <input :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue"
+        @input="_input" @blur="validate" />
     </div>
     <p class="msr-static-text-field__message">{{ _message }}</p>
   </div>
@@ -159,7 +151,11 @@ export default defineComponent({
   transition: all ease-out 300ms;
 }
 
-.msr-static-text-field label {
+.msr-static-text-field__input .msr-static-text-field__label {
+  margin-bottom: 5px;
+}
+
+.msr-static-text-field .msr-static-text-field__label label {
   user-select: none;
 
   cursor: text;
@@ -169,6 +165,11 @@ export default defineComponent({
   font-weight: 500;
 
   transition: all ease-out 100ms;
+}
+
+.msr-static-text-field__input:hover input:not(:focus) {
+  background-color: #7f7f7f0d;
+  box-shadow: 0px 0px 0px 4px v-bind(_backgroundColour);
 }
 
 /* Input Focus */

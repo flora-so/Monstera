@@ -1,16 +1,8 @@
 <template>
   <div class="msr-animated-text-field" :error="_error">
     <div class="msr-animated-text-field__input">
-      <input
-        :id="_id"
-        :type="type"
-        ref="input"
-        placeholder=" "
-        :disabled="disabled"
-        v-model="_modelValue"
-        @input="_input"
-        @blur="validate"
-      />
+      <input :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue"
+        @input="_input" @blur="validate" />
       <label :for="_id">{{ label }}</label>
     </div>
     <p class="msr-animated-text-field__message">{{ _message }}</p>
@@ -176,9 +168,14 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
+.msr-animated-text-field input:hover:not(:focus) {
+  background-color: #7f7f7f0d;
+  box-shadow: 0px 0px 0px 4px v-bind(_backgroundColour);
+}
+
 /* Input Focus */
-.msr-animated-text-field input:focus + label,
-.msr-animated-text-field input:not(:placeholder-shown) + label {
+.msr-animated-text-field input:focus+label,
+.msr-animated-text-field input:not(:placeholder-shown)+label {
   font-size: 0.625rem;
   line-height: 0.813rem;
   font-weight: normal;
@@ -190,7 +187,7 @@ export default defineComponent({
   background-color: v-bind(_backgroundColour);
 }
 
-.msr-animated-text-field input:focus + label {
+.msr-animated-text-field input:focus+label {
   color: v-bind(_colour);
 }
 

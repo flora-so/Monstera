@@ -176,9 +176,9 @@ let log = (value: any) => {
       :colour="Colours.primary" @change="item => alert(item)">
       <outlined-button label="Dropdown" :colour="Colours.primary"></outlined-button>
 
-      <template #item-3="item">
+      <template #item-3="{ item, click }">
         <hr>
-        <dropdown-list-item :item="item" :colour="Colours.danger"></dropdown-list-item>
+        <dropdown-list-item :item="item" :colour="Colours.danger" @click="click"></dropdown-list-item>
       </template>
     </dropdown-list>
 

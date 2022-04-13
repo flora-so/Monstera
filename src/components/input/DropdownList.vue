@@ -1,10 +1,10 @@
 <template>
-  <div class="msr-dropdown" ref="dropdown">
-    <div class="msr-dropdown__component" @click="_show = !_show">
+  <div class="msr-dropdown-list" ref="dropdown">
+    <div class="msr-dropdown-list__component" @click="_show = !_show">
       <slot></slot>
     </div>
-    <ul class="msr-dropdown__list" :show="_show" :position="position">
-      <slot v-for="item in items" :name="item.value" :label="item.label" :value="item.value" :colour="item.colour">
+    <ul class="msr-dropdown-list__list" :show="_show" :position="position">
+      <slot v-for="item in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item.value)">
         <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item.value)">
         </dropdown-list-item>
       </slot>
@@ -19,7 +19,7 @@ import DropdownListItem from "./DropdownListItem.vue";
 import { DropdownAlignment, DropdownPosition, type DropdownItem, Colours } from "../../types";
 
 export default defineComponent({
-  name: "Dropdown",
+  name: "DropdownList",
   props: {
     alignment: {
       type: String as PropType<DropdownAlignment>,
@@ -72,12 +72,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-dropdown {
+.msr-dropdown-list {
   position: relative;
   direction: v-bind(alignment);
 }
 
-.msr-dropdown .msr-dropdown__list {
+.msr-dropdown-list .msr-dropdown-list__list {
   position: absolute;
   direction: ltr;
   white-space: nowrap;
@@ -92,29 +92,29 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
-.msr-dropdown .msr-dropdown__list[show="false"] {
+.msr-dropdown-list .msr-dropdown-list__list[show="false"] {
   transform: scaleY(0);
 }
 
-.msr-dropdown .msr-dropdown__list[show="true"] {
+.msr-dropdown-list .msr-dropdown-list__list[show="true"] {
   transform: scaleY(1);
 }
 
-.msr-dropdown .msr-dropdown__list[position="right"] {
+.msr-dropdown-list .msr-dropdown-list__list[position="right"] {
   top: 0%;
   left: 100%;
   margin-top: 0px;
   margin-left: 5px;
 }
 
-.msr-dropdown .msr-dropdown__list[position="left"] {
+.msr-dropdown-list .msr-dropdown-list__list[position="left"] {
   top: 0%;
   right: 100%;
   margin-top: 0px;
   margin-right: 5px;
 }
 
-.msr-dropdown .msr-dropdown__list[position="top"] {
+.msr-dropdown-list .msr-dropdown-list__list[position="top"] {
   bottom: calc(0% + 34px);
   transform-origin: left bottom;
 }
