@@ -4,16 +4,10 @@
       <slot></slot>
     </div>
     <ul class="msr-dropdown__list" :show="_show" :position="position">
-      <DropdownListItem
-        v-for="item in items"
-        :item="item"
-        :colour="colour"
-        @click="() => _update(item.value)"
-      >
-        <template #[item.value]="{ label, value }">
-          <slot :name="item.value" :label="label" :value="value"></slot>
-        </template>
-      </DropdownListItem>
+      <slot v-for="item in items" :name="item.value" :label="item.label" :value="item.value" :colour="item.colour">
+        <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item.value)">
+        </dropdown-list-item>
+      </slot>
     </ul>
   </div>
 </template>

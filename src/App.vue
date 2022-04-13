@@ -44,7 +44,8 @@ import {
   AnimatedTextField,
   Checkbox,
   Chips,
-  Dropdown,
+  DropdownList,
+  DropdownListItem,
   StaticTextField,
   Switch
 } from "./components/input";
@@ -89,25 +90,12 @@ let log = (value: any) => {
   <div id="main">
     <!-- ===== Buttons ===== -->
 
-    <big-button
-      class="cpt-margin"
-      label="Big Button"
-      colour="#ffffff"
-      :backgroundColour="Colours.primary"
-    >
+    <big-button class="cpt-margin" label="Big Button" colour="#ffffff" :backgroundColour="Colours.primary">
       <template #leading="{ width, height, colour }">
-        <svg
-          :width="width"
-          :height="height"
-          :fill="colour"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill-rule="evenodd"
+        <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            clip-rule="evenodd"
-          />
+            clip-rule="evenodd" />
         </svg>
       </template>
     </big-button>
@@ -115,53 +103,30 @@ let log = (value: any) => {
     <div class="cpt-space-x cpt-margin">
       <icon-button :colour="Colours.primary" filled>
         <template #icon="{ width, height, colour }">
-          <svg
-            :width="width"
-            :height="height"
-            :fill="colour"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
+          <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            />
+              clip-rule="evenodd" />
           </svg>
         </template>
       </icon-button>
 
       <icon-button :colour="Colours.primary">
         <template #icon="{ width, height, colour }">
-          <svg
-            :width="width"
-            :height="height"
-            :fill="colour"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path
-              d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
-            />
+              d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
           </svg>
         </template>
       </icon-button>
 
       <icon-button :colour="Colours.primary" filled>
         <template #icon="{ width, height, colour }">
-          <svg
-            :width="width"
-            :height="height"
-            :fill="colour"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-            <path
-              fill-rule="evenodd"
+            <path fill-rule="evenodd"
               d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
-              clip-rule="evenodd"
-            />
+              clip-rule="evenodd" />
           </svg>
         </template>
       </icon-button>
@@ -171,12 +136,7 @@ let log = (value: any) => {
 
     <outlined-button class="cpt-margin" label="Outlined Button" :colour="Colours.primary"></outlined-button>
 
-    <small-button
-      class="cpt-margin"
-      label="Small Button"
-      colour="#ffffff"
-      :background="Colours.primary"
-    ></small-button>
+    <small-button class="cpt-margin" label="Small Button" colour="#ffffff" :background="Colours.primary"></small-button>
 
     <text-button class="cpt-margin" label="Text Button" :colour="Colours.primary"></text-button>
 
@@ -184,15 +144,8 @@ let log = (value: any) => {
 
     <!-- ===== Content ===== -->
 
-    <data-table
-      class="cpt-margin"
-      :dataframe="tableData"
-      :colour="Colours.primary"
-      :checkbox="true"
-      row-check
-      @change="value => log(value)"
-      @row="value => log(value)"
-    ></data-table>
+    <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :checkbox="true" row-check
+      @change="value => log(value)" @row="value => log(value)"></data-table>
 
     <floating-card class="cpt-margin" :hover="true" colour="#ffffff">
       <h1>
@@ -212,37 +165,25 @@ let log = (value: any) => {
 
     <!-- ===== Inputs ===== -->
 
-    <animated-text-field
-      class="cpt-margin"
-      label="Animated Text Field"
-      :colour="Colours.primary"
-      :type="TextFieldType.email"
-      :validator="emailValidator"
-      v-model="data.value"
-    ></animated-text-field>
+    <animated-text-field class="cpt-margin" label="Animated Text Field" :colour="Colours.primary"
+      :type="TextFieldType.email" :validator="emailValidator" v-model="data.value"></animated-text-field>
 
     <checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></checkbox>
 
     <chips class="cpt-margin" label="Chips" group="chips" :colour="Colours.primary"></chips>
 
-    <dropdown
-      :alignment="DropdownAlignment.right"
-      :position="DropdownPosition.left"
-      :items="dropdownItems"
-      :colour="Colours.primary"
-      @change="item => alert(item)"
-    >
+    <dropdown-list :alignment="DropdownAlignment.right" :position="DropdownPosition.left" :items="dropdownItems"
+      :colour="Colours.primary" @change="item => alert(item)">
       <outlined-button label="Dropdown" :colour="Colours.primary"></outlined-button>
-    </dropdown>
 
-    <static-text-field
-      class="cpt-margin"
-      label="Static Text Field"
-      :colour="Colours.primary"
-      :type="TextFieldType.email"
-      :validator="emailValidator"
-      v-model="data.value"
-    ></static-text-field>
+      <template #item-3="item">
+        <hr>
+        <dropdown-list-item :item="item" :colour="Colours.danger"></dropdown-list-item>
+      </template>
+    </dropdown-list>
+
+    <static-text-field class="cpt-margin" label="Static Text Field" :colour="Colours.primary"
+      :type="TextFieldType.email" :validator="emailValidator" v-model="data.value"></static-text-field>
 
     <Switch class="cpt-margin" label="Switch" :colour="Colours.primary" :checked="true"></Switch>
 
@@ -250,50 +191,22 @@ let log = (value: any) => {
 
     <!-- ===== Informative ===== -->
 
-    <outlined-button
-      @click="ctx_alertDialog.show()"
-      class="cpt-margin"
-      label="Alert Dialog"
-      :colour="Colours.primary"
-    />
-    <alert-dialog
-      title="Alert Dialog"
-      content="This is an alert dialog."
-      @context="ctx => ctx_alertDialog = ctx"
-    ></alert-dialog>
+    <outlined-button @click="ctx_alertDialog.show()" class="cpt-margin" label="Alert Dialog"
+      :colour="Colours.primary" />
+    <alert-dialog title="Alert Dialog" content="This is an alert dialog." @context="ctx => ctx_alertDialog = ctx">
+    </alert-dialog>
 
-    <outlined-button
-      @click="ctx_banner.show()"
-      class="cpt-margin"
-      label="Banner"
-      :colour="Colours.primary"
-    />
-    <banner
-      title="Banner"
-      content="This is a banner."
-      :colour="Colours.primary"
-      :duration="5000"
-      @context="ctx => ctx_banner = ctx"
-    ></banner>
+    <outlined-button @click="ctx_banner.show()" class="cpt-margin" label="Banner" :colour="Colours.primary" />
+    <banner title="Banner" content="This is a banner." :colour="Colours.primary" :duration="5000"
+      @context="ctx => ctx_banner = ctx"></banner>
 
     <progress-indicator :colour="Colours.primary" :value="0.1"></progress-indicator>
 
     <spinner-loader></spinner-loader>
 
-    <outlined-button
-      @click="ctx_snackbar.show()"
-      class="cpt-margin"
-      label="Snackbar"
-      :colour="Colours.primary"
-    />
-    <snackbar
-      class="cpt-margin"
-      content="This is a snackbar."
-      colour="#ffffff"
-      :backgroundColour="Colours.primary"
-      :duration="5000"
-      @context="ctx => ctx_snackbar = ctx"
-    ></snackbar>
+    <outlined-button @click="ctx_snackbar.show()" class="cpt-margin" label="Snackbar" :colour="Colours.primary" />
+    <snackbar class="cpt-margin" content="This is a snackbar." colour="#ffffff" :backgroundColour="Colours.primary"
+      :duration="5000" @context="ctx => ctx_snackbar = ctx"></snackbar>
 
     <!-- <spinner-loader
       class="cpt-margin"
@@ -338,7 +251,7 @@ let log = (value: any) => {
   align-items: center;
 }
 
-.cpt-space-x > * + * {
+.cpt-space-x>*+* {
   margin-left: 1rem;
 }
 </style>
