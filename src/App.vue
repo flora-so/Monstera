@@ -173,7 +173,7 @@ let log = (value: any) => {
     <chips class="cpt-margin" label="Chips" group="chips" :colour="Colours.primary"></chips>
 
     <dropdown-list :alignment="DropdownAlignment.right" :position="DropdownPosition.left" :items="dropdownItems"
-      :colour="Colours.primary" @change="item => alert(item)">
+      :colour="Colours.primary" @change="item => log(item)">
       <outlined-button label="Dropdown" :colour="Colours.primary"></outlined-button>
 
       <template #item-3="{ item, click }">

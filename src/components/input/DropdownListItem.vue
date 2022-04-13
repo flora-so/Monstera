@@ -51,7 +51,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-dropdown__list .msr-dropdown-list-item {
+.msr-dropdown-list__list .msr-dropdown-list-item {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -69,7 +69,7 @@ export default defineComponent({
   transition: all ease-out 150ms;
 }
 
-.msr-dropdown__list .msr-dropdown-list-item:hover {
+.msr-dropdown-list__list .msr-dropdown-list-item:hover {
   color: v-bind(_colour);
   background-color: v-bind(_hoverColour);
 }
