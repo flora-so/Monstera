@@ -50,7 +50,7 @@ export default defineComponent({
   },
   computed: {
     _backgroundColour() {
-      return this.theme == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
+      return (this as any)['theme'] == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
     }
   },
   methods: {
