@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 
+import { MonsetraApp } from "./components/compose";
+
 import {
   type InformativeContext,
   DataFrame,
@@ -8,7 +10,7 @@ import {
   DropdownAlignment,
   Colours,
   TextFieldType,
-  type TextFieldContext,
+  Theme,
   DropdownPosition,
   type TextFieldValidator,
 } from "./types";
@@ -47,8 +49,12 @@ import {
   DropdownList,
   DropdownListItem,
   StaticTextField,
-  Switch
+  ToggleSwitch
 } from "./components/input";
+
+let state = reactive({
+  isDark: false
+});
 
 let data = reactive({
   value: "test"
@@ -87,7 +93,12 @@ let log = (value: any) => {
 </script>
 
 <template>
-  <div id="main">
+  <monsetra-app id="main" :theme="state.isDark ? Theme.dark : Theme.light">
+    <header>
+      <toggle-switch class="cpt-margin" label="Dark Theme" :colour="Colours.primary" v-model="state.isDark">
+      </toggle-switch>
+    </header>
+
     <!-- ===== Buttons ===== -->
 
     <big-button class="cpt-margin" label="Big Button" colour="#ffffff" :backgroundColour="Colours.primary">
@@ -147,14 +158,14 @@ let log = (value: any) => {
     <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :checkbox="true" row-check
       @change="value => log(value)" @row="value => log(value)"></data-table>
 
-    <floating-card class="cpt-margin" :hover="true" colour="#ffffff">
+    <floating-card class="cpt-margin" :hover="true">
       <h1>
         <b>Floating Card</b>
       </h1>
       <p>Hey, I am inside an floating card!</p>
     </floating-card>
 
-    <outlined-card class="cpt-margin" borderColour="#F2F2F2" colour="#ffffff" :hover="true">
+    <outlined-card class="cpt-margin" :hover="true">
       <h1>
         <b>Outlined Card</b>
       </h1>
@@ -185,7 +196,7 @@ let log = (value: any) => {
     <static-text-field class="cpt-margin" label="Static Text Field" :colour="Colours.primary"
       :type="TextFieldType.email" :validator="emailValidator" v-model="data.value"></static-text-field>
 
-    <Switch class="cpt-margin" label="Switch" :colour="Colours.primary" :checked="true"></Switch>
+    <toggle-switch class="cpt-margin" label="Switch" :colour="Colours.primary" :checked="true"></toggle-switch>
 
     <hr class="divider" />
 
@@ -212,13 +223,13 @@ let log = (value: any) => {
       class="cpt-margin"
       colour="primary">
     </spinner-loader>-->
-  </div>
+  </monsetra-app>
 </template>
 
 <style>
 @import "./styles/reset.css";
 
-:root {
+/* :root {
   --primary: 23, 105, 255;
   --accent: 131, 72, 255;
   --success: 62, 238, 145;
@@ -226,7 +237,7 @@ let log = (value: any) => {
   --danger: 255, 89, 89;
 
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+} */
 
 #main {
   display: flex;
@@ -253,5 +264,13 @@ let log = (value: any) => {
 
 .cpt-space-x>*+* {
   margin-left: 1rem;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  margin: 13px;
 }
 </style>

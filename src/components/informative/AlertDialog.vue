@@ -20,10 +20,11 @@
 import { defineComponent } from "vue";
 
 import TextButton from "../button/TextButton.vue";
-import type { InformativeContext } from "../../types";
+import { type InformativeContext, Theme } from "../../types";
 
 export default defineComponent({
   name: "AlertDialog",
+  inject: ["theme"],
   props: {
     title: {
       type: String,
@@ -45,6 +46,11 @@ export default defineComponent({
   data() {
     return {
       _isShown: false,
+    }
+  },
+  computed: {
+    _backgroundColour() {
+      return this.theme == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
     }
   },
   methods: {
@@ -120,7 +126,7 @@ export default defineComponent({
   flex-direction: column;
 
   border-radius: 13px;
-  background-color: white;
+  background-color: v-bind(_backgroundColour);
 
   min-width: 377px;
   min-height: 210px;

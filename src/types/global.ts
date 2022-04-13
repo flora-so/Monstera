@@ -55,3 +55,8 @@ export enum Colours {
   danger = "danger",
   warning = "warning",
 }
+
+export enum Theme {
+  light = "light",
+  dark = "dark",
+}
