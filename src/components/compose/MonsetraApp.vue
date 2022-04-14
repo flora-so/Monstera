@@ -54,6 +54,15 @@ export default defineComponent({
       return this.theme == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
     }
   },
+  watch: {
+    theme(newTheme: Theme) {
+      if (newTheme == Theme.dark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    }
+  },
   provide() {
     return {
       theme: computed(() => this.theme)
