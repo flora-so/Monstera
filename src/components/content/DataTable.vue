@@ -3,32 +3,19 @@
     <thead class="msr-table__head">
       <tr class="msr-table__row">
         <th v-if="checkbox" class="msr-table__column">
-          <checkbox
-            ref="checkbox"
-            :colour="colour"
-            :intermediate="_intermediate"
-            :checked="_allChecked"
-            @change="(value) => _checkAll(value)"
-          ></checkbox>
+          <checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" :checked="_allChecked"
+            @change="(value) => _checkAll(value)"></checkbox>
         </th>
         <th class="msr-table__column" v-for="col in dataframe.columns" :key="col">{{ col }}</th>
       </tr>
     </thead>
 
     <tbody class="msr-table__body">
-      <tr
-        class="msr-table__row"
-        :row-check="rowCheck"
-        v-for="(row, index) in dataframe.data"
-        :key="index"
-        @click="_rowSelected(row, index)"
-      >
+      <tr class="msr-table__row" :row-check="rowCheck" v-for="(row, index) in dataframe.data" :key="index"
+        @click="_rowSelected(row, index)">
         <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
-          <checkbox
-            :colour="colour"
-            :checked="_triggerCheck(index)"
-            @change="(value) => _toggleSelected(row, index, value)"
-          ></checkbox>
+          <checkbox :colour="colour" :checked="_triggerCheck(index)"
+            @change="(value) => _toggleSelected(row, index, value)"></checkbox>
         </td>
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col">
           <slot :name="col" :data="row[col]">{{ row[col] }}</slot>
@@ -159,6 +146,9 @@ export default defineComponent({
 }
 
 .msr-table .msr-table__head .msr-table__row .msr-table__column {
+  text-transform: capitalize;
+  text-align: left;
+
   font-weight: 500;
   padding: 13px 16px;
 }
@@ -179,25 +169,15 @@ export default defineComponent({
   padding: 10px 16px;
 }
 
-.msr-table
-  .msr-table__body
-  .msr-table__row
-  .msr-table__data[row-check="true"]
-  > * {
+.msr-table .msr-table__body .msr-table__row .msr-table__data[row-check="true"]>* {
   pointer-events: none;
 }
 
-.msr-table
-  .msr-table__body
-  .msr-table__row:last-child
-  .msr-table__data:first-child {
+.msr-table .msr-table__body .msr-table__row:last-child .msr-table__data:first-child {
   border-bottom-left-radius: 8px;
 }
 
-.msr-table
-  .msr-table__body
-  .msr-table__row:last-child
-  .msr-table__data:last-child {
+.msr-table .msr-table__body .msr-table__row:last-child .msr-table__data:last-child {
   border-bottom-right-radius: 8px;
 }
 </style>
