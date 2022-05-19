@@ -139,6 +139,8 @@ export default defineComponent({
   border-style: hidden;
   box-shadow: 0px 0px 0px 1px #7f7f7f36;
   border-radius: 8px;
+
+  white-space: nowrap;
 }
 
 .msr-table .msr-table__head .msr-table__row .msr-table__column,
