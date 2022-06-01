@@ -5,7 +5,9 @@
         <h4>{{ title }}</h4>
       </div>
 
-      <p class="msr-alert-dialog__content">{{ content }}</p>
+      <slot name="content">
+        <p class="msr-alert-dialog__content">{{ content }}</p>
+      </slot>
 
       <div class="msr-alert-dialog__actions">
         <slot name="actions">
