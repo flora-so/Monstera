@@ -74,10 +74,11 @@ export default defineComponent({
   display: flex;
   align-items: center;
 
-  padding: 8px;
+  padding: 10px;
   border-radius: 8px;
 
   user-select: none;
+  color: v-bind(_colour);
   white-space: nowrap;
 
   transition: all ease-out 300ms;

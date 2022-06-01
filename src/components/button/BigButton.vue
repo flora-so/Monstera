@@ -63,6 +63,7 @@ export default defineComponent({
 .msr-big-button {
   width: 100%;
   max-width: 377px;
+  column-gap: 5px;
 
   display: flex;
   justify-content: center;

@@ -57,6 +57,7 @@ export default defineComponent({
 .msr-text-button {
   display: flex;
   align-items: center;
+  column-gap: 5px;
 
   padding: 10px 20px;
   border-radius: 8px;

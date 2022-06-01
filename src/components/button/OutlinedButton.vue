@@ -57,6 +57,7 @@ export default defineComponent({
 .msr-outlined-button {
   display: flex;
   align-items: center;
+  column-gap: 5px;
 
   padding: 10px 20px;
   border: 1px solid v-bind(_colour);
