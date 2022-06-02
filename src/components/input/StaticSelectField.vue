@@ -45,11 +45,17 @@ export default defineComponent({
       default: () => Colours.primary,
       validator: (value: Colours | string) => Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
-    }
+    },
+    modelValue: {
+      type: [String, Array],
+    },
   },
   emits: {
     change(value: string) {
       return typeof value == "string";
+    },
+    "update:modelValue": (value: string | string[]) => {
+      return true
     }
   },
   components: { DropdownListItem, StaticTextField },
@@ -62,13 +68,22 @@ export default defineComponent({
   computed: {
     backgroundColour() {
       return (this as any)['theme'] == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
+    },
+    value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value: string | string[]) {
+        this._display = this.items.find(item => item.value == value)?.label ?? "";
+        this.$emit("update:modelValue", value)
+      }
     }
   },
   methods: {
     _update(item: DropdownItem) {
       this.$emit("change", item.value);
+      this.value = item.value;
 
-      this._display = item.label;
       this._show = false;
     }
   },
