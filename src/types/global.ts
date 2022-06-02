@@ -25,6 +25,7 @@ export enum TextFieldType {
 export type TextFieldContext = {
   value: () => string,
   validate: () => void,
+  focus: () => void,
   setError: (message: string) => void,
 }
 
