@@ -107,6 +107,7 @@ export default defineComponent({
   border-radius: 8px;
   box-shadow: 0px 2px 13px rgba(125, 125, 125, 0.21);
   transform-origin: left top;
+  z-index: 999;
 
   transition: all ease-out 100ms;
 }
