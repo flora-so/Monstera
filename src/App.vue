@@ -59,7 +59,8 @@ let state = reactive({
 });
 
 let data = reactive({
-  value: "test"
+  value: "test",
+  select: "item 1"
 });
 
 const tableData = new DataFrame(
@@ -219,10 +220,13 @@ let log = (value: any) => {
 
       <toggle-switch class="cpt-margin" label="Switch" :colour="Colours.primary" :checked="true"></toggle-switch>
 
-      <static-select-field class="cpt-margin" label="Static Select Field" :items="dropdownItems">
+      <static-select-field class="cpt-margin" label="Static Select Field" :items="dropdownItems" v-model="data.select">
       </static-select-field>
 
-      <animated-select-field label="Animated Select Field" :items="dropdownItems"></animated-select-field>
+      <animated-select-field label="Animated Select Field" :items="dropdownItems" v-model="data.select">
+      </animated-select-field>
+
+      {{ data.select }}
 
       <hr class="divider" />
 

@@ -65,6 +65,11 @@ export default defineComponent({
       _display: "",
     };
   },
+  watch: {
+    modelValue(value: string | string[]) {
+      this.value = value;
+    },
+  },
   computed: {
     backgroundColour() {
       return (this as any)['theme'] == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
@@ -97,6 +102,8 @@ export default defineComponent({
         this._show = false;
       }
     });
+
+    this.value = this.modelValue;
   },
 });
 </script>
