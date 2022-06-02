@@ -50,7 +50,8 @@ import {
   DropdownListItem,
   StaticTextField,
   ToggleSwitch,
-  StaticSelectField
+  StaticSelectField,
+  AnimatedSelectField
 } from "./components/input";
 
 let state = reactive({
@@ -180,7 +181,23 @@ let log = (value: any) => {
       <!-- ===== Inputs ===== -->
 
       <animated-text-field class="cpt-margin" label="Animated Text Field" :colour="Colours.primary"
-        :type="TextFieldType.email" :validator="emailValidator" v-model="data.value"></animated-text-field>
+        :type="TextFieldType.email" :validator="emailValidator" v-model="data.value">
+        <template #leading="{ width, height, colour }">
+          <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M9.243 3.03a1 1 0 01.727 1.213L9.53 6h2.94l.56-2.243a1 1 0 111.94.486L14.53 6H17a1 1 0 110 2h-2.97l-1 4H15a1 1 0 110 2h-2.47l-.56 2.242a1 1 0 11-1.94-.485L10.47 14H7.53l-.56 2.242a1 1 0 11-1.94-.485L5.47 14H3a1 1 0 110-2h2.97l1-4H5a1 1 0 110-2h2.47l.56-2.243a1 1 0 011.213-.727zM9.03 8l-1 4h2.938l1-4H9.031z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </template>
+        <template #trailing="{ width, height, colour }">
+          <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+            <path fill-rule="evenodd"
+              d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </template>
+      </animated-text-field>
 
       <checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></checkbox>
 
@@ -197,28 +214,15 @@ let log = (value: any) => {
       </dropdown-list>
 
       <static-text-field class="cpt-margin" label="Static Text Field" :colour="Colours.primary"
-        :type="TextFieldType.email" :validator="emailValidator" v-model="data.value" disabled>
-        <template #leading="{ width, height, colour }">
-          <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M9.243 3.03a1 1 0 01.727 1.213L9.53 6h2.94l.56-2.243a1 1 0 111.94.486L14.53 6H17a1 1 0 110 2h-2.97l-1 4H15a1 1 0 110 2h-2.47l-.56 2.242a1 1 0 11-1.94-.485L10.47 14H7.53l-.56 2.242a1 1 0 11-1.94-.485L5.47 14H3a1 1 0 110-2h2.97l1-4H5a1 1 0 110-2h2.47l.56-2.243a1 1 0 011.213-.727zM9.03 8l-1 4h2.938l1-4H9.031z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </template>
-        <template #trailing="{ width, height, colour }">
-          <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-            <path fill-rule="evenodd"
-              d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </template>
+        :type="TextFieldType.email" :validator="emailValidator" v-model="data.value">
       </static-text-field>
 
       <toggle-switch class="cpt-margin" label="Switch" :colour="Colours.primary" :checked="true"></toggle-switch>
 
-      <static-select-field label="Select Field" :items="dropdownItems">
+      <static-select-field class="cpt-margin" label="Static Select Field" :items="dropdownItems">
       </static-select-field>
+
+      <animated-select-field label="Animated Select Field" :items="dropdownItems"></animated-select-field>
 
       <hr class="divider" />
 

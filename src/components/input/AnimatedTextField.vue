@@ -1,9 +1,17 @@
 <template>
-  <div class="msr-animated-text-field" :error="_error">
+  <div @click="forceFocus" class="msr-animated-text-field" :error="_error" :disabled="disabled">
     <div class="msr-animated-text-field__input">
-      <input :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue"
-        @input="_input" @blur="validate" />
-      <label :for="_id">{{ label }}</label>
+      <div class="msr-animated-text-field__wrapper" :f="_focus">
+        <div class="msr-animated-text-field__icon">
+          <slot name="leading" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
+        </div>
+        <input :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue"
+          @input="_input" @focus="_focus = true" @blur="validate" />
+        <label :for="_id">{{ label }}</label>
+        <div class="msr-animated-text-field__icon">
+          <slot name="trailing" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
+        </div>
+      </div>
     </div>
     <p class="msr-animated-text-field__message">{{ _message }}</p>
   </div>
@@ -48,6 +56,7 @@ export default defineComponent({
       _value: "",
       _message: "",
       _error: false,
+      _focus: false,
     }
   },
   emits: {
@@ -86,6 +95,9 @@ export default defineComponent({
       set(value: boolean | string[]) {
         this.$emit("update:modelValue", value);
       }
+    },
+    _tailwind() {
+      return `w-5 h-5 text-[#585858] scale-125`;
     }
   },
   methods: {
@@ -96,6 +108,8 @@ export default defineComponent({
       return this._modelValue;
     },
     validate() {
+      this._focus = false;
+
       if (this.validator) {
         let message = this.validator(this._modelValue);
 
@@ -103,6 +117,9 @@ export default defineComponent({
       }
 
       this.$emit("blur", this._modelValue);
+    },
+    forceFocus() {
+      (this.$refs.input as HTMLInputElement).focus();
     },
     setError(message: string) {
       if (message.length == 0) {
@@ -117,6 +134,7 @@ export default defineComponent({
   mounted() {
     let ctx: TextFieldContext = {
       value: this.getValue,
+      focus: this.forceFocus,
       validate: this.validate,
       setError: this.setError,
     }
@@ -132,25 +150,36 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-animated-text-field {
+.msr-animated-text-field[disabled="false"] {
   cursor: text;
 }
 
-.msr-animated-text-field .msr-animated-text-field__input {
+.msr-animated-text-field .msr-animated-text-field__wrapper {
   display: flex;
+
+  padding: 0px 13px;
+  border-radius: 8px;
+  background-color: #7f7f7f1a;
+  transition: all ease-out 300ms;
+}
+
+.msr-animated-text-field .msr-animated-text-field__icon {
+  align-self: center;
+}
+
+.msr-animated-text-field .msr-animated-text-field__icon:not(:empty)~label {
+  padding-left: 21px;
 }
 
 .msr-animated-text-field input {
-  padding: 18px 13px 8px 13px;
+  padding: 18px 0px 8px 0px;
   font-size: 1.125rem;
   line-height: 1.5rem;
   width: 100%;
 
   outline: none;
   border: none;
-  border-radius: 8px;
-  background-color: #7f7f7f1a;
-  transition: all ease-out 300ms;
+  background-color: transparent;
 }
 
 .msr-animated-text-field label {
@@ -163,12 +192,12 @@ export default defineComponent({
   font-size: 1rem;
   line-height: 1.313rem;
   font-weight: 500;
-  transform: translate(13px, 15px);
+  transform: translate(0px, 15px);
 
   transition: all ease-out 100ms;
 }
 
-.msr-animated-text-field input:hover:not(:focus) {
+.msr-animated-text-field[disabled="false"]:hover .msr-animated-text-field__wrapper[f="false"] {
   background-color: #7f7f7f0d;
   box-shadow: 0px 0px 0px 4px v-bind(_backgroundColour);
 }
@@ -180,10 +209,10 @@ export default defineComponent({
   line-height: 0.813rem;
   font-weight: normal;
 
-  transform: translate(13px, 5px);
+  transform: translate(0px, 5px);
 }
 
-.msr-animated-text-field input:focus {
+.msr-animated-text-field .msr-animated-text-field__wrapper[f="true"] {
   background-color: v-bind(_backgroundColour);
 }
 
@@ -215,7 +244,7 @@ export default defineComponent({
 }
 
 /* Error */
-.msr-animated-text-field[error="true"] input {
+.msr-animated-text-field[error="true"] .msr-animated-text-field__wrapper {
   background-color: #ff595921;
 }
 

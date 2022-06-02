@@ -1,7 +1,7 @@
 <template>
   <div class="msr-static-select-field" ref="dropdown">
     <div class="msr-static-select-field__component" @click="_show = !_show">
-      <static-text-field v-model="_display" :label="label" disabled>
+      <animated-text-field v-model="_display" :label="label" disabled>
         <template #trailing="{ width, height, colour }">
           <svg class="msr-static-select-field__icon" :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg" :show="_show">
@@ -10,7 +10,7 @@
               clip-rule="evenodd"></path>
           </svg>
         </template>
-      </static-text-field>
+      </animated-text-field>
     </div>
     <ul class="msr-static-select-field__list msr-dropdown-list__list" :show="_show">
       <slot v-for="item in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
@@ -25,7 +25,7 @@
 import { defineComponent, type PropType } from "vue";
 
 import DropdownListItem from "./DropdownListItem.vue";
-import StaticTextField from "./StaticTextField.vue";
+import AnimatedTextField from "./AnimatedTextField.vue";
 import { type DropdownItem, Colours, Theme } from "../../types";
 
 export default defineComponent({
@@ -52,7 +52,7 @@ export default defineComponent({
       return typeof value == "string";
     }
   },
-  components: { DropdownListItem, StaticTextField },
+  components: { DropdownListItem, AnimatedTextField },
   data() {
     return {
       _show: false,
