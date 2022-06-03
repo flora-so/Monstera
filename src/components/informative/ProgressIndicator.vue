@@ -53,6 +53,7 @@ export default defineComponent({
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(100vw);
   }
@@ -70,6 +71,8 @@ export default defineComponent({
 
   background-color: v-bind(_backgroundColour);
   backdrop-filter: blur(5px);
+
+  z-index: 999;
 }
 
 .msr-progress-indicator .msr-progress-indicator__bar {
