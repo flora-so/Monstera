@@ -9,6 +9,8 @@ import DropdownList from "./DropdownList.vue";
 import DropdownListItem from "./DropdownListItem.vue";
 import StaticTextField from "./StaticTextField.vue";
 import ToggleSwitch from "./ToggleSwitch.vue";
+import StaticSelectField from "./StaticSelectField.vue";
+import AnimatedSelectField from "./AnimatedSelectField.vue";
 
 const Plugin = {
   install(app: App) {
@@ -17,11 +19,13 @@ const Plugin = {
     registerComponent(app, ChoiceChips);
     registerComponent(app, DropdownList);
     registerComponent(app, DropdownListItem);
-    registerComponent(app, StaticTextField);
+    registerComponent(app, StaticSelectField);
     registerComponent(app, ToggleSwitch);
+    registerComponent(app, StaticTextField);
+    registerComponent(app, AnimatedSelectField);
   }
 }
 
 export default Plugin;
 
-export { AnimatedTextField, Checkbox, ChoiceChips, DropdownList, DropdownListItem, StaticTextField, ToggleSwitch };
+export { AnimatedTextField, Checkbox, ChoiceChips, DropdownList, DropdownListItem, StaticSelectField, StaticTextField, AnimatedSelectField, ToggleSwitch };
