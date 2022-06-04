@@ -68,6 +68,13 @@ export default defineComponent({
       theme: computed(() => this.theme)
     }
   },
+  created() {
+    if (this.theme == Theme.dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }
 });
 </script>
 
