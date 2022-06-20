@@ -29,7 +29,7 @@ import AnimatedTextField from "./AnimatedTextField.vue";
 import { type DropdownItem, Colours, Theme } from "../../types";
 
 export default defineComponent({
-  name: "StaticSelectField",
+  name: "AnimatedSelectField",
   inject: ["theme"],
   props: {
     label: {

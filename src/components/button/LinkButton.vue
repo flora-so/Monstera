@@ -60,6 +60,7 @@ export default defineComponent({
 }
 
 .msr-link-button:disabled {
+  pointer-events: none;
   cursor: not-allowed;
 
   color: grey;

@@ -25,7 +25,7 @@ import { defineComponent, type PropType } from "vue";
 import { Colours, TextFieldType, type TextFieldContext, type TextFieldValidator } from "../../types";
 
 export default defineComponent({
-  name: "AnimatedTextField",
+  name: "StaticTextField",
   props: {
     label: {
       type: String,
