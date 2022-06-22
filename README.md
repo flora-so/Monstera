@@ -1,6 +1,6 @@
-# Monsetra Vue
+# Monsetra UI
 
-Monsetra Vue is a Vue 3 components library designed and developed based on the Monsetra Design principles.
+Monsetra UI is a Vue 3 components library designed and developed based on the Monsetra Design principles.
 
 ## Install
 
@@ -31,7 +31,7 @@ createApp.use(<Component>)
 
 # Introduction
 
-Monsetra Vue is split into 4 main component groups: button, content, informative and inputs.
+Monsetra UI is split into 4 main component groups: button, content, informative and inputs.
 
 ## Buttons
 

@@ -12,7 +12,7 @@
   ```sh
   cd vue-project-folder
   ```
-* **Step 2:** Install Monsetra Vue
+* **Step 2:** Install Monsetra UI
 
   ```sh
   npm install monsetra-vue
@@ -56,7 +56,7 @@ createApp.use(<Component>)
 
 ## Overview
 
-Monsetra Vue is split into 5 main component groups:
+Monsetra UI is split into 5 main component groups:
 
 * Button
 * Input
