@@ -29,7 +29,8 @@ import IconButton from "./components/button/IconButton.vue";
 import {
   DataTable,
   FloatingCard,
-  OutlinedCard
+  OutlinedCard,
+  Modal
 } from "./components/content";
 
 // Informative
@@ -81,6 +82,7 @@ const dropdownItems = [
 let ctx_alertDialog: InformativeContext;
 let ctx_banner: InformativeContext;
 let ctx_snackbar: InformativeContext;
+let ctx_modal: InformativeContext;
 
 let emailValidator: TextFieldValidator = (value: string) => {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
@@ -97,22 +99,17 @@ let log = (value: any) => {
 
 <template>
   <monsetra-app :theme="state.isDark ? Theme.dark : Theme.light">
+    
     <header>
       <toggle-switch class="cpt-margin" label="Dark Theme" :colour="Colours.primary" v-model="state.isDark">
       </toggle-switch>
     </header>
+    
     <div id="main">
 
       <!-- ===== Buttons ===== -->
 
       <big-button label="Big Button" colour="#ffffff" :backgroundColour="Colours.primary">
-        <!-- <template #leading="{ width, height, colour }">
-          <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd" />
-          </svg>
-        </template> -->
       </big-button>
 
       <div class="cpt-space-x cpt-margin">
@@ -177,6 +174,14 @@ let log = (value: any) => {
         <p>Hey, I am inside an outlined card!</p>
       </outlined-card>
 
+      <outlined-button @click="ctx_modal.show()" class="cpt-margin" label="Modal"/>
+      <modal @context="ctx => ctx_modal = ctx">
+        <div style="padding: 13px;">
+          <h1 style="font-size: 30px; font-weight: bold;">Hello</h1>
+          <p>I am inside a modal!</p>
+        </div>
+      </modal>
+
       <hr class="divider" />
 
       <!-- ===== Inputs ===== -->
@@ -232,12 +237,11 @@ let log = (value: any) => {
 
       <!-- ===== Informative ===== -->
 
-      <outlined-button @click="ctx_alertDialog.show()" class="cpt-margin" label="Alert Dialog"
-        :colour="Colours.primary" />
+      <outlined-button @click="ctx_alertDialog.show()" class="cpt-margin" label="Alert Dialog"/>
       <alert-dialog title="Alert Dialog" content="This is an alert dialog." @context="ctx => ctx_alertDialog = ctx">
       </alert-dialog>
 
-      <outlined-button @click="ctx_banner.show()" class="cpt-margin" label="Banner" :colour="Colours.primary" />
+      <outlined-button @click="ctx_banner.show()" class="cpt-margin" label="Banner"/>
       <banner title="Banner" content="This is a banner." :colour="Colours.primary" :duration="5000"
         @context="ctx => ctx_banner = ctx"></banner>
 
@@ -245,30 +249,16 @@ let log = (value: any) => {
 
       <spinner-loader></spinner-loader>
 
-      <outlined-button @click="ctx_snackbar.show()" class="cpt-margin" label="Snackbar" :colour="Colours.primary" />
+      <outlined-button @click="ctx_snackbar.show()" class="cpt-margin" label="Snackbar"/>
       <snackbar class="cpt-margin" content="This is a snackbar." colour="#ffffff" :backgroundColour="Colours.primary"
         :duration="5000" @context="ctx => ctx_snackbar = ctx"></snackbar>
 
-      <!-- <spinner-loader
-        class="cpt-margin"
-        colour="primary">
-      </spinner-loader>-->
     </div>
   </monsetra-app>
 </template>
 
 <style>
 @import "./styles/reset.css";
-
-/* :root {
-  --primary: 23, 105, 255;
-  --accent: 131, 72, 255;
-  --success: 62, 238, 145;
-  --warning: 255, 192, 0;
-  --danger: 255, 89, 89;
-
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-} */
 
 #main {
   display: flex;
