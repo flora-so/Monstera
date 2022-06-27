@@ -186,3 +186,32 @@ Sets if the outlined card has a tight fit around the content
     <p>Hey, I am inside an outlined card!</p>
   </outlined-card>
   ```
+
+## Modal
+
+### Import
+
+```jsx
+import { Modal } from "monsetra-vue/dist/content";
+```
+
+### Usage
+
+```html
+<modal
+  @context="ctx => ctx_modal = ctx"
+></modal>
+```
+
+### Slots
+
+### `default`
+
+* Create custom content in the modal
+* **Implementation**
+  ```html
+  <modal>
+    <h1><b>Modal</b></h1>
+    <p>Hey, I am inside a modal!</p>
+  </modal>
+  ```
