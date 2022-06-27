@@ -27,7 +27,7 @@ import { BigButton } from "monsetra-vue/dist/button";
 * Type: `String`
 * **Required**
 
-Sets the label of the button.
+Sets the label of the button
 
 ### `colour`
 
