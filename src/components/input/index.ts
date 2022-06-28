@@ -11,6 +11,7 @@ import StaticTextField from "./StaticTextField.vue";
 import ToggleSwitch from "./ToggleSwitch.vue";
 import StaticSelectField from "./StaticSelectField.vue";
 import AnimatedSelectField from "./AnimatedSelectField.vue";
+import StaticTextareaField from "./StaticTextareaField.vue";
 
 const Plugin = {
   install(app: App) {
@@ -23,9 +24,10 @@ const Plugin = {
     registerComponent(app, ToggleSwitch);
     registerComponent(app, StaticTextField);
     registerComponent(app, AnimatedSelectField);
+    registerComponent(app, StaticTextareaField);
   }
 }
 
 export default Plugin;
 
-export { AnimatedTextField, Checkbox, ChoiceChips, DropdownList, DropdownListItem, StaticSelectField, StaticTextField, AnimatedSelectField, ToggleSwitch };
+export { AnimatedTextField, Checkbox, ChoiceChips, DropdownList, DropdownListItem, StaticSelectField, StaticTextField, StaticTextareaField, AnimatedSelectField, ToggleSwitch };
