@@ -561,6 +561,114 @@ Emitted when a user clicks a dropdown item
 
 Emitted when a user clicks a dropdown item
 
+## Static Textarea Field
+
+### Import
+
+```jsx
+import { StaticTextareaField } from "monsetra-vue/dist/input";
+```
+
+### Usage
+
+```html
+<static-textarea-field
+  label="Static Textarea Field"
+  :colour="Colours.primary"
+  :validator="textareaValidator"
+  value="I am a textarea!"
+  :rows="3"
+  :cols="25"
+  :disabled="false"
+  helper-text="Input your email"
+  v-model="value"
+  @blur="value => fn(value)"
+  @context="ctx => ctx_staticTextareaField = ctx"
+></static-textarea-field>
+```
+
+### Parameters
+
+### `label`
+
+* Type: `String`
+* **Required**
+
+Sets the label of the textarea field
+
+### `colour`
+
+* Type: `String` (hex code or `Colours`)
+* Default: `Colours.primary`
+
+Sets the colour of the textarea field
+
+### `validator`
+
+* Type: `Function` as `TextFieldValidator`
+* **Optional**
+
+Create a custom input validator
+
+### `value`
+
+* Type: `String`
+* **Optional**
+
+Sets the value of the input
+
+### `rows`
+
+* Type: `Number`
+* **Optional**
+
+Sets the default number of rows of the textarea
+
+### `cols`
+
+* Type: `Number`
+* **Optional**
+
+Sets the default number of columns of the textarea
+
+### `disabled`
+
+* Type: `Boolean`
+* **Optional**
+
+Sets if users can interact with the input textarea field
+
+### `helper-text`
+
+* Type: `String`
+* **Optional**
+
+Creates a small helper text to guide the user about the input
+
+### `v-model`
+
+* Returns the value of the textarea field
+
+Emitted when a user is typing on the input textarea field
+
+### Emits
+
+### `@blur`
+
+* Returns the value of the textarea field
+
+Emitted when a user exits focus from the textarea field
+
+### `@context`
+
+* Returns an object of functions that can be used for the textarea field component
+  * `getValue`: Gets the value of the textarea field
+  * `forceFocus`: Forcibly focus on the textarea  field
+  * `validate`: Validates the value of the textarea field
+  * `setError`: Sets the message for the error
+
+Emitted during the mounted hook cycle
+
 ## Static Text Field
 
 ### Import
