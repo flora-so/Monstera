@@ -58,8 +58,8 @@ Sets if clicking the row will check the row itself
 * **Implementation**
   ```html
   <data-table :dataframe="tableData">
-    <template #column-3="{ data }">
-      <span>${{ data }}</span>
+    <template #column-3="{ data, row }">
+      <span>${{ data }} | {{ row.label }}</span>
     </template>
   </data-table>
   ```
