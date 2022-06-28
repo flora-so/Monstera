@@ -52,7 +52,8 @@ import {
   StaticTextField,
   ToggleSwitch,
   StaticSelectField,
-  AnimatedSelectField
+  AnimatedSelectField,
+  StaticTextareaField
 } from "./components/input";
 
 let state = reactive({
@@ -65,11 +66,11 @@ let data = reactive({
 });
 
 const tableData = new DataFrame(
-  ["Column 1", "Column 2", "Column 3"],
+  ["column1", "column2", "column3"],
   [
-    { "Column 1": "Row 1", "Column 2": "Row 1", "Column 3": "Row 1" },
-    { "Column 1": "Row 2", "Column 2": "Row 2", "Column 3": "Row 2" },
-    { "Column 1": "Row 3", "Column 2": "Row 3", "Column 3": "Row 3" }
+    { "column1": "Row 1", "column2": "Row 1", "column3": "Row 1" },
+    { "column1": "Row 2", "column2": "Row 2", "column3": "Row 2" },
+    { "column1": "Row 3", "column2": "Row 3", "column3": "Row 3" }
   ]
 );
 
@@ -157,17 +158,21 @@ let log = (value: any) => {
 
       <!-- ===== Content ===== -->
 
-      <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :checkbox="true" row-check
-        @change="value => log(value)" @row="value => log(value)"></data-table>
+      <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" checkbox row-check
+        @change="value => log(value)" @row="value => log(value)">
+        <template #column3="{ data, row }">
+          <span>${{ data }} - {{ row.column1 }}</span>
+        </template>
+      </data-table>
 
-      <floating-card class="cpt-margin" :hover="true">
+      <floating-card class="cpt-margin" hover>
         <h1>
           <b>Floating Card</b>
         </h1>
         <p>Hey, I am inside an floating card!</p>
       </floating-card>
 
-      <outlined-card class="cpt-margin" :hover="true">
+      <outlined-card class="cpt-margin" hover>
         <h1>
           <b>Outlined Card</b>
         </h1>
@@ -223,13 +228,17 @@ let log = (value: any) => {
         :type="TextFieldType.email" :validator="emailValidator" v-model="data.value">
       </static-text-field>
 
-      <toggle-switch class="cpt-margin" label="Switch" :colour="Colours.primary" :checked="true"></toggle-switch>
+      <toggle-switch class="cpt-margin" label="Switch" :colour="Colours.primary" checked></toggle-switch>
 
       <static-select-field class="cpt-margin" label="Static Select Field" :items="dropdownItems" v-model="data.select">
       </static-select-field>
 
       <animated-select-field label="Animated Select Field" :items="dropdownItems" v-model="data.select">
       </animated-select-field>
+
+      <static-textarea-field
+        label="Textarea"
+      ></static-textarea-field>
 
       {{ data.select }}
 
