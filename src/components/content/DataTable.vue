@@ -22,7 +22,7 @@
           </div>
         </td>
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col">
-          <slot :name="col" :data="row[col]">{{ row[col] }}</slot>
+          <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
         </td>
       </tr>
     </tbody>
