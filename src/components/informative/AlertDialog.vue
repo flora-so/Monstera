@@ -38,6 +38,9 @@ export default defineComponent({
       type: String,
       default: "",
     },
+    dismissible: {
+      type: Boolean
+    }
   },
   emits: {
     context(ctx: InformativeContext) {
@@ -65,13 +68,15 @@ export default defineComponent({
       this._isShown = false;
     },
     $_checkHide(e: MouseEvent) {
-      let dialog = this.$refs.dialog as HTMLElement;
+      if (this.dismissible) {
+        let dialog = this.$refs.dialog as HTMLElement;
 
-      if (e.target == dialog || e.composedPath().includes(dialog)) {
-        return;
+        if (e.target == dialog || e.composedPath().includes(dialog)) {
+          return;
+        }
+
+        this._isShown = false;
       }
-
-      this._isShown = false;
     }
   },
   mounted() {
