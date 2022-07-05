@@ -1,6 +1,7 @@
 <template>
-  <div class="msr-toggle-switch">
-    <input :id="_id" ref="input" type="checkbox" :checked="checked" v-model="_value" @change="_change" />
+  <div class="msr-toggle-switch" :disabled="disabled" :ignore="ignore">
+    <input :id="_id" ref="input" type="checkbox" :checked="checked" :disabled="disabled" v-model="_value"
+      @change="_change" />
     <label :for="_id">
       <div class="msr-toggle-switch__background">
         <div class="msr-toggle-switch__toggle"></div>
@@ -31,8 +32,9 @@ export default defineComponent({
     modelValue: {
       type: [Boolean, Array],
     },
-    multiselect: Boolean,
-    checked: Boolean
+    checked: Boolean,
+    ignore: Boolean,
+    disabled: Boolean,
   },
   emits: {
     change: (value: Boolean) => {
@@ -127,5 +129,19 @@ export default defineComponent({
 .msr-toggle-switch input:checked+label .msr-toggle-switch__background {
   color: white;
   background-color: v-bind(_colour);
+}
+
+.msr-toggle-switch:disabled {
+  cursor: not-allowed;
+
+  color: grey;
+  background-color: lightgrey;
+  box-shadow: none;
+}
+
+.msr-toggle-switch[ignore="true"] {
+  pointer-events: none;
+  box-shadow: none;
+  opacity: 0.89;
 }
 </style>
