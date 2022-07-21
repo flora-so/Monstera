@@ -6,6 +6,7 @@ import DataTable from "./DataTable.vue";
 import FloatingCard from "./FloatingCard.vue";
 import OutlinedCard from "./OutlinedCard.vue";
 import Modal from "./Modal.vue";
+import BottomSheet from "./BottomSheet.vue";
 
 const Plugin = {
   install(app: App) {
@@ -13,9 +14,10 @@ const Plugin = {
     registerComponent(app, FloatingCard);
     registerComponent(app, OutlinedCard);
     registerComponent(app, Modal);
+    registerComponent(app, BottomSheet);
   }
 }
 
 export default Plugin;
 
-export { DataTable, FloatingCard, OutlinedCard, Modal };
+export { DataTable, FloatingCard, OutlinedCard, Modal, BottomSheet };

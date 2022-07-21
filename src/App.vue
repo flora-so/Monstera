@@ -30,7 +30,8 @@ import {
   DataTable,
   FloatingCard,
   OutlinedCard,
-  Modal
+  Modal,
+  BottomSheet
 } from "./components/content";
 
 // Informative
@@ -84,6 +85,7 @@ let ctx_alertDialog: InformativeContext;
 let ctx_banner: InformativeContext;
 let ctx_snackbar: InformativeContext;
 let ctx_modal: InformativeContext;
+let ctx_bottomSheet: InformativeContext;
 
 let emailValidator: TextFieldValidator = (value: string) => {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
@@ -100,12 +102,12 @@ let log = (value: any) => {
 
 <template>
   <monsetra-app :theme="state.isDark ? Theme.dark : Theme.light">
-    
+
     <header>
       <toggle-switch class="cpt-margin" label="Dark Theme" :colour="Colours.primary" v-model="state.isDark">
       </toggle-switch>
     </header>
-    
+
     <div id="main">
 
       <!-- ===== Buttons ===== -->
@@ -179,13 +181,18 @@ let log = (value: any) => {
         <p>Hey, I am inside an outlined card!</p>
       </outlined-card>
 
-      <outlined-button @click="ctx_modal.show()" class="cpt-margin" label="Modal"/>
+      <outlined-button @click="ctx_modal.show()" class="cpt-margin" label="Modal" />
       <modal @context="ctx => ctx_modal = ctx">
         <div style="padding: 13px;">
           <h1 style="font-size: 30px; font-weight: bold;">Hello</h1>
           <p>I am inside a modal!</p>
         </div>
       </modal>
+
+      <outlined-button @click="ctx_bottomSheet.show()" class="cpt-margin" label="Bottom Sheet" />
+      <bottom-sheet @context="ctx => ctx_bottomSheet = ctx" dismissible>
+        <p>Hello world</p>
+      </bottom-sheet>
 
       <hr class="divider" />
 
@@ -236,9 +243,7 @@ let log = (value: any) => {
       <animated-select-field label="Animated Select Field" :items="dropdownItems" v-model="data.select">
       </animated-select-field>
 
-      <static-textarea-field
-        label="Textarea"
-      ></static-textarea-field>
+      <static-textarea-field label="Textarea"></static-textarea-field>
 
       {{ data.select }}
 
@@ -246,11 +251,11 @@ let log = (value: any) => {
 
       <!-- ===== Informative ===== -->
 
-      <outlined-button @click="ctx_alertDialog.show()" class="cpt-margin" label="Alert Dialog"/>
+      <outlined-button @click="ctx_alertDialog.show()" class="cpt-margin" label="Alert Dialog" />
       <alert-dialog title="Alert Dialog" content="This is an alert dialog." @context="ctx => ctx_alertDialog = ctx">
       </alert-dialog>
 
-      <outlined-button @click="ctx_banner.show()" class="cpt-margin" label="Banner"/>
+      <outlined-button @click="ctx_banner.show()" class="cpt-margin" label="Banner" />
       <banner title="Banner" content="This is a banner." :colour="Colours.primary" :duration="5000"
         @context="ctx => ctx_banner = ctx"></banner>
 
@@ -258,7 +263,7 @@ let log = (value: any) => {
 
       <spinner-loader></spinner-loader>
 
-      <outlined-button @click="ctx_snackbar.show()" class="cpt-margin" label="Snackbar"/>
+      <outlined-button @click="ctx_snackbar.show()" class="cpt-margin" label="Snackbar" />
       <snackbar class="cpt-margin" content="This is a snackbar." colour="#ffffff" :backgroundColour="Colours.primary"
         :duration="5000" @context="ctx => ctx_snackbar = ctx"></snackbar>
 
