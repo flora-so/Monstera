@@ -190,7 +190,7 @@ let log = (value: any) => {
       </modal>
 
       <outlined-button @click="ctx_bottomSheet.show()" class="cpt-margin" label="Bottom Sheet" />
-      <bottom-sheet @context="ctx => ctx_bottomSheet = ctx" dismissible>
+      <bottom-sheet @context="ctx => ctx_bottomSheet = ctx" dismissible :height="677">
         <p>Hello world</p>
       </bottom-sheet>
 

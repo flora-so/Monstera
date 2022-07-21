@@ -1,8 +1,10 @@
 <template>
   <div class="msr-bottom-sheet__wrapper" :show="_isShown" @click="e => $_checkHide(e)">
     <div ref="sheet" class="msr-bottom-sheet">
-      <div class="msr-bottom-sheet__handle"></div>
-      <slot></slot>
+      <div class="msr-bottom-sheet__content">
+        <div class="msr-bottom-sheet__handle"></div>
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -102,9 +104,6 @@ export default defineComponent({
   left: 0;
   right: 0;
 
-  display: flex;
-  flex-direction: column;
-
   max-width: 640px;
   margin: 0px auto;
   padding: 0px 21px;
@@ -121,7 +120,9 @@ export default defineComponent({
 }
 
 .msr-bottom-sheet__wrapper[show="true"] .msr-bottom-sheet {
+  max-height: 89vh;
   height: v-bind(_height);
+  overflow-y: auto;
 }
 
 .msr-bottom-sheet .msr-bottom-sheet__handle {
@@ -132,5 +133,12 @@ export default defineComponent({
   margin: 13px auto;
 
   background-color: #7d7d7d;
+}
+
+.msr-bottom-sheet .msr-bottom-sheet__content {
+  display: flex;
+  flex-direction: column;
+
+  height: v-bind(_height);
 }
 </style>
