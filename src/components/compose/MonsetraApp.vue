@@ -16,9 +16,13 @@ export default defineComponent({
       type: String as PropType<Theme>,
       default: () => Theme.light
     },
-    fontFamily: {
+    titleFamily: {
       type: String,
-      default: () => "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+      default: () => "Verdana, Geneva, Tahoma, sans-serif",
+    },
+    bodyFamily: {
+      type: String,
+      default: () => "Arial, Helvetica, sans-serif",
     },
     primary: {
       type: String,
@@ -94,8 +98,12 @@ export default defineComponent({
   height: 100vh;
   width: 100vw;
 
-  font-family: v-bind(fontFamily);
+  font-family: v-bind(bodyFamily);
 
   transition: all 500ms ease-in-out;
+}
+
+.msr-heading {
+  font-family: v-bind(titleFamily);
 }
 </style>

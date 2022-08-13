@@ -1,7 +1,7 @@
 <template>
   <div class="msr-alert-dialog__wrapper" :show="_isShown" @click="e => $_checkHide(e)">
     <div class="msr-alert-dialog" ref="dialog">
-      <div class="msr-alert-dialog__title">
+      <div class="msr-alert-dialog__title msr-heading">
         <h4>{{ title }}</h4>
       </div>
 
@@ -13,7 +13,7 @@
 
       <div class="msr-alert-dialog__actions">
         <slot name="actions">
-          <text-button @click="hide" label="Ok"></text-button>
+          <small-button label="Ok" @click="hide"></small-button>
         </slot>
       </div>
     </div>
@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import TextButton from "../button/TextButton.vue";
+import SmallButton from "../button/SmallButton.vue";
 import { type InformativeContext, Theme } from "../../types";
 
 export default defineComponent({
@@ -48,7 +48,7 @@ export default defineComponent({
     }
   },
   components: {
-    TextButton
+    SmallButton
   },
   data() {
     return {
@@ -158,6 +158,8 @@ export default defineComponent({
   display: flex;
   justify-content: flex-end;
 
-  padding: 0px 5px 5px 5px;
+  gap: 13px;
+
+  padding: 0px 18px 18px 18px;
 }
 </style>

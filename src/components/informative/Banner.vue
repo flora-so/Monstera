@@ -3,7 +3,7 @@
     <div class="msr-banner__content">
       <slot name="leading"></slot>
       <div>
-        <h4 class="msr-banner__title">{{ title }}</h4>
+        <h4 class="msr-banner__title msr-heading">{{ title }}</h4>
         <p class="msr-banner__content">{{ content }}</p>
       </div>
     </div>
