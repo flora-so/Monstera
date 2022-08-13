@@ -14,14 +14,14 @@
 
     <tbody class="msr-table__body">
       <tr class="msr-table__row" :row-check="rowCheck" v-for="(row, index) in dataframe.data" :key="index"
-        @click="_rowSelected(row, index)">
+        >
         <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
           <div class="msr-table__checkbox">
             <checkbox :colour="colour" :checked="_triggerCheck(index)"
               @change="(value) => _toggleSelected(row, index, value)"></checkbox>
           </div>
         </td>
-        <td class="msr-table__data" v-for="col in dataframe.columns" :key="col">
+        <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
           <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
         </td>
       </tr>
@@ -177,10 +177,6 @@ export default defineComponent({
 
 .msr-table .msr-table__body .msr-table__row .msr-table__data {
   padding: 10px 16px;
-}
-
-.msr-table .msr-table__body .msr-table__row .msr-table__data[row-check="true"]>* {
-  pointer-events: none;
 }
 
 .msr-table .msr-table__body .msr-table__row:last-child .msr-table__data:first-child {
