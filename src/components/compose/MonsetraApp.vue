@@ -32,7 +32,7 @@ export default defineComponent({
     },
     success: {
       type: String,
-      default: () => "62,238,145",
+      default: () => "0,219,170",
       validator: (value: string) => /(\d{1,3}),(\d{1,3}),(\d{1,3})/.test(value)
     },
     warning: {
