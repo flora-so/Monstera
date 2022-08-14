@@ -36,17 +36,17 @@ import {
 
 // Informative
 import {
-  AlertDialog,
-  Banner,
+  MonsetraDialog,
+  MonsetraBanner,
   ProgressIndicator,
-  Snackbar
+  MonsetraSnackbar
 } from "./components/informative";
 import SpinnerLoader from "./components/informative/CircularProgress.vue";
 
 // Inputs
 import {
   AnimatedTextField,
-  Checkbox,
+  MonsetraCheckbox,
   ChoiceChips,
   DropdownList,
   DropdownListItem,
@@ -160,14 +160,8 @@ let log = (value: any) => {
 
       <!-- ===== Content ===== -->
 
-      <data-table 
-        class="cpt-margin" 
-        :dataframe="tableData" 
-        :colour="Colours.primary" 
-        checkbox
-        @change="value => log(`@change: ${value}`)"
-        @row="value => log(`@row: ${value}`)"
-      >
+      <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" checkbox
+        @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
         <template #column3="{ data, row }">
           <span>${{ data }} - {{ row.column1 }}</span>
         </template>
@@ -223,7 +217,7 @@ let log = (value: any) => {
         </template>
       </animated-text-field>
 
-      <checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></checkbox>
+      <monsetra-checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></monsetra-checkbox>
 
       <choice-chips class="cpt-margin" label="Chips" group="chips" :colour="Colours.primary"></choice-chips>
 
@@ -258,20 +252,20 @@ let log = (value: any) => {
       <!-- ===== Informative ===== -->
 
       <outlined-button @click="ctx_alertDialog.show()" class="cpt-margin" label="Alert Dialog" />
-      <alert-dialog title="Alert Dialog" content="This is an alert dialog." @context="ctx => ctx_alertDialog = ctx">
-      </alert-dialog>
+      <monsetra-dialog title="Alert Dialog" content="This is an alert dialog." @context="ctx => ctx_alertDialog = ctx">
+      </monsetra-dialog>
 
       <outlined-button @click="ctx_banner.show()" class="cpt-margin" label="Banner" />
-      <banner title="Banner" content="This is a banner." :colour="Colours.primary" :duration="5000"
-        @context="ctx => ctx_banner = ctx"></banner>
+      <monsetra-banner title="Banner" content="This is a banner." :colour="Colours.primary" :duration="5000"
+        @context="ctx => ctx_banner = ctx"></monsetra-banner>
 
       <progress-indicator :colour="Colours.primary" :value="0.1"></progress-indicator>
 
       <spinner-loader></spinner-loader>
 
       <outlined-button @click="ctx_snackbar.show()" class="cpt-margin" label="Snackbar" />
-      <snackbar class="cpt-margin" content="This is a snackbar." colour="#ffffff" :backgroundColour="Colours.primary"
-        :duration="5000" @context="ctx => ctx_snackbar = ctx"></snackbar>
+      <monsetra-snackbar class="cpt-margin" content="This is a snackbar." colour="#ffffff"
+        :backgroundColour="Colours.primary" :duration="5000" @context="ctx => ctx_snackbar = ctx"></monsetra-snackbar>
 
     </div>
   </monsetra-app>

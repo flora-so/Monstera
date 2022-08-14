@@ -4,8 +4,8 @@
       <tr class="msr-table__row">
         <th v-if="checkbox" class="msr-table__column">
           <div class="msr-table__checkbox">
-            <checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" :checked="_allChecked"
-              @change="(value) => _checkAll(value)"></checkbox>
+            <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" :checked="_allChecked"
+              @change="(value) => _checkAll(value)"></monsetra-checkbox>
           </div>
         </th>
         <th class="msr-table__column" v-for="col in dataframe.columns" :key="col">{{ col }}</th>
@@ -13,12 +13,11 @@
     </thead>
 
     <tbody class="msr-table__body">
-      <tr class="msr-table__row" :row-check="rowCheck" v-for="(row, index) in dataframe.data" :key="index"
-        >
+      <tr class="msr-table__row" :row-check="rowCheck" v-for="(row, index) in dataframe.data" :key="index">
         <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
           <div class="msr-table__checkbox">
-            <checkbox :colour="colour" :checked="_triggerCheck(index)"
-              @change="(value) => _toggleSelected(row, index, value)"></checkbox>
+            <monsetra-checkbox :colour="colour" :checked="_triggerCheck(index)"
+              @change="(value) => _toggleSelected(row, index, value)"></monsetra-checkbox>
           </div>
         </td>
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
@@ -32,13 +31,13 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import Checkbox from "../input/Checkbox.vue";
+import MonsetraCheckbox from "../input/MonsetraCheckbox.vue";
 import { type DataFrame, Colours } from "../../types";
 
 export default defineComponent({
   name: "DataTable",
   components: {
-    Checkbox,
+    MonsetraCheckbox,
   },
   props: {
     dataframe: {

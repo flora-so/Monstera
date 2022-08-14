@@ -2,22 +2,22 @@ import type { App } from "vue";
 
 import { registerComponent } from "../../utils/plugins";
 
-import AlertDialog from "./AlertDialog.vue";
-import Banner from "./Banner.vue";
+import MonsetraDialog from "./MonsetraDialog.vue";
+import MonsetraBanner from "./MonsetraBanner.vue";
 import ProgressIndicator from "./ProgressIndicator.vue";
 import CircularProgress from "./CircularProgress.vue";
-import Snackbar from "./Snackbar.vue";
+import MonsetraSnackbar from "./MonsetraSnackbar.vue";
 
 const Plugin = {
   install(app: App) {
-    registerComponent(app, AlertDialog);
-    registerComponent(app, Banner);
+    registerComponent(app, MonsetraDialog);
+    registerComponent(app, MonsetraBanner);
     registerComponent(app, ProgressIndicator);
     registerComponent(app, CircularProgress);
-    registerComponent(app, Snackbar);
+    registerComponent(app, MonsetraSnackbar);
   }
 }
 
 export default Plugin;
 
-export { AlertDialog, Banner, ProgressIndicator, CircularProgress, Snackbar };
+export { MonsetraDialog, MonsetraBanner, ProgressIndicator, CircularProgress, MonsetraSnackbar };
