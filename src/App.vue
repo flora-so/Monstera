@@ -30,7 +30,6 @@ import {
   DataTable,
   FloatingCard,
   OutlinedCard,
-  Modal,
 } from "./components/content";
 
 // Informative
@@ -192,14 +191,6 @@ let log = (value: any) => {
           </h1>
           <p>Hey, I am inside an outlined card!</p>
         </outlined-card>
-
-        <outlined-button @click="ctx_modal.show()" class="cpt-margin" label="Modal" />
-        <modal @context="ctx => ctx_modal = ctx">
-          <div style="padding: 13px;">
-            <h1 style="font-size: 30px; font-weight: bold;">Hello</h1>
-            <p>I am inside a modal!</p>
-          </div>
-        </modal>
 
         <outlined-button @click="ctx_bottomSheet.show()" class="cpt-margin" label="Bottom Sheet" />
 
