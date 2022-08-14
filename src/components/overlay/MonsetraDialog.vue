@@ -2,7 +2,9 @@
   <div class="msr-alert-dialog__wrapper" :show="_isShown" @click="e => $_checkHide(e)">
     <div class="msr-alert-dialog" ref="dialog">
       <div class="msr-alert-dialog__title msr-heading">
-        <h4>{{ title }}</h4>
+        <slot name="heading">
+          <h4>{{ title }}</h4>
+        </slot>
       </div>
 
       <div class="msr-alert-dialog__content">
