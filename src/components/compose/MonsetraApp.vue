@@ -97,6 +97,7 @@ export default defineComponent({
   background-color: v-bind(backgroundColour);
   height: 100vh;
   width: 100vw;
+  overflow: auto;
 
   font-family: v-bind(bodyFamily);
 
