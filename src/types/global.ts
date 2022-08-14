@@ -13,7 +13,7 @@ export type OverlayContext = {
   hide: () => void,
 }
 
-export enum TextFieldType {
+export enum InputType {
   email = "email",
   password = "password",
   text = "text",
@@ -22,14 +22,14 @@ export enum TextFieldType {
   url = "url",
 }
 
-export type TextFieldContext = {
+export type InputContext = {
   value: () => string,
   validate: () => void,
   focus: () => void,
   setError: (message: string) => void,
 }
 
-export type TextFieldValidator = (value: string) => string;
+export type InputValidator = (value: string) => string;
 
 export type DropdownItem = {
   label: string,
