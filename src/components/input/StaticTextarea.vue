@@ -1,22 +1,22 @@
 <template>
-  <div @click="forceFocus" class="msr-static-textarea-field" :error="_error" :disabled="disabled">
-    <div class="msr-static-textarea-field__input">
-      <div class="msr-static-textarea-field__label">
+  <div @click="forceFocus" class="msr-static-textarea" :error="_error" :disabled="disabled">
+    <div class="msr-static-textarea__input">
+      <div class="msr-static-textarea__label">
         <label :for="_id">{{ label }}</label>
       </div>
-      <div class="msr-static-textarea-field__wrapper" :f="_focus">
-        <textarea :id="_id" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue"
-          @input="_input" @focus="_focus = true" @blur="validate" :rows="rows" :cols="cols"/>
+      <div class="msr-static-textarea__wrapper" :f="_focus">
+        <textarea :id="_id" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue" @input="_input"
+          @focus="_focus = true" @blur="validate" :rows="rows" :cols="cols" />
       </div>
     </div>
-    <p class="msr-static-textarea-field__message">{{ _message }}</p>
+    <p class="msr-static-textarea__message">{{ _message }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { Colours, type TextFieldContext, type TextFieldValidator } from "../../types";
+import { Colours, type InputContext, type InputValidator } from "../../types";
 
 export default defineComponent({
   name: "StaticTextareaField",
@@ -33,7 +33,7 @@ export default defineComponent({
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     validator: {
-      type: Function as PropType<TextFieldValidator>
+      type: Function as PropType<InputValidator>
     },
     rows: {
       type: Number,
@@ -66,13 +66,13 @@ export default defineComponent({
     blur(value: string) {
       return typeof value === "string";
     },
-    context(ctx: TextFieldContext) {
+    context(ctx: InputContext) {
       return ctx;
     }
   },
   computed: {
     _id() {
-      return `msr-static-textarea-field${Math.random().toString(16).slice(2)}`;
+      return `msr-static-textarea${Math.random().toString(16).slice(2)}`;
     },
     _colour() {
       if ([Colours.primary as string, Colours.accent as string].includes(this.colour)) {
@@ -132,7 +132,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: TextFieldContext = {
+    let ctx: InputContext = {
       value: this.getValue,
       focus: this.forceFocus,
       validate: this.validate,
@@ -150,11 +150,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-static-textarea-field[disabled="false"] {
+.msr-static-textarea[disabled="false"] {
   cursor: text;
 }
 
-.msr-static-textarea-field .msr-static-textarea-field__wrapper {
+.msr-static-textarea .msr-static-textarea__wrapper {
   display: flex;
   align-items: center;
 
@@ -164,7 +164,7 @@ export default defineComponent({
   transition: all ease-out 300ms;
 }
 
-.msr-static-textarea-field .msr-static-textarea-field__wrapper textarea {
+.msr-static-textarea .msr-static-textarea__wrapper textarea {
   /* padding: 13px; */
   font-size: 1.125rem;
   line-height: 1.5rem;
@@ -175,11 +175,11 @@ export default defineComponent({
   background-color: transparent;
 }
 
-.msr-static-textarea-field__input .msr-static-textarea-field__label {
+.msr-static-textarea__input .msr-static-textarea__label {
   margin-bottom: 5px;
 }
 
-.msr-static-textarea-field[disabled="false"] .msr-static-textarea-field__label label {
+.msr-static-textarea[disabled="false"] .msr-static-textarea__label label {
   user-select: none;
 
   cursor: text;
@@ -191,18 +191,18 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
-.msr-static-textarea-field[disabled="false"] .msr-static-textarea-field__input:hover .msr-static-textarea-field__wrapper[f="false"] {
+.msr-static-textarea[disabled="false"] .msr-static-textarea__input:hover .msr-static-textarea__wrapper[f="false"] {
   background-color: #7f7f7f0d;
   box-shadow: 0px 0px 0px 4px v-bind(_backgroundColour);
 }
 
 /* Input Focus */
-.msr-static-textarea-field .msr-static-textarea-field__wrapper[f="true"] {
+.msr-static-textarea .msr-static-textarea__wrapper[f="true"] {
   background-color: v-bind(_backgroundColour);
 }
 
 /* Message */
-.msr-static-textarea-field .msr-static-textarea-field__message {
+.msr-static-textarea .msr-static-textarea__message {
   user-select: none;
   cursor: default;
 
@@ -218,19 +218,19 @@ export default defineComponent({
   transition: transform ease-out 100ms;
 }
 
-.msr-static-textarea-field .msr-static-textarea-field__message:not(:empty) {
+.msr-static-textarea .msr-static-textarea__message:not(:empty) {
   transform: translate(0px, 0px);
   margin-bottom: 0rem;
   z-index: 0;
 }
 
 /* Error */
-.msr-static-textarea-field[error="true"] .msr-static-textarea-field__wrapper {
+.msr-static-textarea[error="true"] .msr-static-textarea__wrapper {
   background-color: #ff595921;
 }
 
-.msr-static-textarea-field[error="true"] label,
-.msr-static-textarea-field[error="true"] .msr-static-textarea-field__message {
+.msr-static-textarea[error="true"] label,
+.msr-static-textarea[error="true"] .msr-static-textarea__message {
   color: #ff5959 !important;
 }
 </style>

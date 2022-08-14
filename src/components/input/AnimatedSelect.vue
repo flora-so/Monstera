@@ -1,18 +1,18 @@
 <template>
-  <div class="msr-static-select-field" ref="dropdown">
-    <div class="msr-static-select-field__component" @click="_show = !_show">
-      <animated-text-field v-model="_display" :label="label" disabled>
+  <div class="msr-static-select" ref="dropdown">
+    <div class="msr-static-select__component" @click="_show = !_show">
+      <animated-input v-model="_display" :label="label" disabled>
         <template #trailing="{ width, height, colour }">
-          <svg class="msr-static-select-field__icon" :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
+          <svg class="msr-static-select__icon" :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg" :show="_show">
             <path fill-rule="evenodd"
               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
               clip-rule="evenodd"></path>
           </svg>
         </template>
-      </animated-text-field>
+      </animated-input>
     </div>
-    <ul class="msr-static-select-field__list msr-dropdown-list__list" :show="_show">
+    <ul class="msr-static-select__list msr-dropdown-list__list" :show="_show">
       <slot v-for="item in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
         <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item)">
         </dropdown-list-item>
@@ -25,11 +25,11 @@
 import { defineComponent, type PropType } from "vue";
 
 import DropdownListItem from "./DropdownListItem.vue";
-import AnimatedTextField from "./AnimatedTextField.vue";
+import AnimatedInput from "./AnimatedInput.vue";
 import { type DropdownItem, Colours, Theme } from "../../types";
 
 export default defineComponent({
-  name: "AnimatedSelectField",
+  name: "AnimatedSelect",
   inject: ["theme"],
   props: {
     label: {
@@ -58,7 +58,7 @@ export default defineComponent({
       return true
     }
   },
-  components: { DropdownListItem, AnimatedTextField },
+  components: { DropdownListItem, AnimatedInput },
   data() {
     return {
       _show: false,
@@ -109,12 +109,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-static-select-field {
+.msr-static-select {
   position: relative;
   cursor: pointer;
 }
 
-.msr-static-select-field .msr-static-select-field__list {
+.msr-static-select .msr-static-select__list {
   margin-top: -13px;
   width: 100%;
   position: absolute;
@@ -131,19 +131,19 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
-.msr-static-select-field .msr-static-select-field__list[show="false"] {
+.msr-static-select .msr-static-select__list[show="false"] {
   transform: scaleY(0);
 }
 
-.msr-static-select-field .msr-static-select-field__list[show="true"] {
+.msr-static-select .msr-static-select__list[show="true"] {
   transform: scaleY(1);
 }
 
-.msr-static-select-field .msr-static-select-field__icon {
+.msr-static-select .msr-static-select__icon {
   transition: all ease-out 100ms;
 }
 
-.msr-static-select-field .msr-static-select-field__icon[show="true"] {
+.msr-static-select .msr-static-select__icon[show="true"] {
   transform: rotate(180deg);
 }
 </style>

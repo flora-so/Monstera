@@ -1,31 +1,31 @@
 <template>
-  <div @click="forceFocus" class="msr-static-text-field" :error="_error" :disabled="disabled">
-    <div class="msr-static-text-field__input">
-      <div class="msr-static-text-field__label">
+  <div @click="forceFocus" class="msr-static-input" :error="_error" :disabled="disabled">
+    <div class="msr-static-input__input">
+      <div class="msr-static-input__label">
         <label :for="_id">{{ label }}</label>
       </div>
-      <div class="msr-static-text-field__wrapper" :f="_focus">
-        <div class="msr-static-text-field__icon">
+      <div class="msr-static-input__wrapper" :f="_focus">
+        <div class="msr-static-input__icon">
           <slot name="leading" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
         </div>
         <input :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue"
           @input="_input" @focus="_focus = true" @blur="validate" />
-        <div class="msr-static-text-field__icon">
+        <div class="msr-static-input__icon">
           <slot name="trailing" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
         </div>
       </div>
     </div>
-    <p class="msr-static-text-field__message">{{ _message }}</p>
+    <p class="msr-static-input__message">{{ _message }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { Colours, TextFieldType, type TextFieldContext, type TextFieldValidator } from "../../types";
+import { Colours, InputType, type InputContext, type InputValidator } from "../../types";
 
 export default defineComponent({
-  name: "StaticTextField",
+  name: "StaticInput",
   props: {
     label: {
       type: String,
@@ -39,11 +39,11 @@ export default defineComponent({
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     type: {
-      type: String as PropType<TextFieldType>,
-      default: () => TextFieldType.text
+      type: String as PropType<InputType>,
+      default: () => InputType.text
     },
     validator: {
-      type: Function as PropType<TextFieldValidator>
+      type: Function as PropType<InputValidator>
     },
     modelValue: {
       type: String,
@@ -68,7 +68,7 @@ export default defineComponent({
     blur(value: string) {
       return typeof value === "string";
     },
-    context(ctx: TextFieldContext) {
+    context(ctx: InputContext) {
       return ctx;
     }
   },
@@ -134,7 +134,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: TextFieldContext = {
+    let ctx: InputContext = {
       value: this.getValue,
       focus: this.forceFocus,
       validate: this.validate,
@@ -152,11 +152,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-static-text-field[disabled="false"] {
+.msr-static-input[disabled="false"] {
   cursor: text;
 }
 
-.msr-static-text-field .msr-static-text-field__wrapper {
+.msr-static-input .msr-static-input__wrapper {
   display: flex;
   align-items: center;
 
@@ -166,7 +166,7 @@ export default defineComponent({
   transition: all ease-out 300ms;
 }
 
-.msr-static-text-field .msr-static-text-field__wrapper input {
+.msr-static-input .msr-static-input__wrapper input {
   /* padding: 13px; */
   font-size: 1.125rem;
   line-height: 1.5rem;
@@ -177,11 +177,11 @@ export default defineComponent({
   background-color: transparent;
 }
 
-.msr-static-text-field__input .msr-static-text-field__label {
+.msr-static-input__input .msr-static-input__label {
   margin-bottom: 5px;
 }
 
-.msr-static-text-field[disabled="false"] .msr-static-text-field__label label {
+.msr-static-input[disabled="false"] .msr-static-input__label label {
   user-select: none;
 
   cursor: text;
@@ -193,18 +193,18 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
-.msr-static-text-field[disabled="false"] .msr-static-text-field__input:hover .msr-static-text-field__wrapper[f="false"] {
+.msr-static-input[disabled="false"] .msr-static-input__input:hover .msr-static-input__wrapper[f="false"] {
   background-color: #7f7f7f0d;
   box-shadow: 0px 0px 0px 4px v-bind(_backgroundColour);
 }
 
 /* Input Focus */
-.msr-static-text-field .msr-static-text-field__wrapper[f="true"] {
+.msr-static-input .msr-static-input__wrapper[f="true"] {
   background-color: v-bind(_backgroundColour);
 }
 
 /* Message */
-.msr-static-text-field .msr-static-text-field__message {
+.msr-static-input .msr-static-input__message {
   user-select: none;
   cursor: default;
 
@@ -220,19 +220,19 @@ export default defineComponent({
   transition: transform ease-out 100ms;
 }
 
-.msr-static-text-field .msr-static-text-field__message:not(:empty) {
+.msr-static-input .msr-static-input__message:not(:empty) {
   transform: translate(0px, 0px);
   margin-bottom: 0rem;
   z-index: 0;
 }
 
 /* Error */
-.msr-static-text-field[error="true"] .msr-static-text-field__wrapper {
+.msr-static-input[error="true"] .msr-static-input__wrapper {
   background-color: #ff595921;
 }
 
-.msr-static-text-field[error="true"] label,
-.msr-static-text-field[error="true"] .msr-static-text-field__message {
+.msr-static-input[error="true"] label,
+.msr-static-input[error="true"] .msr-static-input__message {
   color: #ff5959 !important;
 }
 </style>

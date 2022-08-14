@@ -1,29 +1,29 @@
 <template>
-  <div @click="forceFocus" class="msr-animated-text-field" :error="_error" :disabled="disabled">
-    <div class="msr-animated-text-field__input">
-      <div class="msr-animated-text-field__wrapper" :f="_focus">
-        <div class="msr-animated-text-field__icon">
+  <div @click="forceFocus" class="msr-animated-input" :error="_error" :disabled="disabled">
+    <div class="msr-animated-input__input">
+      <div class="msr-animated-input__wrapper" :f="_focus">
+        <div class="msr-animated-input__icon">
           <slot name="leading" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
         </div>
         <input :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue"
           @input="_input" @focus="_focus = true" @blur="validate" />
         <label :for="_id">{{ label }}</label>
-        <div class="msr-animated-text-field__icon">
+        <div class="msr-animated-input__icon">
           <slot name="trailing" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
         </div>
       </div>
     </div>
-    <p class="msr-animated-text-field__message">{{ _message }}</p>
+    <p class="msr-animated-input__message">{{ _message }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { Colours, TextFieldType, type TextFieldContext, type TextFieldValidator } from "../../types";
+import { Colours, InputType, type InputContext, type InputValidator } from "../../types";
 
 export default defineComponent({
-  name: "AnimatedTextField",
+  name: "AnimatedInput",
   props: {
     label: {
       type: String,
@@ -37,11 +37,11 @@ export default defineComponent({
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     type: {
-      type: String as PropType<TextFieldType>,
-      default: () => TextFieldType.text
+      type: String as PropType<InputType>,
+      default: () => InputType.text
     },
     validator: {
-      type: Function as PropType<TextFieldValidator>
+      type: Function as PropType<InputValidator>
     },
     modelValue: {
       type: String,
@@ -66,13 +66,13 @@ export default defineComponent({
     blur(value: string) {
       return typeof value === "string";
     },
-    context(ctx: TextFieldContext) {
+    context(ctx: InputContext) {
       return ctx;
     }
   },
   computed: {
     _id() {
-      return `msr-animated-text-field${Math.random().toString(16).slice(2)}`;
+      return `msr-animated-input${Math.random().toString(16).slice(2)}`;
     },
     _colour() {
       if ([Colours.primary as string, Colours.accent as string].includes(this.colour)) {
@@ -132,7 +132,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: TextFieldContext = {
+    let ctx: InputContext = {
       value: this.getValue,
       focus: this.forceFocus,
       validate: this.validate,
@@ -150,15 +150,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-animated-text-field {
+.msr-animated-input {
   position: relative;
 }
 
-.msr-animated-text-field[disabled="false"] {
+.msr-animated-input[disabled="false"] {
   cursor: text;
 }
 
-.msr-animated-text-field .msr-animated-text-field__wrapper {
+.msr-animated-input .msr-animated-input__wrapper {
   display: flex;
 
   padding: 0px 13px;
@@ -167,15 +167,15 @@ export default defineComponent({
   transition: all ease-out 300ms;
 }
 
-.msr-animated-text-field .msr-animated-text-field__icon {
+.msr-animated-input .msr-animated-input__icon {
   align-self: center;
 }
 
-.msr-animated-text-field .msr-animated-text-field__icon:not(:empty)~label {
+.msr-animated-input .msr-animated-input__icon:not(:empty)~label {
   padding-left: 21px;
 }
 
-.msr-animated-text-field input {
+.msr-animated-input input {
   padding: 18px 0px 8px 0px;
   font-size: 1.125rem;
   line-height: 1.5rem;
@@ -186,7 +186,7 @@ export default defineComponent({
   background-color: transparent;
 }
 
-.msr-animated-text-field label {
+.msr-animated-input label {
   display: flex;
   position: absolute;
   user-select: none;
@@ -201,14 +201,14 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
-.msr-animated-text-field[disabled="false"]:hover .msr-animated-text-field__wrapper[f="false"] {
+.msr-animated-input[disabled="false"]:hover .msr-animated-input__wrapper[f="false"] {
   background-color: #7f7f7f0d;
   box-shadow: 0px 0px 0px 4px v-bind(_backgroundColour);
 }
 
 /* Input Focus */
-.msr-animated-text-field input:focus+label,
-.msr-animated-text-field input:not(:placeholder-shown)+label {
+.msr-animated-input input:focus+label,
+.msr-animated-input input:not(:placeholder-shown)+label {
   font-size: 0.625rem;
   line-height: 0.813rem;
   font-weight: normal;
@@ -216,16 +216,16 @@ export default defineComponent({
   transform: translate(0px, 5px);
 }
 
-.msr-animated-text-field .msr-animated-text-field__wrapper[f="true"] {
+.msr-animated-input .msr-animated-input__wrapper[f="true"] {
   background-color: v-bind(_backgroundColour);
 }
 
-.msr-animated-text-field input:focus+label {
+.msr-animated-input input:focus+label {
   color: v-bind(_colour);
 }
 
 /* Message */
-.msr-animated-text-field .msr-animated-text-field__message {
+.msr-animated-input .msr-animated-input__message {
   user-select: none;
   cursor: default;
 
@@ -241,19 +241,19 @@ export default defineComponent({
   transition: transform ease-out 100ms;
 }
 
-.msr-animated-text-field .msr-animated-text-field__message:not(:empty) {
+.msr-animated-input .msr-animated-input__message:not(:empty) {
   transform: translate(0px, 0px);
   margin-bottom: 0rem;
   z-index: 0;
 }
 
 /* Error */
-.msr-animated-text-field[error="true"] .msr-animated-text-field__wrapper {
+.msr-animated-input[error="true"] .msr-animated-input__wrapper {
   background-color: #ff595921;
 }
 
-.msr-animated-text-field[error="true"] label,
-.msr-animated-text-field[error="true"] .msr-animated-text-field__message {
+.msr-animated-input[error="true"] label,
+.msr-animated-input[error="true"] .msr-animated-input__message {
   color: #ff5959 !important;
 }
 </style>
