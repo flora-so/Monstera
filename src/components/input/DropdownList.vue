@@ -1,14 +1,17 @@
 <template>
   <div class="msr-dropdown-list" ref="dropdown">
-    <div class="msr-dropdown-list__component" @click="_show = !_show">
-      <slot></slot>
+    <div class="msr-dropdown-list__wrapper">
+      <div class="msr-dropdown-list__component" @click="_show = !_show">
+        <slot></slot>
+      </div>
+      <ul class="msr-dropdown-list__list" :show="_show" :position="position">
+        <slot v-for="item in items" :name="item.value" :key="item.value" :item="item"
+          :click="() => _update(item.value)">
+          <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item.value)">
+          </dropdown-list-item>
+        </slot>
+      </ul>
     </div>
-    <ul class="msr-dropdown-list__list" :show="_show" :position="position">
-      <slot v-for="item in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item.value)">
-        <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item.value)">
-        </dropdown-list-item>
-      </slot>
-    </ul>
   </div>
 </template>
 
@@ -79,9 +82,18 @@ export default defineComponent({
 
 <style scoped>
 .msr-dropdown-list {
+  display: flex;
+}
+
+.msr-dropdown-list__wrapper {
   position: relative;
   direction: v-bind(alignment);
 }
+
+/* .msr-dropdown-list>.msr-dropdown-list__component {
+  display: flex;
+  justify-content: left;
+} */
 
 .msr-dropdown-list .msr-dropdown-list__list {
   position: absolute;

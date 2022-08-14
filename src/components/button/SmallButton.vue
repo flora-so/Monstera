@@ -1,9 +1,11 @@
 <template>
-  <button class="msr-small-button" :disabled="disabled" :ignore="ignore">
-    <slot name="leading" width="21px" height="21px" :colour="colour" :tailwind="_tailwind"></slot>
-    <h4 class="msr-small-button__label">{{ label }}</h4>
-    <slot name="trailing" width="21px" height="21px" :colour="colour" :tailwind="_tailwind"></slot>
-  </button>
+  <div class="msr-small-button__wrapper">
+    <button class="msr-small-button" v-bind="$attrs" :disabled="disabled" :ignore="ignore">
+      <slot name="leading" width="21px" height="21px" :colour="colour" :tailwind="_tailwind"></slot>
+      <h4 class="msr-small-button__label">{{ label }}</h4>
+      <slot name="trailing" width="21px" height="21px" :colour="colour" :tailwind="_tailwind"></slot>
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,6 +14,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "SmallButton",
+  inheritAttrs: false,
   props: {
     label: {
       type: String,
@@ -59,6 +62,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.msr-small-button__wrapper {
+  display: flex;
+}
+
 .msr-small-button {
   display: flex;
   align-items: center;

@@ -111,9 +111,6 @@ export default defineComponent({
 <style scoped>
 .msr-static-select-field {
   position: relative;
-}
-
-.msr-static-select-field__component:hover {
   cursor: pointer;
 }
 

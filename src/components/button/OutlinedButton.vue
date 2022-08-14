@@ -1,9 +1,11 @@
 <template>
-  <button class="msr-outlined-button" :disabled="disabled" :ignore="ignore">
-    <slot name="leading" width="21px" height="21px" :colour="_colour" :tailwind="_tailwind"></slot>
-    <h4 class="msr-outlined-button__label">{{ label }}</h4>
-    <slot name="trailing" width="21px" height="21px" :colour="_colour" :tailwind="_tailwind"></slot>
-  </button>
+  <div class="msr-outlined-button__wrapper">
+    <button class="msr-outlined-button" v-bind="$attrs" :disabled="disabled" :ignore="ignore">
+      <slot name="leading" width="21px" height="21px" :colour="_colour" :tailwind="_tailwind"></slot>
+      <h4 class="msr-outlined-button__label">{{ label }}</h4>
+      <slot name="trailing" width="21px" height="21px" :colour="_colour" :tailwind="_tailwind"></slot>
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,6 +14,7 @@ import { Colours } from "../../types";
 
 export default defineComponent({
   name: "OutlinedButton",
+  inheritAttrs: false,
   props: {
     label: {
       type: String,
@@ -54,6 +57,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.msr-outlined-button__wrapper {
+  display: flex
+}
+
 .msr-outlined-button {
   display: flex;
   align-items: center;

@@ -1,7 +1,9 @@
 <template>
-  <a class="msr-link-button" :disabled="disabled" :ignore="ignore" :href="href">
-    <h4 class="msr-link-button__label">{{ label }}</h4>
-  </a>
+  <div class="msr-link-button__wrapper">
+    <a class="msr-link-button" v-bind="$attrs" :disabled="disabled" :ignore="ignore" :href="href">
+      <h4 class="msr-link-button__label">{{ label }}</h4>
+    </a>
+  </div>
 </template>
 
 <script lang="ts">
@@ -10,6 +12,7 @@ import { Colours } from "../../types";
 
 export default defineComponent({
   name: "LinkButton",
+  inheritAttrs: false,
   props: {
     label: {
       type: String,
@@ -39,6 +42,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.msr-link-button__wrapper {
+  display: flex
+}
+
 .msr-link-button {
   cursor: pointer;
 

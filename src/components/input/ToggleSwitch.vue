@@ -99,6 +99,8 @@ export default defineComponent({
   padding: 3px;
   background-color: #7f7f7f36;
   border-radius: 20px;
+  min-width: 48px;
+
   margin-right: 13px;
 
   transition: all ease-out 300ms;

@@ -92,6 +92,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.msr-checkbox {
+  display: flex;
+}
+
 .msr-checkbox input {
   display: none;
 }

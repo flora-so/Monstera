@@ -150,6 +150,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.msr-animated-text-field {
+  position: relative;
+}
+
 .msr-animated-text-field[disabled="false"] {
   cursor: text;
 }
