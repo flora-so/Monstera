@@ -8,7 +8,7 @@ export class DataFrame {
   }
 }
 
-export type InformativeContext = {
+export type OverlayContext = {
   show: () => void,
   hide: () => void,
 }

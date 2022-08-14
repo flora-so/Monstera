@@ -4,7 +4,7 @@ import { reactive } from "vue";
 import { MonsetraApp } from "./components/compose";
 
 import {
-  type InformativeContext,
+  type OverlayContext,
   DataFrame,
   type DropdownItem,
   DropdownAlignment,
@@ -31,7 +31,6 @@ import {
   FloatingCard,
   OutlinedCard,
   Modal,
-  BottomSheet
 } from "./components/content";
 
 // Informative
@@ -39,8 +38,9 @@ import {
   MonsetraDialog,
   MonsetraBanner,
   ProgressIndicator,
-  MonsetraSnackbar
-} from "./components/informative";
+  MonsetraSnackbar,
+  BottomSheet
+} from "./components/overlay";
 import SpinnerLoader from "./components/informative/CircularProgress.vue";
 
 // Inputs
@@ -81,11 +81,11 @@ const dropdownItems = [
   { label: "Item 3", value: "item-3" }
 ] as DropdownItem[];
 
-let ctx_alertDialog: InformativeContext;
-let ctx_banner: InformativeContext;
-let ctx_snackbar: InformativeContext;
-let ctx_modal: InformativeContext;
-let ctx_bottomSheet: InformativeContext;
+let ctx_alertDialog: OverlayContext;
+let ctx_banner: OverlayContext;
+let ctx_snackbar: OverlayContext;
+let ctx_modal: OverlayContext;
+let ctx_bottomSheet: OverlayContext;
 
 let emailValidator: TextFieldValidator = (value: string) => {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {

@@ -24,7 +24,7 @@
 import { defineComponent } from "vue";
 
 import SmallButton from "../button/SmallButton.vue";
-import { type InformativeContext, Theme } from "../../types";
+import { type OverlayContext, Theme } from "../../types";
 
 export default defineComponent({
   name: "AlertDialog",
@@ -43,7 +43,7 @@ export default defineComponent({
     }
   },
   emits: {
-    context(ctx: InformativeContext) {
+    context(ctx: OverlayContext) {
       return ctx;
     }
   },
@@ -80,7 +80,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: InformativeContext = {
+    let ctx: OverlayContext = {
       show: this.show,
       hide: this.hide,
     }

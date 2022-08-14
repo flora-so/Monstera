@@ -16,7 +16,7 @@ export default defineComponent({
       type: String as PropType<Theme>,
       default: () => Theme.light
     },
-    titleFamily: {
+    headingFamily: {
       type: String,
       default: () => "Verdana, Geneva, Tahoma, sans-serif",
     },
@@ -104,6 +104,6 @@ export default defineComponent({
 }
 
 .msr-heading {
-  font-family: v-bind(titleFamily);
+  font-family: v-bind(headingFamily);
 }
 </style>

@@ -1,13 +1,8 @@
 <template>
-  <div
-    class="msr-snackbar"
-    :show="_isShown"
-    ref="snackbar"
-    @touchstart="event => _startY = event.changedTouches[0].clientY"
-    @mousedown="event => _startY = event.clientY"
+  <div class="msr-snackbar" :show="_isShown" ref="snackbar"
+    @touchstart="event => _startY = event.changedTouches[0].clientY" @mousedown="event => _startY = event.clientY"
     @touchend="event => _handleDismiss(event.changedTouches[0].clientY)"
-    @mouseleave="event => _handleDismiss(event.clientY)"
-  >
+    @mouseleave="event => _handleDismiss(event.clientY)">
     <h4 class="msr-snackbar__content">{{ content }}</h4>
 
     <div class="msr-snackbar__action">
@@ -19,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import { Colours, type InformativeContext } from "../../types";
+import { Colours, type OverlayContext } from "../../types";
 
 export default defineComponent({
   name: "Snackbar",
@@ -46,7 +41,7 @@ export default defineComponent({
     }
   },
   emits: {
-    context(ctx: InformativeContext) {
+    context(ctx: OverlayContext) {
       return ctx;
     }
   },
@@ -98,7 +93,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: InformativeContext = {
+    let ctx: OverlayContext = {
       show: this._show,
       hide: this._hide,
     }

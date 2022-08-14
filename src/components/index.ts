@@ -1,5 +1,5 @@
 export * from "./button";
 export * from "./content";
-export * from "./informative";
+export * from "./overlay";
 export * from "./input";
 export * from "./compose";

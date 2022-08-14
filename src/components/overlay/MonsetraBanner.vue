@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { type InformativeContext, Colours } from "../../types";
+import { type OverlayContext, Colours } from "../../types";
 import TextButton from "../button/TextButton.vue";
 
 export default defineComponent({
@@ -43,7 +43,7 @@ export default defineComponent({
     duration: Number,
   },
   emits: {
-    context(ctx: InformativeContext) {
+    context(ctx: OverlayContext) {
       return ctx;
     }
   },
@@ -88,7 +88,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: InformativeContext = {
+    let ctx: OverlayContext = {
       show: this._show,
       hide: this._hide,
     }

@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import { Theme, type InformativeContext } from "../../types";
+import { Theme, type OverlayContext } from "../../types";
 
 export default defineComponent({
   name: "BottomSheet",
@@ -29,7 +29,7 @@ export default defineComponent({
     }
   },
   emits: {
-    context(ctx: InformativeContext) {
+    context(ctx: OverlayContext) {
       return ctx;
     }
   },
@@ -69,7 +69,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    let ctx: InformativeContext = {
+    let ctx: OverlayContext = {
       show: this.show,
       hide: this.hide,
     }
