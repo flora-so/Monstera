@@ -1,5 +1,5 @@
 <template>
-  <span class="msr-dropdown-list-item">
+  <span class="msr-dropdown-list-item" :selected="selected">
     <slot>
       <li>{{ item.label }}</li>
     </slot>
@@ -23,7 +23,8 @@ export default defineComponent({
       default: () => Colours.primary,
       validator: (value: Colours | string) => Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
-    }
+    },
+    selected: Boolean
   },
   computed: {
     _colour() {
@@ -69,7 +70,8 @@ export default defineComponent({
   transition: all ease-out 150ms;
 }
 
-.msr-dropdown-list__list .msr-dropdown-list-item:hover {
+.msr-dropdown-list__list .msr-dropdown-list-item:hover,
+.msr-dropdown-list__list .msr-dropdown-list-item[selected="true"] {
   color: v-bind(_colour);
   background-color: v-bind(_hoverColour);
 }

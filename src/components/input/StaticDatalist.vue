@@ -4,8 +4,9 @@
       <static-input :label="label" v-model="_search" @keydown="_handleList"></static-input>
     </div>
     <ul class="msr-static-datalist__list msr-dropdown-list__list" :show="_show">
-      <slot v-for="item in listItems" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
-        <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item)">
+      <slot v-for="(item, i) in listItems" :key="item.value" :name="item.value" :item="item"
+        :click="() => _update(item)">
+        <dropdown-list-item :item="item" :colour="colour" :selected="_index == i" @click="() => _update(item)">
         </dropdown-list-item>
       </slot>
     </ul>
@@ -57,11 +58,6 @@ export default defineComponent({
       _index: 0,
     };
   },
-  // watch: {
-  //   modelValue(value: string | string[]) {
-  //     this.value = value;
-  //   },
-  // },
   computed: {
     equal() {
       return (val: string) => val.split(" ").join("").toLowerCase();
@@ -69,6 +65,7 @@ export default defineComponent({
     listItems(): DropdownItem[] {
       return this.items
         .filter(item => this.equal(item.label).includes(this.equal(this._search)))
+        ?.sort((a, b) => a.value.localeCompare(b.value))
         ?.slice(0, 5) ?? [];
     },
     backgroundColour() {
