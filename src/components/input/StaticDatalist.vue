@@ -1,19 +1,10 @@
 <template>
   <div class="msr-static-datalist" ref="dropdown">
-    <div class="msr-static-datalist__component" @click="_show = !_show">
-      <static-text-field v-model="_display" :label="label">
-        <template #trailing="{ width, height, colour }">
-          <svg class="msr-static-datalist__icon" :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg" :show="_show">
-            <path fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </template>
-      </static-text-field>
+    <div class="msr-static-datalist__component" @click="_handleClick">
+      <static-input :label="label" v-model="_search" @keydown="_handleList"></static-input>
     </div>
     <ul class="msr-static-datalist__list msr-dropdown-list__list" :show="_show">
-      <slot v-for="item in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
+      <slot v-for="item in listItems" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
         <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item)">
         </dropdown-list-item>
       </slot>
@@ -25,7 +16,7 @@
 import { defineComponent, type PropType } from "vue";
 
 import DropdownListItem from "./DropdownListItem.vue";
-import StaticTextField from "./StaticTextField.vue";
+import StaticInput from "./StaticInput.vue";
 import { type DropdownItem, Colours, Theme } from "../../types";
 
 export default defineComponent({
@@ -58,11 +49,12 @@ export default defineComponent({
       return true
     }
   },
-  components: { DropdownListItem, StaticTextField },
+  components: { DropdownListItem, StaticInput },
   data() {
     return {
       _show: false,
-      _display: "",
+      _search: "",
+      _index: 0,
     };
   },
   watch: {
@@ -71,6 +63,14 @@ export default defineComponent({
     },
   },
   computed: {
+    equal() {
+      return (val: string) => val.split(" ").join("").toLowerCase();
+    },
+    listItems(): DropdownItem[] {
+      return this.items
+        .filter(item => this.equal(item.label).includes(this.equal(this._search)))
+        ?.slice(0, 5) ?? [];
+    },
     backgroundColour() {
       return (this as any)['theme'] == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
     },
@@ -79,7 +79,7 @@ export default defineComponent({
         return this.modelValue;
       },
       set(value: string | string[]) {
-        this._display = this.items.find(item => item.value == value)?.label ?? "";
+        this._search = this.items.find(item => item.value == value)?.label ?? "";
         this.$emit("update:modelValue", value)
       }
     }
@@ -88,8 +88,22 @@ export default defineComponent({
     _update(item: DropdownItem) {
       this.$emit("change", item.value);
       this.value = item.value;
+      this._search = item.label;
 
       this._show = false;
+    },
+    _handleClick() {
+      this._show = true;
+      this._index = 0;
+    },
+    _handleList(e: KeyboardEvent) {
+      if (e.key == "ArrowDown" && (this._index < this.listItems.length - 1)) {
+        this._index++;
+      } else if (e.key == "ArrowUp" && this._index > 0) {
+        this._index--;
+      } else if (e.key == "Enter") {
+        this._update(this.listItems[this._index]);
+      }
     }
   },
   mounted() {

@@ -9,10 +9,10 @@ import {
   type DropdownItem,
   DropdownAlignment,
   Colours,
-  TextFieldType,
+  InputType,
   Theme,
   DropdownPosition,
-  type TextFieldValidator,
+  type InputValidator,
 } from "./types";
 
 // Buttons
@@ -38,22 +38,23 @@ import {
   MonsetraBanner,
   ProgressIndicator,
   MonsetraSnackbar,
-  BottomSheet
+  BottomSheet,
+  CircularProgress
 } from "./components/overlay";
-import SpinnerLoader from "./components/informative/CircularProgress.vue";
 
 // Inputs
 import {
-  AnimatedTextField,
+  AnimatedInput,
   MonsetraCheckbox,
   ChoiceChips,
   DropdownList,
   DropdownListItem,
-  StaticTextField,
+  StaticInput,
   ToggleSwitch,
-  StaticSelectField,
-  AnimatedSelectField,
-  StaticTextareaField
+  StaticSelect,
+  AnimatedSelect,
+  StaticTextarea,
+  StaticDatalist
 } from "./components/input";
 
 let state = reactive({
@@ -86,7 +87,7 @@ let ctx_snackbar: OverlayContext;
 let ctx_modal: OverlayContext;
 let ctx_bottomSheet: OverlayContext;
 
-let emailValidator: TextFieldValidator = (value: string) => {
+let emailValidator: InputValidator = (value: string) => {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
     return ""
   } else {
@@ -198,8 +199,8 @@ let log = (value: any) => {
 
         <!-- ===== Inputs ===== -->
 
-        <animated-text-field class="cpt-margin" label="Animated Text Field" :colour="Colours.primary"
-          :type="TextFieldType.email" :validator="emailValidator" v-model="data.value">
+        <animated-input class="cpt-margin" label="Animated Text Field" :colour="Colours.primary" :type="InputType.email"
+          :validator="emailValidator" v-model="data.value">
           <template #leading="{ width, height, colour }">
             <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -215,7 +216,7 @@ let log = (value: any) => {
                 clip-rule="evenodd"></path>
             </svg>
           </template>
-        </animated-text-field>
+        </animated-input>
 
         <!-- <div> -->
         <monsetra-checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></monsetra-checkbox>
@@ -233,20 +234,21 @@ let log = (value: any) => {
           </template>
         </dropdown-list>
 
-        <static-text-field class="cpt-margin" label="Static Text Field" :colour="Colours.primary"
-          :type="TextFieldType.email" :validator="emailValidator" v-model="data.value">
-        </static-text-field>
+        <static-input class="cpt-margin" label="Static Text Field" :colour="Colours.primary" :type="InputType.email"
+          :validator="emailValidator" v-model="data.value">
+        </static-input>
 
         <toggle-switch class="cpt-margin" label="Switch" :colour="Colours.primary" checked></toggle-switch>
 
-        <static-select-field class="cpt-margin" label="Static Select Field" :items="dropdownItems"
-          v-model="data.select">
-        </static-select-field>
+        <static-select class="cpt-margin" label="Static Select Field" :items="dropdownItems" v-model="data.select">
+        </static-select>
 
-        <animated-select-field label="Animated Select Field" :items="dropdownItems" v-model="data.select">
-        </animated-select-field>
+        <animated-select label="Animated Select Field" :items="dropdownItems" v-model="data.select">
+        </animated-select>
 
-        <static-textarea-field label="Textarea"></static-textarea-field>
+        <static-textarea label="Textarea"></static-textarea>
+
+        <static-datalist label="Static Datalist" :items="dropdownItems" v-model="data.select"></static-datalist>
 
         {{ data.select }}
 
@@ -260,7 +262,7 @@ let log = (value: any) => {
         <monsetra-banner title="Banner" content="This is a banner." :colour="Colours.primary" :duration="5000"
           @context="ctx => ctx_banner = ctx"></monsetra-banner>
 
-        <spinner-loader></spinner-loader>
+        <circular-progress></circular-progress>
 
         <outlined-button @click="ctx_snackbar.show()" class="cpt-margin" label="Snackbar" />
       </div>
@@ -280,18 +282,6 @@ let log = (value: any) => {
 
 <style>
 @import "./styles/reset.css";
-
-#main {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-
-  max-height: 100vh;
-  max-width: 100vw;
-  overflow-y: scroll;
-  /* padding-top: 34px; */
-}
 
 #main>.container {
   max-width: 677px;
