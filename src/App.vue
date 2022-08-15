@@ -248,12 +248,14 @@ let log = (value: any) => {
         <animated-select label="Animated Select Field" :items="dropdownItems" v-model="data.select">
         </animated-select>
 
-        <animated-textarea label="Animated Textarea"></animated-textarea>
-        <static-textarea label="Static Textarea"></static-textarea>
+        <animated-textarea label="Animated Textarea">
+        </animated-textarea>
+        <static-textarea label="Static Textarea" resizable></static-textarea>
 
         <animated-datalist label="Animated Datalist" :items="dropdownItems" v-model="data.select"></animated-datalist>
 
-        <static-datalist label="Static Datalist" :items="dropdownItems" v-model="data.select"></static-datalist>
+        <static-datalist label="Static Datalist" :items="dropdownItems" v-model="data.select">
+        </static-datalist>
 
         {{ data.select }}
 

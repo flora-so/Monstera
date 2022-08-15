@@ -2,15 +2,10 @@
   <div @click="forceFocus" class="msr-animated-textarea" :error="_error" :disabled="disabled">
     <div class="msr-animated-textarea__input">
       <div class="msr-animated-textarea__wrapper" :f="_focus">
-        <div class="msr-animated-textarea__icon">
-          <slot name="leading" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
-        </div>
-        <textarea :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" :rows="rows"
-          v-model="_modelValue" @input="_input" @focus="_focus = true" @blur="validate"></textarea>
+        <textarea :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" :rows="lines"
+          :resizable="resizable" v-model="_modelValue" @input="_input" @focus="_focus = true"
+          @blur="validate"></textarea>
         <label :for="_id">{{ label }}</label>
-        <div class="msr-animated-textarea__icon">
-          <slot name="trailing" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
-        </div>
       </div>
     </div>
     <p class="msr-animated-textarea__message">{{ _message }}</p>
@@ -43,7 +38,7 @@ export default defineComponent({
     validator: {
       type: Function as PropType<InputValidator>
     },
-    rows: {
+    lines: {
       type: Number,
       default: () => 3
     },
@@ -53,6 +48,7 @@ export default defineComponent({
     },
     value: String,
     disabled: Boolean,
+    resizable: Boolean,
     helperText: String,
   },
   data() {
@@ -170,14 +166,6 @@ export default defineComponent({
   transition: all ease-out 300ms;
 }
 
-.msr-animated-textarea .msr-animated-textarea__icon {
-  align-self: center;
-}
-
-.msr-animated-textarea .msr-animated-textarea__icon:not(:empty)~label {
-  padding-left: 21px;
-}
-
 .msr-animated-textarea textarea {
   padding: 18px 13px 8px 13px;
   font-size: 1.125rem;
@@ -187,6 +175,10 @@ export default defineComponent({
   outline: none;
   border: none;
   background-color: transparent;
+}
+
+.msr-animated-textarea textarea[resizable="false"] {
+  resize: none;
 }
 
 .msr-animated-textarea label {

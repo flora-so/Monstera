@@ -5,8 +5,8 @@
         <label :for="_id">{{ label }}</label>
       </div>
       <div class="msr-static-textarea__wrapper" :f="_focus">
-        <textarea :id="_id" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue" @input="_input"
-          @focus="_focus = true" @blur="validate" :rows="rows" :cols="cols" />
+        <textarea :id="_id" ref="input" placeholder=" " :disabled="disabled" :rows="lines" :resizable="resizable"
+          v-model="_modelValue" @input="_input" @focus="_focus = true" @blur="validate"></textarea>
       </div>
     </div>
     <p class="msr-static-textarea__message">{{ _message }}</p>
@@ -35,13 +35,9 @@ export default defineComponent({
     validator: {
       type: Function as PropType<InputValidator>
     },
-    rows: {
+    lines: {
       type: Number,
       default: () => 3
-    },
-    cols: {
-      type: Number,
-      default: () => 25
     },
     modelValue: {
       type: String,
@@ -49,6 +45,7 @@ export default defineComponent({
     },
     value: String,
     disabled: Boolean,
+    resizable: Boolean,
     helperText: String,
   },
   data() {
@@ -158,14 +155,14 @@ export default defineComponent({
   display: flex;
   align-items: center;
 
-  padding: 13px;
   border-radius: 8px;
   background-color: #7f7f7f1a;
   transition: all ease-out 300ms;
 }
 
-.msr-static-textarea .msr-static-textarea__wrapper textarea {
-  /* padding: 13px; */
+.msr-static-textarea textarea {
+  padding: 13px;
+
   font-size: 1.125rem;
   line-height: 1.5rem;
   width: 100%;
@@ -173,6 +170,10 @@ export default defineComponent({
   outline: none;
   border: none;
   background-color: transparent;
+}
+
+.msr-static-textarea textarea[resizable="false"] {
+  resize: none;
 }
 
 .msr-static-textarea__input .msr-static-textarea__label {
