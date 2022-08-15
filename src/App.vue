@@ -54,7 +54,8 @@ import {
   StaticSelect,
   AnimatedSelect,
   StaticTextarea,
-  StaticDatalist
+  StaticDatalist,
+  AnimatedDatalist
 } from "./components/input";
 
 let state = reactive({
@@ -247,6 +248,8 @@ let log = (value: any) => {
         </animated-select>
 
         <static-textarea label="Textarea"></static-textarea>
+
+        <animated-datalist label="Animated Datalist" :items="dropdownItems" v-model="data.select"></animated-datalist>
 
         <static-datalist label="Static Datalist" :items="dropdownItems" v-model="data.select"></static-datalist>
 
