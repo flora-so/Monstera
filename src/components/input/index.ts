@@ -15,6 +15,7 @@ import ChoiceChips from "./ChoiceChips.vue";
 import DropdownList from "./DropdownList.vue";
 import DropdownListItem from "./DropdownListItem.vue";
 import ToggleSwitch from "./ToggleSwitch.vue";
+import RadioButton from "./RadioButton.vue";
 
 const Plugin = {
   install(app: App) {
@@ -28,6 +29,7 @@ const Plugin = {
     registerComponent(app, StaticDatalist);
     registerComponent(app, ChoiceChips);
     registerComponent(app, ToggleSwitch);
+    registerComponent(app, RadioButton);
     registerComponent(app, MonsetraCheckbox);
     registerComponent(app, DropdownList);
     registerComponent(app, DropdownListItem);
@@ -50,4 +52,5 @@ export {
   DropdownList,
   DropdownListItem,
   ToggleSwitch,
+  RadioButton,
 };
