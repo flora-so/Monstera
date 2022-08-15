@@ -62,15 +62,12 @@ export default defineComponent({
   data() {
     return {
       _show: false,
-      _display: "",
     };
   },
-  watch: {
-    modelValue(value: string | string[]) {
-      this.value = value;
-    },
-  },
   computed: {
+    _display() {
+      return this.items.find(item => item.value == this.modelValue)?.label ?? "";
+    },
     backgroundColour() {
       return (this as any)['theme'] == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
     },
@@ -79,8 +76,7 @@ export default defineComponent({
         return this.modelValue;
       },
       set(value: string | string[]) {
-        this._display = this.items.find(item => item.value == value)?.label ?? "";
-        this.$emit("update:modelValue", value)
+        this.$emit("update:modelValue", value);
       }
     }
   },

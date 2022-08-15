@@ -65,7 +65,7 @@ let state = reactive({
 
 let data = reactive({
   value: "test",
-  select: "item 1"
+  select: "item-1"
 });
 
 const tableData = new DataFrame(

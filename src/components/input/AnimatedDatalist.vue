@@ -53,14 +53,9 @@ export default defineComponent({
   data() {
     return {
       _show: false,
-      _search: "",
+      _searchVal: "",
       _index: 0,
     };
-  },
-  watch: {
-    modelValue(value: string | string[]) {
-      this.value = value;
-    },
   },
   computed: {
     equal() {
@@ -74,12 +69,21 @@ export default defineComponent({
     backgroundColour() {
       return (this as any)['theme'] == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
     },
+    _search: {
+      get() {
+        return this.items.find(item => item.value == this.modelValue)?.label ?? this._searchVal;
+      },
+      set(value: string) {
+        let item = this.items.find(item => item.label == value);
+        this._searchVal = item?.label ?? value;
+        this.value = item?.value ?? "";
+      }
+    },
     value: {
       get() {
         return this.modelValue;
       },
       set(value: string | string[]) {
-        this._search = this.items.find(item => item.value == value)?.label ?? "";
         this.$emit("update:modelValue", value)
       }
     }
@@ -87,7 +91,6 @@ export default defineComponent({
   methods: {
     _update(item: DropdownItem) {
       this.$emit("change", item.value);
-      this.value = item.value;
       this._search = item.label;
 
       this._show = false;
