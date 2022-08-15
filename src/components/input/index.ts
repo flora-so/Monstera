@@ -4,6 +4,7 @@ import { registerComponent } from "../../utils/plugins";
 
 import AnimatedInput from "./AnimatedInput.vue";
 import AnimatedSelect from "./AnimatedSelect.vue";
+import AnimatedTextarea from "./AnimatedTextarea.vue";
 import AnimatedDatalist from "./AnimatedDatalist.vue";
 import StaticInput from "./StaticInput.vue";
 import StaticSelect from "./StaticSelect.vue";
@@ -19,6 +20,7 @@ const Plugin = {
   install(app: App) {
     registerComponent(app, AnimatedInput);
     registerComponent(app, AnimatedSelect);
+    registerComponent(app, AnimatedTextarea);
     registerComponent(app, AnimatedDatalist);
     registerComponent(app, StaticInput);
     registerComponent(app, StaticSelect);
@@ -34,4 +36,18 @@ const Plugin = {
 
 export default Plugin;
 
-export { AnimatedInput, MonsetraCheckbox, ChoiceChips, DropdownList, DropdownListItem, StaticSelect, StaticInput, StaticTextarea, AnimatedSelect, ToggleSwitch, StaticDatalist, AnimatedDatalist };
+export {
+  AnimatedInput,
+  AnimatedSelect,
+  AnimatedDatalist,
+  AnimatedTextarea,
+  StaticSelect,
+  StaticInput,
+  StaticTextarea,
+  StaticDatalist,
+  MonsetraCheckbox,
+  ChoiceChips,
+  DropdownList,
+  DropdownListItem,
+  ToggleSwitch,
+};
