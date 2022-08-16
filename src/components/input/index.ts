@@ -3,6 +3,7 @@ import type { App } from "vue";
 import { registerComponent } from "../../utils/plugins";
 
 import AnimatedInput from "./AnimatedInput.vue";
+import AnimatedDateInput from "./AnimatedDateInput.vue";
 import AnimatedSelect from "./AnimatedSelect.vue";
 import AnimatedTextarea from "./AnimatedTextarea.vue";
 import AnimatedDatalist from "./AnimatedDatalist.vue";
@@ -21,6 +22,7 @@ import RadioButton from "./RadioButton.vue";
 const Plugin = {
   install(app: App) {
     registerComponent(app, AnimatedInput);
+    registerComponent(app, AnimatedDateInput);
     registerComponent(app, AnimatedSelect);
     registerComponent(app, AnimatedTextarea);
     registerComponent(app, AnimatedDatalist);
@@ -42,6 +44,7 @@ export default Plugin;
 
 export {
   AnimatedInput,
+  AnimatedDateInput,
   AnimatedSelect,
   AnimatedDatalist,
   AnimatedTextarea,

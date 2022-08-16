@@ -45,6 +45,7 @@ import {
 // Inputs
 import {
   AnimatedInput,
+  AnimatedDateInput,
   MonsetraCheckbox,
   ChoiceChips,
   DropdownList,
@@ -222,6 +223,7 @@ let log = (value: any) => {
           </template>
         </animated-input>
 
+        <animated-date-input label="Animated Date Input"></animated-date-input>
         <static-date-input label="Static Date Input"></static-date-input>
 
         <!-- <div> -->
