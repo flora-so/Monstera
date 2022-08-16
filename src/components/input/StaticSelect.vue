@@ -1,7 +1,7 @@
 <template>
   <div class="msr-static-select" ref="dropdown">
     <div class="msr-static-select__component" @click="_show = !_show">
-      <static-input v-model="_display" :label="label" disabled>
+      <static-input v-model="_display" :label="label" @keydown="_handleKeys">
         <template #trailing="{ width, height, colour }">
           <svg class="msr-static-select__icon" :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg" :show="_show">
@@ -13,8 +13,8 @@
       </static-input>
     </div>
     <ul class="msr-static-select__list msr-dropdown-list__list" :show="_show">
-      <slot v-for="item in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
-        <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item)">
+      <slot v-for="(item, i) in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
+        <dropdown-list-item :item="item" :colour="colour" :selected="_index == i" @click="() => _update(item)">
         </dropdown-list-item>
       </slot>
     </ul>
@@ -62,6 +62,7 @@ export default defineComponent({
   data() {
     return {
       _show: false,
+      _index: 0,
     };
   },
   computed: {
@@ -86,6 +87,15 @@ export default defineComponent({
       this.value = item.value;
 
       this._show = false;
+    },
+    _handleKeys(e: KeyboardEvent) {
+      if (e.key == "ArrowDown" && (this._index < this.items.length - 1)) {
+        this._index++;
+      } else if (e.key == "ArrowUp" && this._index > 0) {
+        this._index--;
+      } else if (e.key == "Enter") {
+        this._update(this.items[this._index]);
+      }
     }
   },
   mounted() {
@@ -109,7 +119,13 @@ export default defineComponent({
   position: relative;
 }
 
-.msr-static-select__component:hover {
+.msr-static-select .msr-static-select__component :deep(.msr-static-input input) {
+  cursor: pointer;
+  caret-color: transparent;
+}
+
+.msr-static-select__component:hover,
+.msr-static-select .msr-static-select__component :deep(.msr-static-input) {
   cursor: pointer;
 }
 

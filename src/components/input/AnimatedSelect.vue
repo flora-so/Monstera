@@ -1,9 +1,9 @@
 <template>
-  <div class="msr-static-select" ref="dropdown">
-    <div class="msr-static-select__component" @click="_show = !_show">
-      <animated-input v-model="_display" :label="label" disabled>
+  <div class="msr-animated-select" ref="dropdown">
+    <div class="msr-animated-select__component" @click="_show = !_show">
+      <animated-input v-model="_display" :label="label" @keydown="_handleKeys">
         <template #trailing="{ width, height, colour }">
-          <svg class="msr-static-select__icon" :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
+          <svg class="msr-animated-select__icon" :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg" :show="_show">
             <path fill-rule="evenodd"
               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -12,9 +12,9 @@
         </template>
       </animated-input>
     </div>
-    <ul class="msr-static-select__list msr-dropdown-list__list" :show="_show">
-      <slot v-for="item in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
-        <dropdown-list-item :item="item" :colour="colour" @click="() => _update(item)">
+    <ul class="msr-animated-select__list msr-dropdown-list__list" :show="_show">
+      <slot v-for="(item, i) in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
+        <dropdown-list-item :item="item" :colour="colour" :selected="_index == i" @click="() => _update(item)">
         </dropdown-list-item>
       </slot>
     </ul>
@@ -62,6 +62,7 @@ export default defineComponent({
   data() {
     return {
       _show: false,
+      _index: 0,
     };
   },
   computed: {
@@ -86,6 +87,15 @@ export default defineComponent({
       this.value = item.value;
 
       this._show = false;
+    },
+    _handleKeys(e: KeyboardEvent) {
+      if (e.key == "ArrowDown" && (this._index < this.items.length - 1)) {
+        this._index++;
+      } else if (e.key == "ArrowUp" && this._index > 0) {
+        this._index--;
+      } else if (e.key == "Enter") {
+        this._update(this.items[this._index]);
+      }
     }
   },
   mounted() {
@@ -105,12 +115,23 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-static-select {
+.msr-animated-select {
   position: relative;
   cursor: pointer;
 }
 
-.msr-static-select .msr-static-select__list {
+.msr-animated-select .msr-animated-select__component :deep(.msr-animated-input input) {
+  cursor: pointer;
+  caret-color: transparent;
+}
+
+.msr-animated-select__component:hover,
+.msr-animated-select .msr-animated-select__component :deep(.msr-animated-input) {
+  cursor: pointer;
+}
+
+
+.msr-animated-select .msr-animated-select__list {
   margin-top: -13px;
   width: 100%;
   position: absolute;
@@ -127,19 +148,19 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
-.msr-static-select .msr-static-select__list[show="false"] {
+.msr-animated-select .msr-animated-select__list[show="false"] {
   transform: scaleY(0);
 }
 
-.msr-static-select .msr-static-select__list[show="true"] {
+.msr-animated-select .msr-animated-select__list[show="true"] {
   transform: scaleY(1);
 }
 
-.msr-static-select .msr-static-select__icon {
+.msr-animated-select .msr-animated-select__icon {
   transition: all ease-out 100ms;
 }
 
-.msr-static-select .msr-static-select__icon[show="true"] {
+.msr-animated-select .msr-animated-select__icon[show="true"] {
   transform: rotate(180deg);
 }
 </style>

@@ -223,6 +223,10 @@ let log = (value: any) => {
           </template>
         </animated-input>
 
+        <static-input class="cpt-margin" label="Static Text Field" :colour="Colours.primary" :type="InputType.email"
+          :validator="emailValidator" v-model="data.value">
+        </static-input>
+
         <animated-date-input label="Animated Date Input"></animated-date-input>
         <static-date-input label="Static Date Input"></static-date-input>
 
@@ -241,10 +245,6 @@ let log = (value: any) => {
             <dropdown-list-item :item="item" :colour="Colours.danger" @click="click"></dropdown-list-item>
           </template>
         </dropdown-list>
-
-        <static-input class="cpt-margin" label="Static Text Field" :colour="Colours.primary" :type="InputType.email"
-          :validator="emailValidator" v-model="data.value">
-        </static-input>
 
         <toggle-switch class="cpt-margin" label="Switch" :colour="Colours.primary" checked></toggle-switch>
 
