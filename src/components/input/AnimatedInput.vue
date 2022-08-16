@@ -6,7 +6,7 @@
           <slot name="leading" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
         </div>
         <input :id="_id" :type="type" ref="input" placeholder=" " :disabled="disabled" v-model="_modelValue"
-          @input="_input" @focus="_focus = true" @blur="validate" />
+          @input="_input" @focus="_handleFocus" @blur="validate" />
         <label :for="_id">{{ label }}</label>
         <div class="msr-animated-input__icon">
           <slot name="trailing" width="20px" height="20px" colour="#585858" :tailwind="_tailwind"></slot>
@@ -63,6 +63,9 @@ export default defineComponent({
     "update:modelValue"(value: string) {
       return typeof value == "string";
     },
+    focus() {
+      return true;
+    },
     blur(value: string) {
       return typeof value === "string";
     },
@@ -101,6 +104,11 @@ export default defineComponent({
     }
   },
   methods: {
+    _handleFocus() {
+      console.log("hr")
+      this._focus = true;
+      this.$emit("focus");
+    },
     _input(e: Event) {
       this._value = (e.target as HTMLInputElement).value;
     },

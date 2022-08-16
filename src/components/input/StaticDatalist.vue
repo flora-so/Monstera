@@ -1,7 +1,7 @@
 <template>
   <div class="msr-static-datalist" ref="dropdown">
-    <div class="msr-static-datalist__component" @click="_handleClick">
-      <static-input :label="label" v-model="_search" @keydown="_handleList"></static-input>
+    <div class="msr-static-datalist__component" @click="_showList">
+      <static-input :label="label" v-model="_search" @focus="_showList" @keydown="_handleList"></static-input>
     </div>
     <ul class="msr-static-datalist__list msr-dropdown-list__list" :show="_show">
       <slot v-for="(item, i) in listItems" :key="item.value" :name="item.value" :item="item"
@@ -97,11 +97,15 @@ export default defineComponent({
 
       this._show = false;
     },
-    _handleClick() {
+    _showList() {
       this._show = true;
       this._index = 0;
     },
     _handleList(e: KeyboardEvent) {
+      if (e.key == "Tab" || e.key == "Escape") {
+        return this._show = false;
+      }
+
       if (e.key == "ArrowDown" && (this._index < this.listItems.length - 1)) {
         this._index++;
       } else if (e.key == "ArrowUp" && this._index > 0) {
