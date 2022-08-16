@@ -22,6 +22,14 @@ export enum InputType {
   url = "url",
 }
 
+export enum DateInputType {
+  date = "date",
+  datetime = "datetime-local",
+  month = "month",
+  time = "time",
+  week = "week",
+}
+
 export type InputContext = {
   value: () => string,
   validate: () => void,

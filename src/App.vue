@@ -55,6 +55,7 @@ import {
   AnimatedSelect,
   StaticTextarea,
   StaticDatalist,
+  StaticDateInput,
   AnimatedDatalist,
   AnimatedTextarea,
   RadioButton,
@@ -220,6 +221,8 @@ let log = (value: any) => {
             </svg>
           </template>
         </animated-input>
+
+        <static-date-input label="Static Date Input"></static-date-input>
 
         <!-- <div> -->
         <monsetra-checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></monsetra-checkbox>

@@ -7,6 +7,7 @@ import AnimatedSelect from "./AnimatedSelect.vue";
 import AnimatedTextarea from "./AnimatedTextarea.vue";
 import AnimatedDatalist from "./AnimatedDatalist.vue";
 import StaticInput from "./StaticInput.vue";
+import StaticDateInput from "./StaticDateInput.vue";
 import StaticSelect from "./StaticSelect.vue";
 import StaticTextarea from "./StaticTextarea.vue";
 import StaticDatalist from "./StaticDatalist.vue";
@@ -24,6 +25,7 @@ const Plugin = {
     registerComponent(app, AnimatedTextarea);
     registerComponent(app, AnimatedDatalist);
     registerComponent(app, StaticInput);
+    registerComponent(app, StaticDateInput);
     registerComponent(app, StaticSelect);
     registerComponent(app, StaticTextarea);
     registerComponent(app, StaticDatalist);
@@ -45,6 +47,7 @@ export {
   AnimatedTextarea,
   StaticSelect,
   StaticInput,
+  StaticDateInput,
   StaticTextarea,
   StaticDatalist,
   MonsetraCheckbox,
