@@ -89,12 +89,19 @@ export default defineComponent({
       this._show = false;
     },
     _handleKeys(e: KeyboardEvent) {
+      if (e.key == "Tab" || e.key == "Escape") {
+        return this._show = false;
+      }
+      e.preventDefault();
       if (e.key == "ArrowDown" && (this._index < this.items.length - 1)) {
         this._index++;
       } else if (e.key == "ArrowUp" && this._index > 0) {
         this._index--;
       } else if (e.key == "Enter") {
-        this._update(this.items[this._index]);
+        if (this._show) {
+          return this._update(this.items[this._index]);
+        }
+        this._show = true;
       }
     }
   },
