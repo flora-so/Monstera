@@ -2,7 +2,7 @@
   <div class="msr-checkbox">
     <input :id="_id" ref="input" :value="value" type="checkbox" :checked="checked" :intermediate="intermediate"
       v-model="_value" @change="_change" />
-    <label :for="_id">
+    <label :for="_id" tabindex="0" @keydown="_handleInput">
       <div class="msr-checkbox__box">
         <svg class="msr-checkbox__tick" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
@@ -15,6 +15,7 @@
           <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
         </svg>
       </div>
+      {{ label }}
     </label>
   </div>
 </template>
@@ -27,6 +28,9 @@ import { Colours } from "../../types";
 export default defineComponent({
   name: "MonsetraCheckbox",
   props: {
+    label: {
+      type: String,
+    },
     colour: {
       type: String as PropType<Colours | string>,
       default: () => Colours.primary,
@@ -84,6 +88,11 @@ export default defineComponent({
     }
   },
   methods: {
+    _handleInput(e: KeyboardEvent) {
+      if (e.key == "Enter") {
+        (this.$refs.input as HTMLInputElement).click();
+      }
+    },
     _change() {
       this.$emit('change', (this.$refs.input as HTMLInputElement).checked);
     }
