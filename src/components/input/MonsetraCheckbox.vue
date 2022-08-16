@@ -2,8 +2,8 @@
   <div class="msr-checkbox">
     <input :id="_id" ref="input" :value="value" type="checkbox" :checked="checked" :intermediate="intermediate"
       v-model="_value" @change="_change" />
-    <label :for="_id" tabindex="0" @keydown="_handleInput">
-      <div class="msr-checkbox__box">
+    <label :for="_id">
+      <div class="msr-checkbox__box" tabindex="0" @keydown="_handleInput">
         <svg class="msr-checkbox__tick" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -113,7 +113,9 @@ export default defineComponent({
   cursor: pointer;
 }
 
+.msr-checkbox label .msr-checkbox__box:focus,
 .msr-checkbox label:hover .msr-checkbox__box {
+  outline: none;
   box-shadow: 0px 0px 0px 3px v-bind(_backgroundColour);
 }
 
