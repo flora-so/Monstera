@@ -4,6 +4,11 @@
       <div class="msr-bottom-sheet__overflow">
         <div class="msr-bottom-sheet__content">
           <div class="msr-bottom-sheet__handle"></div>
+          <div class="msr-bottom-sheet__title msr-heading">
+            <slot name="heading">
+              <h4>{{ title }}</h4>
+            </slot>
+          </div>
           <slot></slot>
         </div>
       </div>
@@ -20,6 +25,10 @@ export default defineComponent({
   name: "BottomSheet",
   inject: ["theme"],
   props: {
+    title: {
+      type: String,
+      required: true,
+    },
     height: {
       type: Number,
       default: 377
@@ -134,6 +143,14 @@ export default defineComponent({
   margin: 13px auto;
 
   background-color: #7d7d7d;
+}
+
+.msr-bottom-sheet .msr-bottom-sheet__title {
+  font-weight: bold;
+  font-size: 1.313rem;
+  line-height: 1.75rem;
+
+  margin-bottom: 13px;
 }
 
 .msr-bottom-sheet .msr-bottom-sheet__overflow {

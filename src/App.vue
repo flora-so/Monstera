@@ -287,7 +287,7 @@ let log = (value: any) => {
     <monsetra-dialog title="Alert Dialog" content="This is an alert dialog." @context="ctx => ctx_alertDialog = ctx">
     </monsetra-dialog>
 
-    <bottom-sheet @context="ctx => ctx_bottomSheet = ctx" dismissible :height="677">
+    <bottom-sheet title="Bottom Sheet" @context="ctx => ctx_bottomSheet = ctx" dismissible :height="677">
       <p>Hello world</p>
     </bottom-sheet>
 
