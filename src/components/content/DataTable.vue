@@ -156,11 +156,14 @@ export default defineComponent({
 }
 
 .msr-table .msr-table__head .msr-table__row .msr-table__column {
-  text-transform: capitalize;
   text-align: left;
 
   font-weight: 500;
   padding: 13px 16px;
+}
+
+.msr-table .msr-table__head .msr-table__row .msr-table__column::first-letter {
+  text-transform: capitalize;
 }
 
 .msr-table .msr-table__body .msr-table__row {
