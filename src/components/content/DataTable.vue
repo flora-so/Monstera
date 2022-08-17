@@ -5,7 +5,7 @@
         <th v-if="checkbox" class="msr-table__column">
           <div class="msr-table__checkbox">
             <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" :checked="_allChecked"
-              @change="(value: boolean) => _checkAll(value)"></monsetra-checkbox>
+              @change="(value) => _checkAll(value)"></monsetra-checkbox>
           </div>
         </th>
         <th class="msr-table__column" v-for="col in _colName" :key="col">{{ col }}</th>
@@ -17,7 +17,7 @@
         <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
           <div class="msr-table__checkbox">
             <monsetra-checkbox :colour="colour" :checked="_triggerCheck(index)"
-              @change="(value: boolean) => _toggleSelected(row, index, value)"></monsetra-checkbox>
+              @change="(value) => _toggleSelected(row, index, value)"></monsetra-checkbox>
           </div>
         </td>
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
