@@ -72,11 +72,11 @@ let data = reactive({
 });
 
 const tableData = new DataFrame(
-  ["column1", "column2", "column3"],
+  ["column1", "column-2", "column_3"],
   [
-    { "column1": "Row 1", "column2": "Row 1", "column3": "Row 1" },
-    { "column1": "Row 2", "column2": "Row 2", "column3": "Row 2" },
-    { "column1": "Row 3", "column2": "Row 3", "column3": "Row 3" }
+    { "column1": "Row 1", "column-2": "Row 1", "column_3": "Row 1" },
+    { "column1": "Row 2", "column-2": "Row 2", "column_3": "Row 2" },
+    { "column1": "Row 3", "column-2": "Row 3", "column_3": "Row 3" }
   ]
 );
 
@@ -179,7 +179,7 @@ let log = (value: any) => {
 
         <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" checkbox
           @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
-          <template #column3="{ data, row }">
+          <template #column_3="{ data, row }">
             <span>${{ data }} - {{ row.column1 }}</span>
           </template>
         </data-table>

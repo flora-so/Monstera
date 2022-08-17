@@ -5,10 +5,10 @@
         <th v-if="checkbox" class="msr-table__column">
           <div class="msr-table__checkbox">
             <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" :checked="_allChecked"
-              @change="(value) => _checkAll(value)"></monsetra-checkbox>
+              @change="(value: boolean) => _checkAll(value)"></monsetra-checkbox>
           </div>
         </th>
-        <th class="msr-table__column" v-for="col in dataframe.columns" :key="col">{{ col }}</th>
+        <th class="msr-table__column" v-for="col in _colName" :key="col">{{ col }}</th>
       </tr>
     </thead>
 
@@ -17,7 +17,7 @@
         <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
           <div class="msr-table__checkbox">
             <monsetra-checkbox :colour="colour" :checked="_triggerCheck(index)"
-              @change="(value) => _toggleSelected(row, index, value)"></monsetra-checkbox>
+              @change="(value: boolean) => _toggleSelected(row, index, value)"></monsetra-checkbox>
           </div>
         </td>
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
@@ -69,6 +69,11 @@ export default defineComponent({
     },
   },
   computed: {
+    _colName() {
+      return this.dataframe.columns.map((col) => {
+        return col.replace(/([^\p{L}\d]+|(?<=\p{L})(?=\d)|(?<=\d)(?=\p{L})|(?<=[\p{Ll}\d])(?=\p{Lu})|(?<=\p{Lu})(?=\p{Lu}\p{Ll})|(?<=[\p{L}\d])(?=\p{Lu}\p{Ll}))/gu, ' ');
+      });
+    },
     _intermediate() {
       return Object.keys(this._selected).length > 0;
     },
