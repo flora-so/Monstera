@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, inject } from "vue";
 
+import Example from "./Example.vue";
 import { MonsetraApp } from "./components/compose";
 
 import {
@@ -71,6 +72,7 @@ let data = reactive({
   select: "item-1"
 });
 
+
 const tableData = new DataFrame(
   ["column1", "column-2", "column_3"],
   [
@@ -122,7 +124,7 @@ let log = (value: any) => {
 
     <div id="main">
       <div class="container">
-
+        <example></example>
         <!-- ===== Buttons ===== -->
 
         <big-button label="Big Button" colour="#ffffff" :backgroundColour="Colours.primary">

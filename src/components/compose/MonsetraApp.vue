@@ -96,6 +96,9 @@ export default defineComponent({
   },
   methods: {
     setLoading(loading: boolean) {
+      if (loading === undefined || loading === null) {
+        return this.loading;
+      }
       this.loading = loading;
     },
     showSnackbar(content: string, colour: Colours) {
