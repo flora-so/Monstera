@@ -1,16 +1,26 @@
 <template>
   <div class="msr-app" v-bind="$attrs">
     <slot></slot>
+    <progress-indicator v-if="loading" infinite></progress-indicator>
+    <monsetra-snackbar :content="snackbar.content" :background-colour="snackbar.colour" 
+      @context="(ctx) => snackbar.context = ctx"></monsetra-snackbar>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, type PropType } from "vue";
 
-import { Theme } from "../../types";
+import ProgressIndicator from "../overlay/ProgressIndicator.vue";
+import MonsetraSnackbar from "../overlay/MonsetraSnackbar.vue";
+
+import { Colours, Theme, type OverlayContext } from "../../types";
 
 export default defineComponent({
   name: "MonsetraApp",
+  components: {
+    ProgressIndicator,
+    MonsetraSnackbar
+  },
   props: {
     theme: {
       type: String as PropType<Theme>,
@@ -50,6 +60,16 @@ export default defineComponent({
       validator: (value: string) => /(\d{1,3}),(\d{1,3}),(\d{1,3})/.test(value)
     }
   },
+  data() {
+    return {
+      loading: false,
+      snackbar: {
+        content: "",
+        colour: Colours.primary,
+        context: null,
+      }
+    }
+  },
   computed: {
     colour() {
       return this.theme == Theme.dark ? "#ffffff" : "#000000";
@@ -69,7 +89,20 @@ export default defineComponent({
   },
   provide() {
     return {
-      theme: computed(() => this.theme)
+      theme: computed(() => this.theme),
+      loading: this.setLoading,
+      snackbar: this.showSnackbar,
+    }
+  },
+  methods: {
+    setLoading(loading: boolean) {
+      this.loading = loading;
+    },
+    showSnackbar(content: string, colour: Colours) {
+      this.snackbar.content = content;
+      this.snackbar.colour = colour;
+
+      (this.snackbar.context! as OverlayContext).show();
     }
   },
   created() {
