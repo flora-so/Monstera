@@ -22,9 +22,10 @@ import {
   LinkButton,
   OutlinedButton,
   SmallButton,
-  TextButton
+  TextButton,
+  IconButton,
+  TabButton
 } from "./components/button";
-import IconButton from "./components/button/IconButton.vue";
 
 // Content
 import {
@@ -163,6 +164,10 @@ let log = (value: any) => {
               </svg>
             </template>
           </icon-button>
+
+          <div>
+            <tab-button label="Tab 1"></tab-button>
+          </div>
         </div>
 
         <link-button class="cpt-margin" label="Link Button" :colour="Colours.primary"></link-button>
