@@ -1,12 +1,11 @@
 <template>
-  <div class="msr-tab-button pt-2 bg-primary-light rounded-t-lg">
-    <input :id="_id" ref="input" :name="group" :type="radio" v-model="value"
-      @change="_change" />
+  <div class="msr-tab-button">
+    <input :id="_id" ref="input" :name="group" type="radio" v-model="value" @change="_change" />
     <label :for="_id">
-      <span class="msr-tab-button__label text-lg font-bold px-6 text-primary">
+      <span class="msr-tab-button__label">
         {{ label }}
       </span>
-      <div class="msr-tab-button__indicator mt-1 pt-1 bg-primary rounded-t"></div>
+      <div class="msr-tab-button__indicator"></div>
     </label>
   </div>
 </template>
@@ -57,13 +56,26 @@ export default defineComponent({
         return this.colour;
       }
     },
-    _hoverColour() {
+    _backgroundColour() {
       if (Object.keys(Colours).includes(this.colour)) {
         return `rgba(var(--${this.colour}), 0.34)`;
       } else {
         return `${this.colour}57`;
       }
     },
+    value: {
+      get() {
+        return this.modelValue;
+      },
+      set(value: string | string[]) {
+        this.$emit("update:modelValue", value)
+      }
+    }
+  },
+  methods: {
+    _change() {
+      this.$emit('change', (this.$refs.input as HTMLInputElement).checked);
+    }
   }
 });
 </script>
@@ -71,6 +83,24 @@ export default defineComponent({
 <style scoped>
 .msr-tab-button {
   padding-top: 8px;
+  background-color: v-bind(_backgroundColour);
+  border-radius: 8px 8px 0px 0px;
+}
+
+.msr-tab-button .msr-tab-button__label {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+
+  padding: 0px 24px;
+  color: (_colour);
+}
+
+.msr-tab-button .msr-tab-button__indicator {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-radius: 4px;
+
   background-color: v-bind(_colour);
 }
 </style>
