@@ -131,7 +131,7 @@ let log = (value: any) => {
         <big-button label="Big Button" colour="#ffffff" :backgroundColour="Colours.primary">
         </big-button>
 
-        <div class="cpt-space-x cpt-margin">
+        <div class="flex cpt-space-x cpt-margin">
           <icon-button :colour="Colours.primary" filled>
             <template #icon="{ width, height, colour }">
               <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
@@ -165,9 +165,10 @@ let log = (value: any) => {
             </template>
           </icon-button>
 
-          <div>
-            <tab-button label="Tab 1"></tab-button>
-          </div>
+        </div>
+        <div class="flex">
+          <tab-button label="Tab 1"></tab-button>
+          <tab-button label="Tab 2"></tab-button>
         </div>
 
         <link-button class="cpt-margin" label="Link Button" :colour="Colours.primary"></link-button>
@@ -316,6 +317,10 @@ let log = (value: any) => {
 
 #main>.container>* {
   margin: 34px 0px;
+}
+
+.flex {
+  display: flex;
 }
 
 /* .cpt-margin {

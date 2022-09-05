@@ -1,12 +1,16 @@
 <template>
-  <div class="msr-tab-button">
-    <input :id="_id" ref="input" :name="group" type="radio" v-model="value" @change="_change" />
-    <label :for="_id">
-      <span class="msr-tab-button__label">
-        {{ label }}
-      </span>
-      <div class="msr-tab-button__indicator"></div>
-    </label>
+  <div class="msr-tab-button__wrapper">
+    <div class="msr-tab-button">
+      <input :id="_id" ref="input" :name="group" type="radio" v-model="value" @change="_change" />
+      <label :for="_id">
+        <div class="msr-tab-button__view">
+          <span class="msr-tab-button__label">
+            {{ label }}
+          </span>
+          <div class="msr-tab-button__indicator"></div>
+        </div>
+      </label>
+    </div>
   </div>
 </template>
 
@@ -24,7 +28,7 @@ export default defineComponent({
     },
     group: {
       type: String,
-      default: "chips"
+      default: "tabs"
     },
     colour: {
       type: String as PropType<Colours | string>,
@@ -47,7 +51,7 @@ export default defineComponent({
   },
   computed: {
     _id() {
-      return `msr-choice-chips${Math.random().toString(16).slice(2)}`;
+      return `msr-tab-button${Math.random().toString(16).slice(2)}`;
     },
     _colour() {
       if (Object.keys(Colours).includes(this.colour)) {
@@ -81,10 +85,27 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-tab-button {
+.msr-tab-button__wrapper {
+  display: flex;
+}
+
+
+.msr-tab-button input {
+  display: none;
+}
+
+.msr-tab-button input ~ label .msr-tab-button__view {
   padding-top: 8px;
-  background-color: v-bind(_backgroundColour);
   border-radius: 8px 8px 0px 0px;
+
+  cursor: pointer;
+
+  transition: all 300ms ease-in-out;
+}
+
+.msr-tab-button input:checked ~ label .msr-tab-button__view,
+.msr-tab-button input ~ label .msr-tab-button__view:hover {
+  background-color: v-bind(_backgroundColour);
 }
 
 .msr-tab-button .msr-tab-button__label {
@@ -93,14 +114,27 @@ export default defineComponent({
   font-weight: 700;
 
   padding: 0px 24px;
-  color: (_colour);
 }
 
-.msr-tab-button .msr-tab-button__indicator {
+.msr-tab-button input:checked~label .msr-tab-button__label,
+.msr-tab-button input ~ label .msr-tab-button__view:hover .msr-tab-button__label {
+  color: v-bind(_colour);
+}
+
+.msr-tab-button input~label .msr-tab-button__indicator {
   margin-top: 4px;
   padding-top: 4px;
-  border-radius: 4px;
+  border-radius: 4px 4px 0px 0px;
 
   background-color: v-bind(_colour);
+  transition: all 150ms ease-in-out;
+}
+
+.msr-tab-button input:not(:checked)~label .msr-tab-button__indicator {
+  transform: scale(0);
+}
+
+.msr-tab-button input:checked~label .msr-tab-button__indicator {
+  transform: scale(1);
 }
 </style>
