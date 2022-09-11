@@ -1,14 +1,14 @@
 <template>
-  <table class="msr-table">
+  <table class="msr-table" :full-width="fullWidth">
     <thead class="msr-table__head">
       <tr class="msr-table__row">
-        <th v-if="checkbox" class="msr-table__column">
+        <th v-if="checkbox" class="msr-table__column msr-table__column_checkbox">
           <div class="msr-table__checkbox">
             <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" :checked="_allChecked"
               @change="(value) => _checkAll(value)"></monsetra-checkbox>
           </div>
         </th>
-        <th class="msr-table__column" v-for="col in _colName" :key="col">{{ col }}</th>
+        <th class="msr-table__column" v-for="(col, index) of _colName" :key="index" :focus-col="focusCol == index">{{ col }}</th>
       </tr>
     </thead>
 
@@ -51,8 +51,13 @@ export default defineComponent({
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
+    focusCol: {
+      type: Number,
+      default: 0,
+    },
     checkbox: Boolean,
     rowCheck: Boolean,
+    fullWidth: Boolean,
   },
   data() {
     return {
@@ -147,6 +152,10 @@ export default defineComponent({
   white-space: nowrap;
 }
 
+.msr-table[full-width="true"] {
+  width: 100%;
+}
+
 .msr-table .msr-table__head .msr-table__row .msr-table__column,
 .msr-table .msr-table__body .msr-table__row .msr-table__data {
   font-size: 1rem;
@@ -160,6 +169,10 @@ export default defineComponent({
 
   font-weight: 500;
   padding: 13px 16px;
+}
+
+.msr-table[full-width="true"] .msr-table__head .msr-table__row .msr-table__column[focus-col="true"] {
+  width: 100%;
 }
 
 .msr-table .msr-table__head .msr-table__row .msr-table__column::first-letter {
@@ -176,6 +189,10 @@ export default defineComponent({
 
 .msr-table .msr-table__body .msr-table__row:hover {
   background-color: #7f7f7f21;
+}
+
+.msr-table .msr-table__row .msr-table__column_checkbox {
+  width: 0px;
 }
 
 .msr-table .msr-table__row .msr-table__checkbox {
