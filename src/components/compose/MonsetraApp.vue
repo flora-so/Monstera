@@ -101,7 +101,7 @@ export default defineComponent({
       }
       this.loading = loading;
     },
-    showSnackbar(content: string, colour: Colours) {
+    showSnackbar(content: string, colour: Colours = Colours.primary) {
       this.snackbar.content = content;
       this.snackbar.colour = colour;
 
