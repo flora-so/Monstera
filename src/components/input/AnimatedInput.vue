@@ -105,7 +105,6 @@ export default defineComponent({
   },
   methods: {
     _handleFocus() {
-      console.log("hr")
       this._focus = true;
       this.$emit("focus");
     },

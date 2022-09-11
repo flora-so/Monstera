@@ -63,14 +63,20 @@ export default defineComponent({
     return {
       _show: false,
       _index: 0,
+      display: "",
     };
   },
   computed: {
-    _display() {
-      return this.items.find(item => item.value == this.modelValue)?.label ?? "";
-    },
     backgroundColour() {
       return (this as any)['theme'] == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
+    },
+    _display: {
+      get() {
+        return this.items.find(item => item.value == this.modelValue)?.label ?? this.display;
+      },
+      set(value: string) {
+        this.display = value;
+      }
     },
     value: {
       get() {
@@ -85,6 +91,7 @@ export default defineComponent({
     _update(item: DropdownItem) {
       this.$emit("change", item.value);
       this.value = item.value;
+      this.display = item.label;
 
       this._show = false;
     },
@@ -133,6 +140,11 @@ export default defineComponent({
 
 .msr-static-select__component:hover,
 .msr-static-select .msr-static-select__component :deep(.msr-static-input) {
+  cursor: pointer;
+}
+
+.msr-static-select .msr-static-select__component :deep(.msr-static-input label) {
+  pointer-events: none;
   cursor: pointer;
 }
 
