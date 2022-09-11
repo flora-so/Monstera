@@ -32,6 +32,7 @@ import {
   DataTable,
   FloatingCard,
   OutlinedCard,
+  MonsetraTag,
 } from "./components/content";
 
 // Informative
@@ -205,6 +206,8 @@ let log = (value: any) => {
           </h1>
           <p>Hey, I am inside an outlined card!</p>
         </outlined-card>
+
+        <monsetra-tag label="Tag"></monsetra-tag>
 
         <outlined-button @click="ctx_bottomSheet.show()" class="cpt-margin" label="Bottom Sheet" />
 
