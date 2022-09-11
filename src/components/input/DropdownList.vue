@@ -19,11 +19,15 @@
 import { defineComponent, type PropType } from "vue";
 
 import DropdownListItem from "./DropdownListItem.vue";
-import { DropdownAlignment, DropdownPosition, type DropdownItem, Colours, Theme } from "../../types";
+import { DropdownAlignment, DropdownPosition, type DropdownItem, Colours, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({
   name: "DropdownList",
-  inject: ["theme"],
+  inject: {
+    theme: {
+      from: InjectedKeys.theme
+    }
+  },
   props: {
     alignment: {
       type: String as PropType<DropdownAlignment>,

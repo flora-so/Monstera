@@ -19,11 +19,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import { Theme, type OverlayContext } from "../../types";
+import { Theme, type OverlayContext, InjectedKeys } from "../../types";
 
 export default defineComponent({
   name: "BottomSheet",
-  inject: ["theme"],
+  inject: {
+    theme: {
+      from: InjectedKeys.theme
+    }
+  },
   props: {
     title: {
       type: String,

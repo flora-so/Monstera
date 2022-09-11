@@ -26,11 +26,15 @@
 import { defineComponent } from "vue";
 
 import SmallButton from "../button/SmallButton.vue";
-import { type OverlayContext, Theme } from "../../types";
+import { type OverlayContext, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({
   name: "AlertDialog",
-  inject: ["theme"],
+  inject: {
+    theme: {
+      from: InjectedKeys.theme
+    }
+  },
   props: {
     title: {
       type: String,
