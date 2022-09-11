@@ -13,6 +13,12 @@ export type OverlayContext = {
   hide: () => void,
 }
 
+export enum InjectedKeys {
+  theme = "msr__theme",
+  loading = "msr__loading",
+  snackbar = "msr__snackbar",
+}
+
 export enum InputType {
   email = "email",
   password = "password",

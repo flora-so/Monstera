@@ -186,7 +186,7 @@ let log = (value: any) => {
 
         <!-- ===== Content ===== -->
 
-        <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" checkbox
+        <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :focus-col="0" checkbox full-width
           @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
           <template #column_3="{ data, row }">
             <span>${{ data }} - {{ row.column1 }}</span>
