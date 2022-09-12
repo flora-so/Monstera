@@ -6,6 +6,7 @@ import DataTable from "./DataTable.vue";
 import FloatingCard from "./FloatingCard.vue";
 import OutlinedCard from "./OutlinedCard.vue";
 import MonsetraTag from "./MonsetraTag.vue";
+import ListView from "./ListView.vue";
 
 const Plugin = {
   install(app: App) {
@@ -13,9 +14,10 @@ const Plugin = {
     registerComponent(app, FloatingCard);
     registerComponent(app, OutlinedCard);
     registerComponent(app, MonsetraTag);
+    registerComponent(app, ListView);
   }
 }
 
 export default Plugin;
 
-export { DataTable, FloatingCard, OutlinedCard, MonsetraTag };
+export { DataTable, FloatingCard, OutlinedCard, MonsetraTag, ListView };

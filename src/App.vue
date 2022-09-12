@@ -33,6 +33,7 @@ import {
   FloatingCard,
   OutlinedCard,
   MonsetraTag,
+  ListView,
 } from "./components/content";
 
 // Informative
@@ -78,9 +79,9 @@ let data = reactive({
 const tableData = new DataFrame(
   ["column1", "column-2", "column_3"],
   [
-    { "column1": "Row 1", "column-2": "Row 1", "column_3": "Row 1" },
-    { "column1": "Row 2", "column-2": "Row 2", "column_3": "Row 2" },
-    { "column1": "Row 3", "column-2": "Row 3", "column_3": "Row 3" }
+    { "column1": "Row 1", "column-2": "Row 1", "column_3": "Row 1", "image": "https://avatars.dicebear.com/api/micah/row-1.svg" },
+    { "column1": "Row 2", "column-2": "Row 2", "column_3": "Row 2", "image": "https://avatars.dicebear.com/api/micah/row-2.svg" },
+    { "column1": "Row 3", "column-2": "Row 3", "column_3": "Row 3", "image": "https://avatars.dicebear.com/api/micah/row-3.svg" },
   ]
 );
 
@@ -186,12 +187,14 @@ let log = (value: any) => {
 
         <!-- ===== Content ===== -->
 
-        <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :focus-col="0" checkbox full-width
-          @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
+        <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :focus-col="0" checkbox
+          full-width @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
           <template #column_3="{ data, row }">
             <span>${{ data }} - {{ row.column1 }}</span>
           </template>
         </data-table>
+
+        <list-view :dataframe="tableData" title="column1" subtitle="column-2" image="image"></list-view>
 
         <floating-card class="cpt-margin" hover>
           <h1>
