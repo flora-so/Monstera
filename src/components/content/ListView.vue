@@ -96,12 +96,13 @@ export default defineComponent({
 }
 
 .msr-list-view ul .msr-list-view__item:hover {
-  border-radius: 8px;
-  background-color: v-bind(_backgroundColour);
+  border-radius: 13px;
+  /* background-color: v-bind(_backgroundColour); */
+  background-color: #7d7d7d21;
 }
 
 .msr-list-view ul .msr-list-view__item .msr-list-view__image {
-  margin-right: 13px;
+  margin-right: 8px;
   border-radius: 55px;
   overflow: hidden;
 }
