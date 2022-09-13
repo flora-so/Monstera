@@ -31,7 +31,7 @@ export default defineComponent({
     },
     src: {
       type: String,
-      required: true,
+      default: ""
     },
     value: String,
     modelValue: {
@@ -65,7 +65,6 @@ export default defineComponent({
       }
     },
     _url() {
-      console.log(this.src)
       return `url(${this.src})`;
     },
     _value: {

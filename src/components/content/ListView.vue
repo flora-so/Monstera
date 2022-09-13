@@ -1,15 +1,22 @@
 <template>
   <div class="msr-list-view">
     <ul>
-      <li class="msr-list-view__item" v-for="(data, index) of dataframe.data" :key="index">
-        <div class="msr-list-view__image" :image="image">
-          <list-view-image :src="(data[image] as string)" :value="data" v-model="_selected"></list-view-image>
+      <li class="msr-list-view__wrapper" v-for="(data, index) of dataframe.data" :key="index">
+        <div class="msr-list-view__item" :selected="_selected.indexOf(index.toString()) > -1"
+          @click="_rowSelected(data, index)">
+          <div class="msr-list-view__image" :image="image">
+            <list-view-image :src="(data[image] as string)" :value="index.toString()" :colour="colour"
+              v-model="_selected" @change="_change">
+            </list-view-image>
+          </div>
+          <div class="msr-list-view__content">
+            <h4>{{ data[title] }}</h4>
+            <span :subtitle="subtitle">{{ data[subtitle] }}</span>
+            <p :description="description">{{ data[description] }}</p>
+          </div>
         </div>
-        <div class="msr-list-view__content">
-          <h4>{{ data[title] }}</h4>
-          <span :subtitle="subtitle">{{ data[subtitle] }}</span>
-          <p :description="description">{{ data[description] }}</p>
-        </div>
+
+        <hr :image="image" :divider="divider">
       </li>
     </ul>
   </div>
@@ -55,10 +62,19 @@ export default defineComponent({
       default: ""
     },
     checkbox: Boolean,
+    divider: Boolean,
+  },
+  emits: {
+    change(value: object[]) {
+      return true;
+    },
+    row(row: object) {
+      return true;
+    }
   },
   data() {
     return {
-      _selected: {} as { [key: number]: object },
+      _selected: [],
     }
   },
   computed: {
@@ -77,6 +93,20 @@ export default defineComponent({
       }
     },
   },
+  methods: {
+    _change() {
+      const selected: object[] = [];
+
+      this._selected.forEach((index: number) => {
+        selected.push(this.dataframe.data[index])
+      });
+
+      this.$emit("change", selected);
+    },
+    _rowSelected(row: object, index: number) {
+      this.$emit("row", row);
+    }
+  }
 });
 </script>
 
@@ -85,25 +115,45 @@ export default defineComponent({
   width: 100%;
 }
 
-.msr-list-view ul .msr-list-view__item .msr-list-view__content h4 {
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-}
-
 .msr-list-view ul .msr-list-view__item {
   display: flex;
   align-items: center;
 
+  border-radius: 13px;
   padding: 8px 13px;
   margin: 8px 0px;
   cursor: pointer;
+
+  transition: all ease-in-out 150ms;
 }
 
 .msr-list-view ul .msr-list-view__item:hover {
-  border-radius: 13px;
-  /* background-color: v-bind(_backgroundColour); */
   background-color: #7d7d7d21;
+}
+
+.msr-list-view ul .msr-list-view__item[selected="true"] {
+  background-color: v-bind(_backgroundColour);
+}
+
+.msr-list-view ul .msr-list-view__wrapper hr:not([divider="true"]) {
+  border-top-width: 0px;
+}
+
+.msr-list-view ul .msr-list-view__wrapper hr {
+  border-color: #7d7d7d34;
+  border-top-width: 1px;
+}
+
+.msr-list-view ul .msr-list-view__wrapper hr[image=""] {
+  margin: 0px 13px;
+}
+
+.msr-list-view ul .msr-list-view__wrapper hr:not([image=""]) {
+  margin: 0px 13px 0px 84px;
+}
+
+.msr-list-view ul .msr-list-view__wrapper:last-child hr {
+  display: none;
 }
 
 .msr-list-view ul .msr-list-view__item .msr-list-view__image {
@@ -112,18 +162,25 @@ export default defineComponent({
   overflow: hidden;
 }
 
-/* .msr-list-view ul .msr-list-view__item .msr-list-view__image img {
-  width: 55px;
-  height: 55px;
-} */
-
 .msr-list-view ul .msr-list-view__item .msr-list-view__image[image=""] {
   display: none;
+}
+
+.msr-list-view ul .msr-list-view__item .msr-list-view__content h4 {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
 }
 
 .msr-list-view ul .msr-list-view__item .msr-list-view__content span {
   font-size: 1rem;
   line-height: 1.25rem;
+  color: #7d7d7d;
+}
+
+.msr-list-view ul .msr-list-view__item .msr-list-view__content p {
+  font-size: 0.875rem;
+  line-height: 1rem;
   color: #7d7d7d;
 }
 </style>
