@@ -3,7 +3,7 @@
     <ul>
       <li class="msr-list-view__item" v-for="(data, index) of dataframe.data" :key="index">
         <div class="msr-list-view__image" :image="image">
-          <list-view-image :src="(data[image] as string)"></list-view-image>
+          <list-view-image :src="(data[image] as string)" :value="data" v-model="_selected"></list-view-image>
         </div>
         <div class="msr-list-view__content">
           <h4>{{ data[title] }}</h4>
@@ -55,6 +55,11 @@ export default defineComponent({
       default: ""
     },
     checkbox: Boolean,
+  },
+  data() {
+    return {
+      _selected: {} as { [key: number]: object },
+    }
   },
   computed: {
     _colour() {
