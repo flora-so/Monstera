@@ -5,14 +5,28 @@
         <div class="msr-list-view__item" :selected="_selected.indexOf(index.toString()) > -1"
           @click="_rowSelected(data, index)">
           <div class="msr-list-view__image" :image="image">
-            <list-view-image :src="(data[image] as string)" :value="index.toString()" :colour="colour"
-              v-model="_selected" @change="_change">
-            </list-view-image>
+            <slot name="image">
+              <list-view-image :src="(data[image] as string)" :value="index.toString()" :colour="colour"
+                v-model="_selected" @change="_change">
+              </list-view-image>
+            </slot>
           </div>
           <div class="msr-list-view__content">
-            <h4>{{ data[title] }}</h4>
-            <span :subtitle="subtitle">{{ data[subtitle] }}</span>
-            <p :description="description">{{ data[description] }}</p>
+            <div class="msr-list-view__title">
+              <slot name="title">
+                <h4>{{ data[title] }}</h4>
+              </slot>
+            </div>
+            <div class="msr-list-view__subtitle">
+              <slot name="subtitle">
+                <span :subtitle="subtitle">{{ data[subtitle] }}</span>
+              </slot>
+            </div>
+            <div class="msr-list-view__description">
+              <slot name="description">
+                <p :description="description">{{ data[description] }}</p>
+              </slot>
+            </div>
           </div>
         </div>
 
@@ -166,19 +180,19 @@ export default defineComponent({
   display: none;
 }
 
-.msr-list-view ul .msr-list-view__item .msr-list-view__content h4 {
+.msr-list-view ul .msr-list-view__item .msr-list-view__content .msr-list-view__title {
   font-size: 1.125rem;
   line-height: 1.5rem;
   font-weight: 500;
 }
 
-.msr-list-view ul .msr-list-view__item .msr-list-view__content span {
+.msr-list-view ul .msr-list-view__item .msr-list-view__content .msr-list-view__subtitle {
   font-size: 1rem;
   line-height: 1.25rem;
   color: #7d7d7d;
 }
 
-.msr-list-view ul .msr-list-view__item .msr-list-view__content p {
+.msr-list-view ul .msr-list-view__item .msr-list-view__content .msr-list-view__description {
   font-size: 0.875rem;
   line-height: 1rem;
   color: #7d7d7d;
