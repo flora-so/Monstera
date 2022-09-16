@@ -28,6 +28,10 @@
               </slot>
             </div>
           </div>
+          <div class="msr-list-view__action">
+            <slot name="action" :row="data">
+            </slot>
+          </div>
         </div>
 
         <hr :image="image" :divider="divider">
@@ -196,5 +200,14 @@ export default defineComponent({
   font-size: 0.875rem;
   line-height: 1rem;
   color: #7d7d7d;
+}
+
+.msr-list-view ul .msr-list-view__item .msr-list-view__action {
+  max-width: 55px;
+  max-height: 55px;
+
+  overflow: hidden;
+
+  margin-left: auto;
 }
 </style>
