@@ -8,7 +8,9 @@
               @change="(value) => _checkAll(value)"></monsetra-checkbox>
           </div>
         </th>
-        <th class="msr-table__column" v-for="(col, index) of _colName" :key="index" :focus-col="focusCol == index">{{ col }}</th>
+        <th class="msr-table__column" v-for="(col, index) of _colName" :key="index" :focus-col="focusCol == index">
+          {{ col }}</th>
+        <th class="msr-table__column"></th>
       </tr>
     </thead>
 
@@ -22,6 +24,9 @@
         </td>
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
           <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
+        </td>
+        <td class="msr-table__data msr-table__actions">
+          <slot name="actions" :row="row"></slot>
         </td>
       </tr>
     </tbody>
