@@ -4,7 +4,7 @@
       <li class="msr-list-view__wrapper" v-for="(data, index) of dataframe.data" :key="index">
         <div class="msr-list-view__item" :selected="_selected.indexOf(index.toString()) > -1"
           @click="_rowSelected(data, index)">
-          <div class="msr-list-view__image" :image="image">
+          <div class="msr-list-view__image" :image="image" :row="data">
             <slot name="image">
               <list-view-image :src="(data[image] as string)" :value="index.toString()" :colour="colour"
                 v-model="_selected" @change="_change">
@@ -13,17 +13,17 @@
           </div>
           <div class="msr-list-view__content">
             <div class="msr-list-view__title">
-              <slot name="title">
+              <slot name="title" :data="data[title]" :row="data">
                 <h4>{{ data[title] }}</h4>
               </slot>
             </div>
             <div class="msr-list-view__subtitle">
-              <slot name="subtitle">
+              <slot name="subtitle" :data="data[subtitle]" :row="data">
                 <span :subtitle="subtitle">{{ data[subtitle] }}</span>
               </slot>
             </div>
             <div class="msr-list-view__description">
-              <slot name="description">
+              <slot name="description" :data="data[description]" :row="data">
                 <p :description="description">{{ data[description] }}</p>
               </slot>
             </div>
