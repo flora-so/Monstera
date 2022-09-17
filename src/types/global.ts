@@ -1,8 +1,8 @@
 export class DataFrame {
   columns: string[];
-  data: { [key: string]: number | string }[];
+  data: { [key: string]: number | string, id: string | number }[];
 
-  constructor(columns: string[], data: { [key: string]: number | string }[]) {
+  constructor(columns: string[], data: { [key: string]: number | string, id: string | number }[]) {
     this.columns = columns;
     this.data = data;
   }
@@ -48,6 +48,12 @@ export type InputValidator = (value: string) => string;
 export type DropdownItem = {
   label: string,
   value: string,
+  colour?: string,
+}
+
+export type ActionItem = {
+  label: string,
+  method: (data: any) => void,
   colour?: string,
 }
 

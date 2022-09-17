@@ -28,7 +28,7 @@
               </slot>
             </div>
           </div>
-          <div class="msr-list-view__action">
+          <div v-if="!!actions" class="msr-list-view__actions">
             <slot name="action" :row="data">
             </slot>
           </div>
@@ -43,7 +43,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { type DataFrame, Colours } from "../../types";
+import { type DataFrame, type ActionItem, Colours } from "../../types";
 import ListViewImage from "./ListViewImage.vue";
 
 export default defineComponent({
@@ -79,6 +79,7 @@ export default defineComponent({
       type: String,
       default: ""
     },
+    actions: Array as PropType<ActionItem[]>,
     checkbox: Boolean,
     divider: Boolean,
   },
@@ -202,7 +203,7 @@ export default defineComponent({
   color: #7d7d7d;
 }
 
-.msr-list-view ul .msr-list-view__item .msr-list-view__action {
+.msr-list-view ul .msr-list-view__item .msr-list-view__actions {
   max-width: 55px;
   max-height: 55px;
 

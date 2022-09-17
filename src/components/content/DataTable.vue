@@ -10,7 +10,7 @@
         </th>
         <th class="msr-table__column" v-for="(col, index) of _colName" :key="index" :focus-col="focusCol == index">
           {{ col }}</th>
-        <th class="msr-table__column"></th>
+        <th v-if="!!actions" class="msr-table__column"></th>
       </tr>
     </thead>
 
@@ -25,7 +25,7 @@
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
           <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
         </td>
-        <td class="msr-table__data msr-table__action">
+        <td v-if="!!actions" class="msr-table__data msr-table__actions">
           <slot name="actions" :row="row"></slot>
         </td>
       </tr>
@@ -37,7 +37,7 @@
 import { defineComponent, type PropType } from "vue";
 
 import MonsetraCheckbox from "../input/MonsetraCheckbox.vue";
-import { type DataFrame, Colours } from "../../types";
+import { type DataFrame, type ActionItem, Colours } from "../../types";
 
 export default defineComponent({
   name: "DataTable",
@@ -60,6 +60,7 @@ export default defineComponent({
       type: Number,
       default: 0,
     },
+    actions: Array as PropType<ActionItem[]>,
     checkbox: Boolean,
     rowCheck: Boolean,
     fullWidth: Boolean,
@@ -216,7 +217,7 @@ export default defineComponent({
   border-bottom-right-radius: 8px;
 }
 
-.msr-table .msr-table__body .msr-table__action {
+.msr-table .msr-table__body .msr-table__actions {
   max-width: 55px;
   max-height: 55px;
 

@@ -79,9 +79,9 @@ let data = reactive({
 const tableData = new DataFrame(
   ["column1", "column-2", "column_3"],
   [
-    { "column1": "Row 1", "column-2": "Row 1", "column_3": "Row 1", "image": "https://avatars.dicebear.com/api/micah/row-1.svg" },
-    { "column1": "Row 2", "column-2": "Row 2", "column_3": "Row 2", "image": "https://avatars.dicebear.com/api/micah/row-2.svg" },
-    { "column1": "Row 3", "column-2": "Row 3", "column_3": "Row 3", "image": "https://avatars.dicebear.com/api/micah/row-3.svg" },
+    { "id": "1", "column1": "Row 1", "column-2": "Row 1", "column_3": "Row 1", "image": "https://avatars.dicebear.com/api/micah/row-1.svg" },
+    { "id": "2", "column1": "Row 2", "column-2": "Row 2", "column_3": "Row 2", "image": "https://avatars.dicebear.com/api/micah/row-2.svg" },
+    { "id": "3", "column1": "Row 3", "column-2": "Row 3", "column_3": "Row 3", "image": "https://avatars.dicebear.com/api/micah/row-3.svg" },
   ]
 );
 
