@@ -1,6 +1,7 @@
 <template>
   <div class="msr-list-view__image">
-    <input :id="_id" ref="input" type="checkbox" :value="value" v-model="_value" @change="_change" />
+    <input :id="_id" ref="input" type="checkbox" :value="value" v-model="_value" @change="_change"
+      :disabled="disabled" />
     <label :for="_id">
       <div class="msr-list-view__image__box" tabindex="0" @keydown="_handleInput">
         <svg class="msr-list-view__image__tick" fill="currentColor" viewBox="0 0 20 20"
@@ -34,6 +35,7 @@ export default defineComponent({
       default: ""
     },
     value: String,
+    disabled: Boolean,
     modelValue: {
       type: [Boolean, Array],
     },

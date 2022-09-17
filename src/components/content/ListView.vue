@@ -7,7 +7,7 @@
           <div class="msr-list-view__image" :image="image" :row="data">
             <slot name="image">
               <list-view-image :src="(data[image] as string)" :value="index.toString()" :colour="colour"
-                v-model="_selected" @change="_change">
+                :disabled="!checkbox" v-model="_selected" @change="_change">
               </list-view-image>
             </slot>
           </div>

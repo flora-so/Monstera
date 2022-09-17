@@ -195,7 +195,7 @@ let log = (value: any) => {
         </data-table>
 
         <list-view :dataframe="tableData" title="column1" subtitle="column-2" description="column_3" image="image"
-          divider>
+          checkbox divider>
         </list-view>
 
         <floating-card class="cpt-margin" hover>

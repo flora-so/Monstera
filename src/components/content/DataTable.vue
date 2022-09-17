@@ -25,7 +25,7 @@
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
           <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
         </td>
-        <td class="msr-table__data msr-table__actions">
+        <td class="msr-table__data msr-table__action">
           <slot name="actions" :row="row"></slot>
         </td>
       </tr>
@@ -214,5 +214,12 @@ export default defineComponent({
 
 .msr-table .msr-table__body .msr-table__row:last-child .msr-table__data:last-child {
   border-bottom-right-radius: 8px;
+}
+
+.msr-table .msr-table__body .msr-table__action {
+  max-width: 55px;
+  max-height: 55px;
+
+  overflow: hidden;
 }
 </style>
