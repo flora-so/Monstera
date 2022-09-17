@@ -30,6 +30,19 @@
           </div>
           <div v-if="!!actions" class="msr-list-view__actions">
             <slot name="action" :row="data">
+              <dropdown-list :items="_actions" :alignment="dropdownAlignment.right"
+                @change="(value: string) => _handleAction(value, data)">
+                <icon-button :colour="_iconColour">
+                  <template #icon="{ width, height, colour }">
+                    <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+                      </path>
+                    </svg>
+                  </template>
+                </icon-button>
+              </dropdown-list>
             </slot>
           </div>
         </div>
@@ -43,13 +56,22 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import { type DataFrame, type ActionItem, Colours } from "../../types";
+import { type DataFrame, type ActionItem, type DropdownItem, Colours, Theme, DropdownAlignment, InjectedKeys } from "../../types";
 import ListViewImage from "./ListViewImage.vue";
+import DropdownList from "../input/DropdownList.vue";
+import IconButton from "../button/IconButton.vue";
 
 export default defineComponent({
   name: "ListView",
   components: {
     ListViewImage,
+    DropdownList,
+    IconButton,
+  },
+  inject: {
+    theme: {
+      from: InjectedKeys.theme
+    }
   },
   props: {
     dataframe: {
@@ -97,6 +119,9 @@ export default defineComponent({
     }
   },
   computed: {
+    dropdownAlignment() {
+      return DropdownAlignment;
+    },
     _colour() {
       if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
@@ -111,6 +136,19 @@ export default defineComponent({
         return `${this.colour}21`;
       }
     },
+    _actions(): DropdownItem[] {
+      if (!this.actions) {
+        return [];
+      }
+      return this.actions!.map(item => ({
+        label: item.label,
+        value: item.label,
+        colour: item.colour,
+      }));
+    },
+    _iconColour() {
+      return (this as any)['theme'] == Theme.dark ? "#ffffff" : "#000000";
+    }
   },
   methods: {
     _change() {
@@ -124,6 +162,13 @@ export default defineComponent({
     },
     _rowSelected(row: object, index: number) {
       this.$emit("row", row);
+    },
+    _handleAction(value: string, data: object) {
+      this.actions!.forEach(item => {
+        if (item.label === value) {
+          return item.method(data);
+        }
+      });
     }
   }
 });
@@ -204,11 +249,6 @@ export default defineComponent({
 }
 
 .msr-list-view ul .msr-list-view__item .msr-list-view__actions {
-  max-width: 55px;
-  max-height: 55px;
-
-  overflow: hidden;
-
   margin-left: auto;
 }
 </style>

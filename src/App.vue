@@ -14,6 +14,7 @@ import {
   Theme,
   DropdownPosition,
   type InputValidator,
+  type ActionItem,
 } from "./types";
 
 // Buttons
@@ -90,6 +91,12 @@ const dropdownItems = [
   { label: "Item 2", value: "item-2" },
   { label: "Item 3", value: "item-3" }
 ] as DropdownItem[];
+
+const actionItems = [
+  { label: "Action 1", method: (data) => console.log(data, "one") },
+  { label: "Action 2", method: (data) => console.log(data, "two") },
+  { label: "Action 3", method: (data) => console.log(data, "three") }
+] as ActionItem[];
 
 let ctx_alertDialog: OverlayContext;
 let ctx_banner: OverlayContext;
@@ -187,15 +194,16 @@ let log = (value: any) => {
 
         <!-- ===== Content ===== -->
 
-        <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :focus-col="0" checkbox
-          full-width @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
+        <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :focus-col="0"
+          :actions="actionItems" checkbox full-width @change="value => log(`@change: ${value}`)"
+          @row="value => log(`@row: ${value}`)">
           <template #column_3="{ data, row }">
             <span>${{ data }} - {{ row.column1 }}</span>
           </template>
         </data-table>
 
         <list-view :dataframe="tableData" title="column1" subtitle="column-2" description="column_3" image="image"
-          checkbox divider>
+          :actions="actionItems" checkbox divider>
         </list-view>
 
         <floating-card class="cpt-margin" hover>

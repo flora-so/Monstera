@@ -25,8 +25,22 @@
         <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
           <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
         </td>
-        <td v-if="!!actions" class="msr-table__data msr-table__actions">
-          <slot name="actions" :row="row"></slot>
+        <td v-if="!!actions" class="msr-table__actions">
+          <slot name="actions" :row="row">
+            <dropdown-list :items="_actions" :alignment="dropdownAlignment.right"
+              @change="(value: string) => _handleAction(value, row)">
+              <icon-button :colour="_iconColour">
+                <template #icon="{ width, height, colour }">
+                  <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+                    </path>
+                  </svg>
+                </template>
+              </icon-button>
+            </dropdown-list>
+          </slot>
         </td>
       </tr>
     </tbody>
@@ -37,12 +51,21 @@
 import { defineComponent, type PropType } from "vue";
 
 import MonsetraCheckbox from "../input/MonsetraCheckbox.vue";
-import { type DataFrame, type ActionItem, Colours } from "../../types";
+import DropdownList from "../input/DropdownList.vue";
+import IconButton from "../button/IconButton.vue";
+import { type DataFrame, type ActionItem, type DropdownItem, Colours, DropdownAlignment, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({
   name: "DataTable",
   components: {
     MonsetraCheckbox,
+    DropdownList,
+    IconButton,
+  },
+  inject: {
+    theme: {
+      from: InjectedKeys.theme
+    }
   },
   props: {
     dataframe: {
@@ -80,6 +103,9 @@ export default defineComponent({
     },
   },
   computed: {
+    dropdownAlignment() {
+      return DropdownAlignment;
+    },
     _colName() {
       return this.dataframe.columns.map((col) => {
         return col.replace(/([^\p{L}\d]+|(?<=\p{L})(?=\d)|(?<=\d)(?=\p{L})|(?<=[\p{Ll}\d])(?=\p{Lu})|(?<=\p{Lu})(?=\p{Lu}\p{Ll})|(?<=[\p{L}\d])(?=\p{Lu}\p{Ll}))/gu, ' ');
@@ -96,6 +122,19 @@ export default defineComponent({
           return this._selected[index] != null;
         }
       }
+    },
+    _actions(): DropdownItem[] {
+      if (!this.actions) {
+        return [];
+      }
+      return this.actions!.map(item => ({
+        label: item.label,
+        value: item.label,
+        colour: item.colour,
+      }));
+    },
+    _iconColour() {
+      return (this as any)['theme'] == Theme.dark ? "#ffffff" : "#000000";
     }
   },
   methods: {
@@ -144,6 +183,13 @@ export default defineComponent({
       if (this.rowCheck) {
         this._toggleSelected(row, index, !this._triggerCheck(index));
       }
+    },
+    _handleAction(value: string, data: object) {
+      this.actions!.forEach(item => {
+        if (item.label === value) {
+          return item.method(data);
+        }
+      });
     }
   },
 });
@@ -163,7 +209,8 @@ export default defineComponent({
 }
 
 .msr-table .msr-table__head .msr-table__row .msr-table__column,
-.msr-table .msr-table__body .msr-table__row .msr-table__data {
+.msr-table .msr-table__body .msr-table__row .msr-table__data,
+.msr-table .msr-table__body .msr-table__row .msr-table__actions {
   font-size: 1rem;
   line-height: 1.313rem;
 
@@ -213,14 +260,8 @@ export default defineComponent({
   border-bottom-left-radius: 8px;
 }
 
-.msr-table .msr-table__body .msr-table__row:last-child .msr-table__data:last-child {
+.msr-table .msr-table__body .msr-table__row:last-child .msr-table__data:last-child,
+.msr-table .msr-table__body .msr-table__row:last-child .msr-table__actions {
   border-bottom-right-radius: 8px;
-}
-
-.msr-table .msr-table__body .msr-table__actions {
-  max-width: 55px;
-  max-height: 55px;
-
-  overflow: hidden;
 }
 </style>
