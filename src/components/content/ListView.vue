@@ -2,11 +2,10 @@
   <div class="msr-list-view">
     <ul>
       <li class="msr-list-view__wrapper" v-for="data of dataframe.data" :key="data.id">
-        <div class="msr-list-view__item" :selected="selected.indexOf(data.id as never) > -1"
-          @click="_rowSelected(data)">
+        <div class="msr-list-view__item" :selected="selected.indexOf(data.id) > -1" @click="_rowSelected(data)">
           <div class="msr-list-view__image" :image="image" :row="data">
             <slot name="image">
-              <list-view-image :src="(data[image] as string)" :value="data.id" :colour="colour" :disabled="!checkbox"
+              <list-view-image :src="_srcPasrser(data[image])" :value="data.id" :colour="colour" :disabled="!checkbox"
                 v-model="selected">
               </list-view-image>
             </slot>
@@ -31,7 +30,7 @@
           <div v-if="!!actions" class="msr-list-view__actions">
             <slot name="action" :row="data">
               <dropdown-list :items="_actions" :alignment="dropdownAlignment.right"
-                @change="(value: string) => _handleAction(value, data)">
+                @change="value => _handleAction(value, data)">
                 <icon-button :colour="_iconColour">
                   <template #icon="{ width, height, colour }">
                     <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
@@ -126,6 +125,7 @@ export default defineComponent({
     dropdownAlignment() {
       return DropdownAlignment;
     },
+    _srcPasrser: () => (src: any) => src,
     selected: {
       get() {
         return this.modelValue ?? this._selected;
@@ -168,7 +168,7 @@ export default defineComponent({
     _rowSelected(row: object) {
       this.$emit("row", row);
     },
-    _handleAction(value: string, data: object) {
+    _handleAction(value: any, data: object) {
       this.actions!.forEach(item => {
         if (item.label === value) {
           return item.method(data);

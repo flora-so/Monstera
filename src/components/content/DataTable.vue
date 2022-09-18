@@ -27,7 +27,7 @@
         <td v-if="!!actions" class="msr-table__actions">
           <slot name="actions" :row="row">
             <dropdown-list :items="_actions" :alignment="dropdownAlignment.right"
-              @change="(value: string) => _handleAction(value, row)">
+              @change="value => _handleAction(value, row)">
               <icon-button :colour="_iconColour">
                 <template #icon="{ width, height, colour }">
                   <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
@@ -164,7 +164,7 @@ export default defineComponent({
         }
       }
     },
-    _handleAction(value: string, data: object) {
+    _handleAction(value: any, data: object) {
       this.actions!.forEach(item => {
         if (item.label === value) {
           return item.method(data);
