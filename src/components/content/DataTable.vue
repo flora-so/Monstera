@@ -4,8 +4,8 @@
       <tr class="msr-table__row">
         <th v-if="checkbox" class="msr-table__column msr-table__column_checkbox">
           <div class="msr-table__checkbox">
-            <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" :checked="_allChecked"
-              @change="(value) => _checkAll(value)"></monsetra-checkbox>
+            <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" v-model="_allChecked">
+            </monsetra-checkbox>
           </div>
         </th>
         <th class="msr-table__column" v-for="(col, index) of _colName" :key="index" :focus-col="focusCol == index">
@@ -15,14 +15,13 @@
     </thead>
 
     <tbody class="msr-table__body">
-      <tr class="msr-table__row" :row-check="rowCheck" v-for="(row, index) in dataframe.data" :key="index">
+      <tr class="msr-table__row" :row-check="rowCheck" v-for="row in dataframe.data" :key="row.id">
         <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
           <div class="msr-table__checkbox">
-            <monsetra-checkbox :colour="colour" :checked="_triggerCheck(index)"
-              @change="(value) => _toggleSelected(row, index, value)"></monsetra-checkbox>
+            <monsetra-checkbox :colour="colour" :value="row.id" v-model="selected"></monsetra-checkbox>
           </div>
         </td>
-        <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row, index)">
+        <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row)">
           <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
         </td>
         <td v-if="!!actions" class="msr-table__actions">
@@ -83,6 +82,7 @@ export default defineComponent({
       type: Number,
       default: 0,
     },
+    modelValue: Array,
     actions: Array as PropType<ActionItem[]>,
     checkbox: Boolean,
     rowCheck: Boolean,
@@ -90,21 +90,45 @@ export default defineComponent({
   },
   data() {
     return {
-      _allChecked: false,
-      _selected: {} as { [key: number]: object },
+      _selected: [] as string[],
     }
   },
   emits: {
-    change(dataframe: DataFrame) {
-      return typeof dataframe == "object";
+    change(selected: string[]) {
+      return true;
     },
     row(row: object) {
       return typeof row == "object";
     },
+    "update:modelValue": (value: string[]) => {
+      return true;
+    }
   },
   computed: {
     dropdownAlignment() {
       return DropdownAlignment;
+    },
+    selected: {
+      get() {
+        return this.modelValue ?? this._selected;
+      },
+      set(value: string[]) {
+        this._selected = value;
+        this.$emit("change", value);
+        this.$emit("update:modelValue", value);
+      }
+    },
+    _allChecked: {
+      get() {
+        return this.selected.length == this.dataframe.data.length;
+      },
+      set(value: boolean) {
+        if (value) {
+          this.selected = this.dataframe.data.map((row) => row.id);
+        } else {
+          this.selected = [];
+        }
+      }
     },
     _colName() {
       return this.dataframe.columns.map((col) => {
@@ -112,16 +136,7 @@ export default defineComponent({
       });
     },
     _intermediate() {
-      return Object.keys(this._selected).length > 0;
-    },
-    _triggerCheck() {
-      return (index: number) => {
-        if (this._allChecked) {
-          return true;
-        } else {
-          return this._selected[index] != null;
-        }
-      }
+      return Object.keys(this.selected).length > 0;
     },
     _actions(): DropdownItem[] {
       if (!this.actions) {
@@ -138,50 +153,15 @@ export default defineComponent({
     }
   },
   methods: {
-    _emitChange() {
-      let selected = [];
-      for (let key in this._selected) {
-        selected.push(this._selected[key]);
-      }
-      this.$emit("change", selected);
-    },
-    _checkAll(value: boolean) {
-      this._allChecked = value;
-
-      if (value) {
-        let data = this.dataframe.data;
-
-        for (let i = 0; i < data.length; i++) {
-          this._selected[i] = data[i];
-        }
-      } else {
-        this._selected = {};
-      }
-
-      this._emitChange();
-    },
-    _toggleSelected(row: object, index: number, value: boolean) {
-      if (value) {
-        this._selected[index] = row;
-
-        if (Object.keys(this._selected).length === this.dataframe.data.length) {
-          this._allChecked = true;
-        }
-      } else {
-        delete this._selected[index];
-
-        if (this._allChecked) {
-          this._allChecked = false;
-        }
-      }
-
-      this._emitChange();
-    },
-    _rowSelected(row: object, index: number) {
+    _rowSelected(row: { [key: string]: string | number, id: string }) {
       this.$emit("row", row);
 
       if (this.rowCheck) {
-        this._toggleSelected(row, index, !this._triggerCheck(index));
+        if (this.selected.includes(row.id)) {
+          this.selected = this.selected.filter((id) => id != row.id);
+        } else {
+          this.selected.push(row.id);
+        }
       }
     },
     _handleAction(value: string, data: object) {

@@ -86,6 +86,8 @@ const tableData = new DataFrame(
   ]
 );
 
+const selected = reactive({ items: [] });
+
 const dropdownItems = [
   { label: "Item 1", value: "item-1" },
   { label: "Item 2", value: "item-2" },
@@ -194,13 +196,17 @@ let log = (value: any) => {
 
         <!-- ===== Content ===== -->
 
+        {{ selected.items }}
+        <small-button label="Reset" @click="selected.items = []"></small-button>
+
         <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :focus-col="0"
-          :actions="actionItems" checkbox full-width @change="value => log(`@change: ${value}`)"
-          @row="value => log(`@row: ${value}`)">
+          :actions="actionItems" v-model="selected.items" checkbox full-width
+          @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
           <template #column_3="{ data, row }">
             <span>${{ data }} - {{ row.column1 }}</span>
           </template>
         </data-table>
+
 
         <list-view :dataframe="tableData" title="column1" subtitle="column-2" description="column_3" image="image"
           :actions="actionItems" checkbox divider>

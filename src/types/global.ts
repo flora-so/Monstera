@@ -1,8 +1,8 @@
 export class DataFrame {
   columns: string[];
-  data: { [key: string]: number | string, id: string | number }[];
+  data: { [key: string]: number | string, id: string }[];
 
-  constructor(columns: string[], data: { [key: string]: number | string, id: string | number }[]) {
+  constructor(columns: string[], data: { [key: string]: number | string, id: string }[]) {
     this.columns = columns;
     this.data = data;
   }
