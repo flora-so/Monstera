@@ -120,11 +120,11 @@ export default defineComponent({
     },
     _allChecked: {
       get() {
-        return this.selected.length == this.dataframe.data.length;
+        return this.selected.length == this.dataframe.length;
       },
       set(value: boolean) {
         if (value) {
-          this.selected = this.dataframe.data.map((row) => row.id);
+          this.selected = this.dataframe.id;
         } else {
           this.selected = [];
         }

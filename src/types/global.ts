@@ -6,6 +6,14 @@ export class DataFrame {
     this.columns = columns;
     this.data = data;
   }
+
+  get id() {
+    return this.data.map(d => d.id);
+  }
+
+  get length() {
+    return this.data.length;
+  }
 }
 
 export type OverlayContext = {
