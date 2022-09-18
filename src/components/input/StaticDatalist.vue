@@ -18,11 +18,15 @@ import { defineComponent, type PropType } from "vue";
 
 import DropdownListItem from "./DropdownListItem.vue";
 import StaticInput from "./StaticInput.vue";
-import { type DropdownItem, Colours, Theme } from "../../types";
+import { type DropdownItem, Colours, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({
   name: "StaticDatalist",
-  inject: ["theme"],
+  inject: {
+    theme: {
+      from: InjectedKeys.theme
+    }
+  },
   props: {
     label: {
       type: String,

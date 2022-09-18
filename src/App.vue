@@ -14,6 +14,7 @@ import {
   Theme,
   DropdownPosition,
   type InputValidator,
+  type ActionItem,
 } from "./types";
 
 // Buttons
@@ -22,15 +23,18 @@ import {
   LinkButton,
   OutlinedButton,
   SmallButton,
-  TextButton
+  TextButton,
+  IconButton,
+  TabButton
 } from "./components/button";
-import IconButton from "./components/button/IconButton.vue";
 
 // Content
 import {
   DataTable,
   FloatingCard,
   OutlinedCard,
+  MonsetraTag,
+  ListView,
 } from "./components/content";
 
 // Informative
@@ -76,17 +80,25 @@ let data = reactive({
 const tableData = new DataFrame(
   ["column1", "column-2", "column_3"],
   [
-    { "column1": "Row 1", "column-2": "Row 1", "column_3": "Row 1" },
-    { "column1": "Row 2", "column-2": "Row 2", "column_3": "Row 2" },
-    { "column1": "Row 3", "column-2": "Row 3", "column_3": "Row 3" }
+    { "id": "1", "column1": "Row 1", "column-2": "Row 1", "column_3": "Row 1", "image": "https://avatars.dicebear.com/api/micah/row-1.svg" },
+    { "id": "2", "column1": "Row 2", "column-2": "Row 2", "column_3": "Row 2", "image": "https://avatars.dicebear.com/api/micah/row-2.svg" },
+    { "id": "3", "column1": "Row 3", "column-2": "Row 3", "column_3": "Row 3", "image": "https://avatars.dicebear.com/api/micah/row-3.svg" },
   ]
 );
+
+const selected = reactive({ items: [] });
 
 const dropdownItems = [
   { label: "Item 1", value: "item-1" },
   { label: "Item 2", value: "item-2" },
   { label: "Item 3", value: "item-3" }
 ] as DropdownItem[];
+
+const actionItems = [
+  { label: "Action 1", method: (data) => console.log(data, "one") },
+  { label: "Action 2", method: (data) => console.log(data, "two") },
+  { label: "Action 3", method: (data) => console.log(data, "three") }
+] as ActionItem[];
 
 let ctx_alertDialog: OverlayContext;
 let ctx_banner: OverlayContext;
@@ -130,7 +142,7 @@ let log = (value: any) => {
         <big-button label="Big Button" colour="#ffffff" :backgroundColour="Colours.primary">
         </big-button>
 
-        <div class="cpt-space-x cpt-margin">
+        <div class="flex cpt-space-x cpt-margin">
           <icon-button :colour="Colours.primary" filled>
             <template #icon="{ width, height, colour }">
               <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
@@ -163,6 +175,11 @@ let log = (value: any) => {
               </svg>
             </template>
           </icon-button>
+
+        </div>
+        <div class="flex">
+          <tab-button label="Tab 1"></tab-button>
+          <tab-button label="Tab 2"></tab-button>
         </div>
 
         <link-button class="cpt-margin" label="Link Button" :colour="Colours.primary"></link-button>
@@ -179,12 +196,21 @@ let log = (value: any) => {
 
         <!-- ===== Content ===== -->
 
-        <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" checkbox
+        {{ selected.items }}
+        <small-button label="Reset" @click="selected.items = []"></small-button>
+
+        <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :focus-col="0"
+          :actions="actionItems" v-model="selected.items" checkbox full-width
           @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
           <template #column_3="{ data, row }">
             <span>${{ data }} - {{ row.column1 }}</span>
           </template>
         </data-table>
+
+
+        <list-view :dataframe="tableData" title="column1" subtitle="column-2" description="column_3" image="image"
+          :actions="actionItems" v-model="selected.items" checkbox divider>
+        </list-view>
 
         <floating-card class="cpt-margin" hover>
           <h1>
@@ -199,6 +225,8 @@ let log = (value: any) => {
           </h1>
           <p>Hey, I am inside an outlined card!</p>
         </outlined-card>
+
+        <monsetra-tag label="Tag"></monsetra-tag>
 
         <outlined-button @click="ctx_bottomSheet.show()" class="cpt-margin" label="Bottom Sheet" />
 
@@ -311,6 +339,10 @@ let log = (value: any) => {
 
 #main>.container>* {
   margin: 34px 0px;
+}
+
+.flex {
+  display: flex;
 }
 
 /* .cpt-margin {

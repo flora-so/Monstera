@@ -1,16 +1,30 @@
 export class DataFrame {
   columns: string[];
-  data: { [key: string]: number | string }[];
+  data: { [key: string]: number | string, id: string }[];
 
-  constructor(columns: string[], data: { [key: string]: number | string }[]) {
+  constructor(columns: string[], data: { [key: string]: number | string, id: string }[]) {
     this.columns = columns;
     this.data = data;
+  }
+
+  get id() {
+    return this.data.map(d => d.id);
+  }
+
+  get length() {
+    return this.data.length;
   }
 }
 
 export type OverlayContext = {
   show: () => void,
   hide: () => void,
+}
+
+export enum InjectedKeys {
+  theme = "msr__theme",
+  loading = "msr__loading",
+  snackbar = "msr__snackbar",
 }
 
 export enum InputType {
@@ -42,6 +56,12 @@ export type InputValidator = (value: string) => string;
 export type DropdownItem = {
   label: string,
   value: string,
+  colour?: string,
+}
+
+export type ActionItem = {
+  label: string,
+  method: (data: any) => void,
   colour?: string,
 }
 

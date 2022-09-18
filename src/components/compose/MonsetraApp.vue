@@ -89,9 +89,9 @@ export default defineComponent({
   },
   provide() {
     return {
-      theme: computed(() => this.theme),
-      loading: this.setLoading,
-      snackbar: this.showSnackbar,
+      msr__theme: computed(() => this.theme),
+      msr__loading: this.setLoading,
+      msr__snackbar: this.showSnackbar,
     }
   },
   methods: {
@@ -101,7 +101,7 @@ export default defineComponent({
       }
       this.loading = loading;
     },
-    showSnackbar(content: string, colour: Colours) {
+    showSnackbar(content: string, colour: Colours = Colours.primary) {
       this.snackbar.content = content;
       this.snackbar.colour = colour;
 
