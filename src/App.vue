@@ -209,7 +209,7 @@ let log = (value: any) => {
 
 
         <list-view :dataframe="tableData" title="column1" subtitle="column-2" description="column_3" image="image"
-          :actions="actionItems" checkbox divider>
+          :actions="actionItems" v-model="selected.items" checkbox divider>
         </list-view>
 
         <floating-card class="cpt-margin" hover>

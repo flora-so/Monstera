@@ -1,13 +1,13 @@
 <template>
   <div class="msr-list-view">
     <ul>
-      <li class="msr-list-view__wrapper" v-for="(data, index) of dataframe.data" :key="index">
-        <div class="msr-list-view__item" :selected="_selected.indexOf(index.toString()) > -1"
-          @click="_rowSelected(data, index)">
+      <li class="msr-list-view__wrapper" v-for="data of dataframe.data" :key="data.id">
+        <div class="msr-list-view__item" :selected="selected.indexOf(data.id as never) > -1"
+          @click="_rowSelected(data)">
           <div class="msr-list-view__image" :image="image" :row="data">
             <slot name="image">
-              <list-view-image :src="(data[image] as string)" :value="index.toString()" :colour="colour"
-                :disabled="!checkbox" v-model="_selected" @change="_change">
+              <list-view-image :src="(data[image] as string)" :value="data.id" :colour="colour" :disabled="!checkbox"
+                v-model="selected">
               </list-view-image>
             </slot>
           </div>
@@ -101,26 +101,40 @@ export default defineComponent({
       type: String,
       default: ""
     },
+    modelValue: Array,
     actions: Array as PropType<ActionItem[]>,
     checkbox: Boolean,
     divider: Boolean,
   },
   emits: {
-    change(value: object[]) {
+    change(value: string[]) {
       return true;
     },
     row(row: object) {
+      return true;
+    },
+    "update:modelValue": (value: string[]) => {
       return true;
     }
   },
   data() {
     return {
-      _selected: [],
+      _selected: [] as string[],
     }
   },
   computed: {
     dropdownAlignment() {
       return DropdownAlignment;
+    },
+    selected: {
+      get() {
+        return this.modelValue ?? this._selected;
+      },
+      set(value: string[]) {
+        this._selected = value;
+        this.$emit("change", value);
+        this.$emit("update:modelValue", value);
+      }
     },
     _colour() {
       if (Object.keys(Colours).includes(this.colour)) {
@@ -151,16 +165,7 @@ export default defineComponent({
     }
   },
   methods: {
-    _change() {
-      const selected: object[] = [];
-
-      this._selected.forEach((index: number) => {
-        selected.push(this.dataframe.data[index])
-      });
-
-      this.$emit("change", selected);
-    },
-    _rowSelected(row: object, index: number) {
+    _rowSelected(row: object) {
       this.$emit("row", row);
     },
     _handleAction(value: string, data: object) {
