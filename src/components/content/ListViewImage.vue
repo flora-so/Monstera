@@ -4,6 +4,11 @@
       :disabled="disabled" />
     <label :for="_id">
       <div class="msr-list-view__image__box" tabindex="0" @keydown="_handleInput">
+        <div class="msr-list-view__image__background">
+          <slot name="image">
+            <img :src="src" alt="Icon" />
+          </slot>
+        </div>
         <svg class="msr-list-view__image__tick" fill="currentColor" viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
@@ -111,25 +116,42 @@ export default defineComponent({
 }
 
 .msr-list-view__image .msr-list-view__image__box {
+  position: relative;
   border-radius: 3px;
   transition: all ease-out 150ms;
+}
+
+.msr-list-view__image .msr-list-view__image__background {
+  position: absolute;
+
+  width: 55px;
+  max-height: 55px;
+  border-radius: 55px;
+
+  overflow: hidden;
+
+  transition: opacity ease-out 150ms;
 }
 
 .msr-list-view__image .msr-list-view__image__box .msr-list-view__image__tick {
   width: 55px;
   filter: invert(1);
 
-  transition: all ease-out 150ms;
+  transition: transform ease-out 150ms;
 }
 
 /* Checkbox States */
 .msr-list-view__image input:not(:checked)+label .msr-list-view__image__box {
-  background-image: v-bind(_url);
+  /* background-image: v-bind(_url); */
   background-color: v-bind(_colour);
 }
 
 .msr-list-view__image input:checked+label .msr-list-view__image__box {
   background-color: v-bind(_colour);
+}
+
+.msr-list-view__image input:checked+label .msr-list-view__image__box .msr-list-view__image__background {
+  opacity: 0;
 }
 
 /* Tick States */

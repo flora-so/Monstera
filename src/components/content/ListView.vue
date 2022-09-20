@@ -4,11 +4,12 @@
       <li class="msr-list-view__wrapper" v-for="data of dataframe.data" :key="data.id">
         <div class="msr-list-view__item" :selected="selected.indexOf(data.id) > -1" @click="_rowSelected(data)">
           <div class="msr-list-view__image" :image="image" :row="data">
-            <slot name="image">
-              <list-view-image :src="_srcPasrser(data[image])" :value="data.id" :colour="colour" :disabled="!checkbox"
-                v-model="selected">
-              </list-view-image>
-            </slot>
+            <list-view-image :src="_srcPasrser(data[image])" :value="data.id" :colour="colour" :disabled="!checkbox"
+              v-model="selected">
+              <template name="image" :data="data[title]" :row="data">
+                <slot name="image"></slot>
+              </template>
+            </list-view-image>
           </div>
           <div class="msr-list-view__content">
             <div class="msr-list-view__title">
