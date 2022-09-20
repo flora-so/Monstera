@@ -50,12 +50,13 @@ export default defineComponent({
 .msr-badge {
   color: v-bind(_colour);
   font-size: 1rem;
+  line-height: 1.25rem;
   font-weight: 500;
   white-space: nowrap;
   background-color: v-bind(_backgroundColour);
 
-  border-radius: 8px;
-  padding: 5px 10px;
+  border-radius: 5px;
+  padding: 3px 8px;
 }
 
 .msr-badge[rounded="true"] {
