@@ -235,22 +235,19 @@ export default defineComponent({
   display: none;
 }
 
-.msr-list-view ul .msr-list-view__item .msr-list-view__content {
-  width: calc(100%);
-  overflow: hidden;
-}
-
-.msr-list-view ul .msr-list-view__item .msr-list-view__content * {
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
 .msr-list-view ul .msr-list-view__item .msr-list-view__content .msr-list-view__title {
   font-size: 1.125rem;
   line-height: 1.5rem;
   font-weight: 500;
 
   white-space: nowrap;
+  width: calc(100%);
+  overflow: hidden;
+}
+
+.msr-list-view ul .msr-list-view__item .msr-list-view__content .msr-list-view__title * {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .msr-list-view ul .msr-list-view__item .msr-list-view__content .msr-list-view__subtitle {
