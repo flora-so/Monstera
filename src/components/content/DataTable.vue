@@ -1,49 +1,51 @@
 <template>
-  <table class="msr-table" :full-width="fullWidth">
-    <thead class="msr-table__head">
-      <tr class="msr-table__row">
-        <th v-if="checkbox" class="msr-table__column msr-table__column_checkbox">
-          <div class="msr-table__checkbox">
-            <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" v-model="_allChecked">
-            </monsetra-checkbox>
-          </div>
-        </th>
-        <th class="msr-table__column" v-for="(col, index) of _colName" :key="index" :focus-col="focusCol == index">
-          {{ col }}</th>
-        <th v-if="!!actions" class="msr-table__column"></th>
-      </tr>
-    </thead>
+  <div class="msr-table__wrapper">
+    <table class="msr-table" :full-width="fullWidth">
+      <thead class="msr-table__head">
+        <tr class="msr-table__row">
+          <th v-if="checkbox" class="msr-table__column msr-table__column_checkbox">
+            <div class="msr-table__checkbox">
+              <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" v-model="_allChecked">
+              </monsetra-checkbox>
+            </div>
+          </th>
+          <th class="msr-table__column" v-for="(col, index) of _colName" :key="index" :focus-col="focusCol == index">
+            {{ col }}</th>
+          <th v-if="!!actions" class="msr-table__column"></th>
+        </tr>
+      </thead>
 
-    <tbody class="msr-table__body">
-      <tr class="msr-table__row" :row-check="rowCheck" v-for="row in dataframe.data" :key="row.id">
-        <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
-          <div class="msr-table__checkbox">
-            <monsetra-checkbox :colour="colour" :value="row.id" v-model="selected"></monsetra-checkbox>
-          </div>
-        </td>
-        <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row)">
-          <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
-        </td>
-        <td v-if="!!actions" class="msr-table__actions">
-          <slot name="actions" :row="row">
-            <dropdown-list :items="_actions" :alignment="dropdownAlignment.right"
-              @change="value => _handleAction(value, row)">
-              <icon-button :colour="_iconColour">
-                <template #icon="{ width, height, colour }">
-                  <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
-                    </path>
-                  </svg>
-                </template>
-              </icon-button>
-            </dropdown-list>
-          </slot>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody class="msr-table__body">
+        <tr class="msr-table__row" :row-check="rowCheck" v-for="row in dataframe.data" :key="row.id">
+          <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
+            <div class="msr-table__checkbox">
+              <monsetra-checkbox :colour="colour" :value="row.id" v-model="selected"></monsetra-checkbox>
+            </div>
+          </td>
+          <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row)">
+            <slot :name="col" :data="row[col]" :row="row">{{ row[col] }}</slot>
+          </td>
+          <td v-if="!!actions" class="msr-table__actions">
+            <slot name="actions" :row="row">
+              <dropdown-list :items="_actions" :alignment="dropdownAlignment.right"
+                @change="value => _handleAction(value, row)">
+                <icon-button :colour="_iconColour">
+                  <template #icon="{ width, height, colour }">
+                    <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+                      </path>
+                    </svg>
+                  </template>
+                </icon-button>
+              </dropdown-list>
+            </slot>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script lang="ts">
@@ -176,6 +178,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.msr-table__wrapper {
+  overflow-x: auto;
+  padding: 1px 2px;
+}
+
 .msr-table {
   border-style: hidden;
   box-shadow: 0px 0px 0px 1px #7f7f7f36;
