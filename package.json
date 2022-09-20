@@ -1,6 +1,6 @@
 {
   "name": "monsetra-vue",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "Monsetra is a Vue 3 UI Library based on the Monsetra Design Principles",
   "license": "MIT",
   "keywords": [
@@ -37,6 +37,7 @@
     "build:setup": "rm -rf dist && npm run typecheck",
     "build:types": "tsc --build tsconfigtypes.json",
     "build": "npm run build:setup && rollup -c rollup.config.js -f es && npm run build:types",
+    "deploy": "npm run build && npm publish",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit"
   },
