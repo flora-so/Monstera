@@ -1,42 +1,38 @@
 export class DataFrame {
-  #ids: string[];
+  id: string[];
   columns: string[];
-  #data: { [key: string]: number | string, id: string }[];
-
-  set data(value: { [key: string]: number | string, id: string }[]) {
-    this.#data = value;
-
-    this.#ids = this.#data.map(d => d.id);
-  }
-
-  get data() {
-    return this.#data;
-  }
+  _data: { [key: string]: number | string, id: string }[];
 
   constructor(columns: string[], data: { [key: string]: number | string, id: string }[]) {
     this.columns = columns;
-    this.#data = data;
+    this._data = data;
 
-    this.#ids = this.#data.map(d => d.id);
+    this.id = this._data.map(d => d.id);
   }
 
-  get id() {
-    return this.#ids;
+  set data(value: { [key: string]: number | string, id: string }[]) {
+    this._data = value;
+
+    this.id = this._data.map(d => d.id);
+  }
+
+  get data() {
+    return this._data;
   }
 
   get length() {
-    return this.#data.length;
+    return this._data.length;
   }
 
 
   find(id: string) {
-    const index = this.#ids.indexOf(id);
+    const index = this.id.indexOf(id);
 
     if (index === -1) {
       return null;
     }
 
-    return this.#data[index];
+    return this._data[index];
   }
 }
 
