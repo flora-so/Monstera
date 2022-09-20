@@ -3,11 +3,11 @@
     <ul>
       <li class="msr-list-view__wrapper" v-for="data of dataframe.data" :key="data.id">
         <div class="msr-list-view__item" :selected="selected.indexOf(data.id) > -1" @click="_rowSelected(data)">
-          <div class="msr-list-view__image" :image="image" :row="data">
+          <div class="msr-list-view__image_wrapper" :image="image" :row="data">
             <list-view-image :src="_srcPasrser(data[image])" :value="data.id" :colour="colour" :disabled="!checkbox"
               v-model="selected">
-              <template name="image" :data="data[title]" :row="data">
-                <slot name="image"></slot>
+              <template #image>
+                <slot name="image" :data="data[title]" :row="data"></slot>
               </template>
             </list-view-image>
           </div>
@@ -226,20 +226,31 @@ export default defineComponent({
   display: none;
 }
 
-.msr-list-view ul .msr-list-view__item .msr-list-view__image {
+.msr-list-view ul .msr-list-view__item .msr-list-view__image_wrapper {
   margin-right: 8px;
-  border-radius: 55px;
+  min-width: 55px;
+}
+
+.msr-list-view ul .msr-list-view__item .msr-list-view__image_wrapper[image=""] {
+  display: none;
+}
+
+.msr-list-view ul .msr-list-view__item .msr-list-view__content {
+  width: calc(100%);
   overflow: hidden;
 }
 
-.msr-list-view ul .msr-list-view__item .msr-list-view__image[image=""] {
-  display: none;
+.msr-list-view ul .msr-list-view__item .msr-list-view__content * {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .msr-list-view ul .msr-list-view__item .msr-list-view__content .msr-list-view__title {
   font-size: 1.125rem;
   line-height: 1.5rem;
   font-weight: 500;
+
+  white-space: nowrap;
 }
 
 .msr-list-view ul .msr-list-view__item .msr-list-view__content .msr-list-view__subtitle {

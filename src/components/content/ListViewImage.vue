@@ -117,7 +117,8 @@ export default defineComponent({
 
 .msr-list-view__image .msr-list-view__image__box {
   position: relative;
-  border-radius: 3px;
+  border-radius: 55px;
+
   transition: all ease-out 150ms;
 }
 
