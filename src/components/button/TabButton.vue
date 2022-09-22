@@ -1,7 +1,8 @@
 <template>
   <div class="msr-tab-button__wrapper">
     <div class="msr-tab-button">
-      <input :id="_id" ref="input" :name="group" type="radio" v-model="value" @change="_change" />
+      <input :id="_id" ref="input" :name="group" type="radio" :value="value ?? label" v-model="_value"
+        @change="_change" />
       <label :for="_id">
         <div class="msr-tab-button__view">
           <span class="msr-tab-button__label">
@@ -37,6 +38,7 @@ export default defineComponent({
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
+    value: String,
     modelValue: {
       type: String,
     },
@@ -67,7 +69,7 @@ export default defineComponent({
         return `${this.colour}57`;
       }
     },
-    value: {
+    _value: {
       get() {
         return this.modelValue;
       },
@@ -94,7 +96,7 @@ export default defineComponent({
   display: none;
 }
 
-.msr-tab-button input ~ label .msr-tab-button__view {
+.msr-tab-button input~label .msr-tab-button__view {
   padding-top: 8px;
   border-radius: 8px 8px 0px 0px;
 
@@ -103,8 +105,8 @@ export default defineComponent({
   transition: all 300ms ease-in-out;
 }
 
-.msr-tab-button input:checked ~ label .msr-tab-button__view,
-.msr-tab-button input ~ label .msr-tab-button__view:hover {
+.msr-tab-button input:checked~label .msr-tab-button__view,
+.msr-tab-button input~label .msr-tab-button__view:hover {
   background-color: v-bind(_backgroundColour);
 }
 
@@ -117,7 +119,7 @@ export default defineComponent({
 }
 
 .msr-tab-button input:checked~label .msr-tab-button__label,
-.msr-tab-button input ~ label .msr-tab-button__view:hover .msr-tab-button__label {
+.msr-tab-button input~label .msr-tab-button__view:hover .msr-tab-button__label {
   color: v-bind(_colour);
 }
 
