@@ -1,54 +1,16 @@
-# Monsetra UI
+# Vue 3 + TypeScript + Vite
 
-Monsetra UI is a Vue 3 components library designed and developed based on the Monsetra Design principles.
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-## Documentation
+## Recommended IDE Setup
 
-https://monsetra-ui.web.app/
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
-## Install
+## Type Support For `.vue` Imports in TS
 
-```sh
-npm install monsetra-vue
-```
+Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
 
-## Usage
+1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
+2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
 
-### As Components
-
-```js
-import { <Component> } from "monsetra-vue/dist/components/<Component Group>";
-...
-components: {
-  <Component>
-}
-```
-
-### As Plugin
-
-```js
-import { createApp } from 'vue'
-import { <Component> } from "monsetra-vue/dist/components/<Component Group>";
-
-createApp.use(<Component>)
-```
-
-# Introduction
-
-Monsetra UI is split into 4 main component groups: button, content, informative and inputs.
-
-## Buttons
-
-This component group contains a total of 5 button variation: Big, Small, Outlined, Link and Text.
-
-## Content
-
-This component group contains components that holds _content_. Hence, the component group name content. These components help to give content a better look, so think containers and tables.
-
-## Informative
-
-This component group contains more informative elements that helps _inform_ users. This can be anything from warnings or purely to notify users.
-
-## Input
-
-This component group contains all components that helps input values. This can be from form inputs to getting inputs for settings.
+You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).

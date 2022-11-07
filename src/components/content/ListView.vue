@@ -59,7 +59,7 @@ import { defineComponent, type PropType } from "vue";
 import { type DataFrame, type ActionItem, type DropdownItem, Colours, Theme, DropdownAlignment, InjectedKeys } from "../../types";
 import ListViewImage from "./ListViewImage.vue";
 import DropdownList from "../input/DropdownList.vue";
-import IconButton from "../button/IconButton.vue";
+import IconButton from "../IconButton/IconButton.vue";
 
 export default defineComponent({
   name: "ListView",

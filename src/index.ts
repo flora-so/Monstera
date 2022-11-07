@@ -12,5 +12,4 @@ const install: Exclude<Plugin["install"], undefined> = (instance: App) => {
 
 export default install;
 
-export * from "./components";
 export * from "./types";

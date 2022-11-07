@@ -53,7 +53,7 @@ import { defineComponent, type PropType } from "vue";
 
 import MonsetraCheckbox from "../input/MonsetraCheckbox.vue";
 import DropdownList from "../input/DropdownList.vue";
-import IconButton from "../button/IconButton.vue";
+import IconButton from "../IconButton/IconButton.vue";
 import { type DataFrame, type ActionItem, type DropdownItem, Colours, DropdownAlignment, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({

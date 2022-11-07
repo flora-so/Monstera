@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import SmallButton from "../button/SmallButton.vue";
+import SmallButton from "../SmallButton/SmallButton.vue";
 import { type OverlayContext, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({
