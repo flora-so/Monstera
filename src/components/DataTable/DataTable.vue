@@ -51,8 +51,8 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import MonsetraCheckbox from "../input/MonsetraCheckbox.vue";
-import DropdownList from "../input/DropdownList.vue";
+import MonsetraCheckbox from "../MonsetraCheckbox/MonsetraCheckbox.vue";
+import DropdownList from "../DropdownList/DropdownList.vue";
 import IconButton from "../IconButton/IconButton.vue";
 import { type DataFrame, type ActionItem, type DropdownItem, Colours, DropdownAlignment, Theme, InjectedKeys } from "../../types";
 

@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import DropdownListItem from "./DropdownListItem.vue";
+import DropdownListItem from "../DropdownListItem/DropdownListItem.vue";
 import { DropdownAlignment, DropdownPosition, type DropdownItem, Colours, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({

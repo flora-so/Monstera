@@ -1,19 +1,11 @@
 <template>
-  <div class="msr-static-select" ref="dropdown">
-    <div class="msr-static-select__component" @click="_show = !_show">
-      <static-input v-model="_display" :label="label" @keydown="_handleKeys">
-        <template #trailing="{ width, height, colour }">
-          <svg class="msr-static-select__icon" :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg" :show="_show">
-            <path fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </template>
-      </static-input>
+  <div class="msr-animated-datalist" ref="dropdown">
+    <div class="msr-animated-datalist__component" @click="_showList">
+      <animated-input :label="label" v-model="_search" @focus="_showList" @keydown="_handleList"></animated-input>
     </div>
-    <ul class="msr-static-select__list msr-dropdown-list__list" :show="_show">
-      <slot v-for="(item, i) in items" :name="item.value" :key="item.value" :item="item" :click="() => _update(item)">
+    <ul class="msr-animated-datalist__list msr-dropdown-list__list" :show="_show">
+      <slot v-for="(item, i) in listItems" :key="item.value" :name="item.value" :item="item"
+        :click="() => _update(item)">
         <dropdown-list-item :item="item" :colour="colour" :selected="_index == i" @click="() => _update(item)">
         </dropdown-list-item>
       </slot>
@@ -24,12 +16,12 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import DropdownListItem from "./DropdownListItem.vue";
-import StaticInput from "./StaticInput.vue";
+import DropdownListItem from "../DropdownListItem/DropdownListItem.vue";
+import AnimatedInput from "../input/AnimatedInput.vue";
 import { type DropdownItem, Colours, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({
-  name: "StaticSelect",
+  name: "AnimatedDatalist",
   inject: {
     theme: {
       from: InjectedKeys.theme
@@ -62,24 +54,35 @@ export default defineComponent({
       return true
     }
   },
-  components: { DropdownListItem, StaticInput },
+  components: { DropdownListItem, AnimatedInput },
   data() {
     return {
       _show: false,
+      _searchVal: "",
       _index: 0,
-      display: "",
     };
   },
   computed: {
+    equal() {
+      return (val: string) => val.split(" ").join("").toLowerCase();
+    },
+    listItems(): DropdownItem[] {
+      return this.items
+        .filter(item => this.equal(item.label).includes(this.equal(this._search)))
+        ?.sort((a, b) => a.value.localeCompare(b.value))
+        ?.slice(0, 5) ?? [];
+    },
     backgroundColour() {
       return (this as any)['theme'] == Theme.dark ? "var(--dark-background)" : "var(--light-background)";
     },
-    _display: {
+    _search: {
       get() {
-        return this.items.find(item => item.value == this.modelValue)?.label ?? this.display;
+        return this.items.find(item => item.value == this.modelValue)?.label ?? this._searchVal;
       },
       set(value: string) {
-        this.display = value;
+        let item = this.items.find(item => item.label == value);
+        this._searchVal = item?.label ?? value;
+        this.value = item?.value ?? "";
       }
     },
     value: {
@@ -87,32 +90,32 @@ export default defineComponent({
         return this.modelValue;
       },
       set(value: string | string[]) {
-        this.$emit("update:modelValue", value);
+        this.$emit("update:modelValue", value)
       }
     }
   },
   methods: {
     _update(item: DropdownItem) {
       this.$emit("change", item.value);
-      this.value = item.value;
-      this.display = item.label;
+      this._search = item.label;
 
       this._show = false;
     },
-    _handleKeys(e: KeyboardEvent) {
+    _showList() {
+      this._show = true;
+      this._index = 0;
+    },
+    _handleList(e: KeyboardEvent) {
       if (e.key == "Tab" || e.key == "Escape") {
         return this._show = false;
       }
-      e.preventDefault();
-      if (e.key == "ArrowDown" && (this._index < this.items.length - 1)) {
+
+      if (e.key == "ArrowDown" && (this._index < this.listItems.length - 1)) {
         this._index++;
       } else if (e.key == "ArrowUp" && this._index > 0) {
         this._index--;
       } else if (e.key == "Enter") {
-        if (this._show) {
-          return this._update(this.items[this._index]);
-        }
-        this._show = true;
+        this._update(this.listItems[this._index]);
       }
     }
   },
@@ -133,26 +136,15 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.msr-static-select {
+.msr-animated-datalist {
   position: relative;
 }
 
-.msr-static-select .msr-static-select__component :deep(.msr-static-input input) {
-  cursor: pointer;
-  caret-color: transparent;
-}
-
-.msr-static-select__component:hover,
-.msr-static-select .msr-static-select__component :deep(.msr-static-input) {
+.msr-animated-datalist__component:hover {
   cursor: pointer;
 }
 
-.msr-static-select .msr-static-select__component :deep(.msr-static-input label) {
-  pointer-events: none;
-  cursor: pointer;
-}
-
-.msr-static-select .msr-static-select__list {
+.msr-animated-datalist .msr-animated-datalist__list {
   margin-top: -13px;
   width: 100%;
   position: absolute;
@@ -169,19 +161,19 @@ export default defineComponent({
   transition: all ease-out 100ms;
 }
 
-.msr-static-select .msr-static-select__list[show="false"] {
+.msr-animated-datalist .msr-animated-datalist__list[show="false"] {
   transform: scaleY(0);
 }
 
-.msr-static-select .msr-static-select__list[show="true"] {
+.msr-animated-datalist .msr-animated-datalist__list[show="true"] {
   transform: scaleY(1);
 }
 
-.msr-static-select .msr-static-select__icon {
+.msr-animated-datalist .msr-animated-datalist__icon {
   transition: all ease-out 100ms;
 }
 
-.msr-static-select .msr-static-select__icon[show="true"] {
+.msr-animated-datalist .msr-animated-datalist__icon[show="true"] {
   transform: rotate(180deg);
 }
 </style>
