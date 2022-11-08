@@ -15,11 +15,12 @@
     ],
     "skipLibCheck": true,
     "noEmit": true,
+    "baseUrl": ".",
     "outDir": "dist",
-    "declerationDir": "dist",
+    "declarationDir": "dist",
     "sourceMap": true,
     "declaration": true,
-    "declerationMap": true
+    "declarationMap": true,
   },
   "include": [
     "src/**/*.ts",

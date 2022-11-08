@@ -1,7 +1,6 @@
 <template>
   <div class="msr-toggle-switch" :disabled="disabled" :ignore="ignore">
-    <input :id="_id" ref="input" type="checkbox" :checked="checked" :disabled="disabled" v-model="_value"
-      @change="_change" />
+    <input :id="_id" ref="input" type="checkbox" :disabled="disabled" v-model="_value" @change="_change" />
     <label :for="_id">
       <div class="msr-toggle-switch__background">
         <div class="msr-toggle-switch__toggle"></div>
@@ -32,7 +31,6 @@ export default defineComponent({
     modelValue: {
       type: [Boolean, Array],
     },
-    checked: Boolean,
     ignore: Boolean,
     disabled: Boolean,
   },

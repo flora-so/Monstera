@@ -20,7 +20,7 @@
 import { defineComponent, type PropType } from "vue";
 
 import { type OverlayContext, Colours } from "../../types";
-import TextButton from "../button/TextButton.vue";
+import TextButton from "../TextButton/TextButton.vue";
 
 export default defineComponent({
   name: "Banner",

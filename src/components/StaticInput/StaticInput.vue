@@ -63,13 +63,13 @@ export default defineComponent({
   },
   emits: {
     "update:modelValue"(value: string) {
-      return typeof value == "string";
+      return true;
     },
     focus() {
       return true;
     },
     blur(value: string) {
-      return typeof value === "string";
+      return true;
     },
     context(ctx: InputContext) {
       return ctx;
@@ -97,7 +97,7 @@ export default defineComponent({
       get() {
         return this.modelValue ?? this._value;
       },
-      set(value: boolean | string[]) {
+      set(value: string) {
         this.$emit("update:modelValue", value);
       }
     },

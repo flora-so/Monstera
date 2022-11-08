@@ -4,7 +4,19 @@ import typescript2 from "rollup-plugin-typescript2";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), typescript2({
+    check: false,
+    include: ["src/components/**/*.vue"],
+    tsconfigOverride: {
+      compilerOptions: {
+        outDir: "dist",
+        sourceMap: true,
+        declaration: true,
+        declarationMap: true,
+      },
+    },
+    exclude: ["vite.config.ts"]
+  })],
   build: {
     cssCodeSplit: false,
     lib: {
@@ -20,14 +32,7 @@ export default defineConfig({
         globals: {
           vue: "Vue"
         }
-      },
-      plugins: [
-        typescript2({
-          check: false,
-          include: ["src/components/**/*.vue"],
-          tsconfig: "tsconfig.json"
-        })
-      ]
+      }
     }
   }
-})
+});

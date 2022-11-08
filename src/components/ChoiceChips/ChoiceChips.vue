@@ -1,7 +1,8 @@
 <template>
   <div class="msr-choice-chips">
-    <input :id="_id" ref="input" :name="group" :value="label" :type="multiselect ? 'checkbox' : 'radio'" v-model="value"
+    <input v-if="multiselect" :id="_id" ref="input" :name="group" :value="label" type="checkbox" v-model="value"
       @change="_change" />
+    <input :id="_id" ref="input" :name="group" :value="label" type="radio" v-model="value" @change="_change" />
     <label :for="_id">{{ label }}</label>
   </div>
 </template>
@@ -30,7 +31,7 @@ export default defineComponent({
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
     modelValue: {
-      type: [String, Array],
+      type: [String, Array] as PropType<string[] | boolean>,
     },
     multiselect: Boolean
   },

@@ -32,6 +32,7 @@ import StaticDatalist from "./components/StaticDatalist";
 import StaticDateInput from "./components/StaticDateInput";
 import StaticInput from "./components/StaticInput";
 import StaticSelect from "./components/StaticSelect";
+import StaticTextarea from "./components/StaticTextarea";
 import TabButton from "./components/TabButton";
 import TextButton from "./components/TextButton";
 import ToggleSwitch from "./components/ToggleSwitch";
@@ -69,6 +70,7 @@ const components = {
   StaticDateInput,
   StaticInput,
   StaticSelect,
+  StaticTextarea,
   TabButton,
   TextButton,
   ToggleSwitch,
@@ -114,6 +116,7 @@ export { default as StaticDatalist } from "./components/StaticDatalist";
 export { default as StaticDateInput } from "./components/StaticDateInput";
 export { default as StaticInput } from "./components/StaticInput";
 export { default as StaticSelect } from "./components/StaticSelect";
+export { default as StaticTextarea } from "./components/StaticTextarea";
 export { default as TabButton } from "./components/TabButton";
 export { default as TextButton } from "./components/TextButton";
 export { default as ToggleSwitch } from "./components/ToggleSwitch";

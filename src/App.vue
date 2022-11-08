@@ -2,7 +2,7 @@
 import { reactive, inject } from "vue";
 
 import Example from "./Example.vue";
-import { MonsetraApp } from "./components/compose";
+import MonsetraApp from "./components/MonsetraApp";
 
 import {
   type OverlayContext,
@@ -26,7 +26,7 @@ import {
   TextButton,
   IconButton,
   TabButton
-} from "./components/button";
+} from "./index";
 
 // Content
 import {
@@ -35,7 +35,7 @@ import {
   OutlinedCard,
   MonsetraTag,
   ListView,
-} from "./components/content";
+} from "./index";
 
 // Informative
 import {
@@ -45,7 +45,7 @@ import {
   MonsetraSnackbar,
   BottomSheet,
   CircularProgress
-} from "./components/overlay";
+} from "./index";
 
 // Inputs
 import {
@@ -65,7 +65,7 @@ import {
   AnimatedDatalist,
   AnimatedTextarea,
   RadioButton,
-} from "./components/input";
+} from "./index";
 
 let state = reactive({
   isDark: false

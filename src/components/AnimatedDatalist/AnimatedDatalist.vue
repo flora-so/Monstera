@@ -17,7 +17,7 @@
 import { defineComponent, type PropType } from "vue";
 
 import DropdownListItem from "../DropdownListItem/DropdownListItem.vue";
-import AnimatedInput from "../input/AnimatedInput.vue";
+import AnimatedInput from "../AnimatedInput/AnimatedInput.vue";
 import { type DropdownItem, Colours, Theme, InjectedKeys } from "../../types";
 
 export default defineComponent({

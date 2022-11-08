@@ -1,7 +1,7 @@
 <template>
   <div class="msr-checkbox">
-    <input :id="_id" ref="input" :value="value" type="checkbox" :checked="checked" :intermediate="intermediate"
-      v-model="_value" @change="_change" />
+    <input :id="_id" ref="input" :value="value" type="checkbox" :intermediate="intermediate" v-model="_value"
+      @change="_change" />
     <label :for="_id">
       <div class="msr-checkbox__box" tabindex="0" @keydown="_handleInput">
         <svg class="msr-checkbox__tick" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -95,6 +95,11 @@ export default defineComponent({
     },
     _change() {
       this.$emit('change', (this.$refs.input as HTMLInputElement).checked);
+    }
+  },
+  mounted() {
+    if (this.checked === true) {
+      this._value = true;
     }
   }
 });

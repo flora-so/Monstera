@@ -66,7 +66,7 @@ export default defineComponent({
       snackbar: {
         content: "",
         colour: Colours.primary,
-        context: null,
+        context: null as OverlayContext | null,
       }
     }
   },
