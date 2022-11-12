@@ -2,7 +2,6 @@
 import { reactive, inject } from "vue";
 
 import Example from "./Example.vue";
-import MonsetraApp from "./components/MonsetraApp";
 
 import {
   type OverlayContext,
@@ -15,7 +14,7 @@ import {
   DropdownPosition,
   type InputValidator,
   type ActionItem,
-} from "./types";
+} from "../package/src/types/index";
 
 // Buttons
 import {
@@ -26,7 +25,7 @@ import {
   TextButton,
   IconButton,
   TabButton
-} from "./index";
+} from "../package/src/index";
 
 // Content
 import {
@@ -35,7 +34,7 @@ import {
   OutlinedCard,
   MonsetraTag,
   ListView,
-} from "./index";
+} from "../package/src/index";
 
 // Informative
 import {
@@ -45,10 +44,11 @@ import {
   MonsetraSnackbar,
   BottomSheet,
   CircularProgress
-} from "./index";
+} from "../package/src/index";
 
 // Inputs
 import {
+  MonsetraApp,
   AnimatedInput,
   AnimatedDateInput,
   MonsetraCheckbox,
@@ -65,7 +65,7 @@ import {
   AnimatedDatalist,
   AnimatedTextarea,
   RadioButton,
-} from "./index";
+} from "../package/src/index";
 
 let state = reactive({
   isDark: false
