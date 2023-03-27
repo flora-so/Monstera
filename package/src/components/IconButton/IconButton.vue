@@ -1,5 +1,5 @@
 <template>
-  <button class="msr-icon-button" :filled="filled">
+  <button class="msr-icon-button" :filled="filled" :disabled="disabled" :ignore="ignore">
     <slot name="icon" width="20px" height="20px" :colour="_colour" :tailwind="_tailwind"></slot>
   </button>
 </template>
@@ -18,7 +18,9 @@ export default defineComponent({
         Object.keys(Colours).includes(value) ||
         new RegExp("^#([A-Fa-f0-9]{6})$").test(value)
     },
-    filled: Boolean
+    filled: Boolean,
+    ignore: Boolean,
+    disabled: Boolean,
   },
   computed: {
     _colour() {
@@ -95,5 +97,19 @@ export default defineComponent({
 
 .msr-icon-button[filled="true"]:hover {
   box-shadow: 0px 13px 21px -5px v-bind(_shadowColour);
+}
+
+.msr-icon-button:disabled {
+  cursor: not-allowed;
+
+  color: grey;
+  background-color: lightgrey;
+  box-shadow: none;
+}
+
+.msr-icon-button[ignore="true"] {
+  pointer-events: none;
+  box-shadow: none;
+  opacity: 0.89;
 }
 </style>
