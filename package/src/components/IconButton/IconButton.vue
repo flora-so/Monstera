@@ -24,6 +24,10 @@ export default defineComponent({
   },
   computed: {
     _colour() {
+      if (this.disabled) {
+        return "#585858";
+      }
+
       if (this.filled) {
         return "#ffffff";
       } else {
@@ -99,11 +103,11 @@ export default defineComponent({
   box-shadow: 0px 13px 21px -5px v-bind(_shadowColour);
 }
 
-.msr-icon-button:disabled {
+.msr-icon-button:disabled,
+.msr-icon-button:hover:disabled {
   cursor: not-allowed;
 
-  color: grey;
-  background-color: lightgrey;
+  background-color: transparent;
   box-shadow: none;
 }
 
