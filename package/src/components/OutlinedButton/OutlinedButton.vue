@@ -32,6 +32,10 @@ export default defineComponent({
   },
   computed: {
     _colour() {
+      if (this.disabled) {
+        return "grey";
+      }
+
       if (Object.keys(Colours).includes(this.colour)) {
         return `rgb(var(--${this.colour}))`;
       } else {
@@ -46,6 +50,10 @@ export default defineComponent({
       }
     },
     _tailwind() {
+      if (this.disabled) {
+        return `w-5 h-5 text-gray scale-125`;
+      }
+
       if (Object.keys(Colours).includes(this.colour)) {
         return `w-5 h-5 text-${this.colour} scale-125`;
       } else {

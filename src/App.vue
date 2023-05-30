@@ -145,8 +145,7 @@ let log = (value: any) => {
         <div class="flex cpt-space-x cpt-margin">
           <icon-button :colour="Colours.primary" filled>
             <template #icon="{ width, height, colour }">
-              <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
                   d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                   clip-rule="evenodd" />
@@ -156,8 +155,7 @@ let log = (value: any) => {
 
           <icon-button :colour="Colours.primary">
             <template #icon="{ width, height, colour }">
-              <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
               </svg>
@@ -166,8 +164,7 @@ let log = (value: any) => {
 
           <icon-button :colour="Colours.primary" filled>
             <template #icon="{ width, height, colour }">
-              <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg :width="width" :height="height" :fill="colour" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
                 <path fill-rule="evenodd"
                   d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
@@ -200,7 +197,7 @@ let log = (value: any) => {
         <small-button label="Reset" @click="selected.items = []"></small-button>
 
         <data-table class="cpt-margin" :dataframe="tableData" :colour="Colours.primary" :focus-col="0"
-          :actions="actionItems" v-model="selected.items" checkbox full-width
+          :actions="actionItems" v-model="selected.items" checkbox full-width pagination :row-count="1"
           @change="value => log(`@change: ${value}`)" @row="value => log(`@row: ${value}`)">
           <template #column_3="{ data, row }">
             <span>${{ data }} - {{ row.column1 }}</span>
