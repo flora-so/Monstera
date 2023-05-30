@@ -1,7 +1,7 @@
 <img src="./.github/assets/logo.svg" width="233px"/>
 
-![npm donwloads](https://img.shields.io/npm/v/@flora.so/monstera-vue?color=blue)
-![license](https://img.shields.io/npm/l/@flora.so/monstera-vue)
+![npm donwloads](https://img.shields.io/npm/v/@flora-so/monstera-vue?color=blue)
+![license](https://img.shields.io/npm/l/@flora-so/monstera-vue)
 
 
 # Monstera UI
