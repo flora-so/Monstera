@@ -17,13 +17,13 @@ import {
   IconButton,
   LinkButton,
   ListView,
-  MonsetraApp,
-  MonsetraBanner,
-  MonsetraCheckbox,
-  MonsetraDialog,
-  MonsetraForm,
-  MonsetraSnackbar,
-  MonsetraTag,
+  MonsteraApp,
+  MonsteraBanner,
+  MonsteraCheckbox,
+  MonsteraDialog,
+  MonsteraForm,
+  MonsteraSnackbar,
+  MonsteraTag,
   OutlinedButton,
   OutlinedCard,
   ProgressIndicator,
@@ -64,13 +64,13 @@ export default {
     Vue.component(IconButton.name, IconButton);
     Vue.component(LinkButton.name, LinkButton);
     Vue.component(ListView.name, ListView);
-    Vue.component(MonsetraApp.name, MonsetraApp);
-    Vue.component(MonsetraBanner.name, MonsetraBanner);
-    Vue.component(MonsetraCheckbox.name, MonsetraCheckbox);
-    Vue.component(MonsetraDialog.name, MonsetraDialog);
-    Vue.component(MonsetraForm.name, MonsetraForm);
-    Vue.component(MonsetraSnackbar.name, MonsetraSnackbar);
-    Vue.component(MonsetraTag.name, MonsetraTag);
+    Vue.component(MonsteraApp.name, MonsteraApp);
+    Vue.component(MonsteraBanner.name, MonsteraBanner);
+    Vue.component(MonsteraCheckbox.name, MonsteraCheckbox);
+    Vue.component(MonsteraDialog.name, MonsteraDialog);
+    Vue.component(MonsteraForm.name, MonsteraForm);
+    Vue.component(MonsteraSnackbar.name, MonsteraSnackbar);
+    Vue.component(MonsteraTag.name, MonsteraTag);
     Vue.component(OutlinedButton.name, OutlinedButton);
     Vue.component(OutlinedCard.name, OutlinedCard);
     Vue.component(ProgressIndicator.name, ProgressIndicator);
@@ -105,13 +105,13 @@ export {
   IconButton,
   LinkButton,
   ListView,
-  MonsetraApp,
-  MonsetraBanner,
-  MonsetraCheckbox,
-  MonsetraDialog,
-  MonsetraForm,
-  MonsetraSnackbar,
-  MonsetraTag,
+  MonsteraApp,
+  MonsteraBanner,
+  MonsteraCheckbox,
+  MonsteraDialog,
+  MonsteraForm,
+  MonsteraSnackbar,
+  MonsteraTag,
   OutlinedButton,
   OutlinedCard,
   ProgressIndicator,

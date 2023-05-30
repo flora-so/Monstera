@@ -2,8 +2,8 @@
   <div class="msr-app" v-bind="$attrs">
     <slot></slot>
     <progress-indicator v-if="loading" infinite></progress-indicator>
-    <monsetra-snackbar :content="snackbar.content" :background-colour="snackbar.colour"
-      @context="(ctx) => snackbar.context = ctx"></monsetra-snackbar>
+    <monstera-snackbar :content="snackbar.content" :background-colour="snackbar.colour"
+      @context="(ctx) => snackbar.context = ctx"></monstera-snackbar>
   </div>
 </template>
 
@@ -11,15 +11,15 @@
 import { defineComponent, computed, type PropType } from "vue";
 
 import ProgressIndicator from "../ProgressIndicator/ProgressIndicator.vue";
-import MonsetraSnackbar from "../MonsetraSnackbar/MonsetraSnackbar.vue";
+import MonsteraSnackbar from "../MonsteraSnackbar/MonsteraSnackbar.vue";
 
 import { Colours, Theme, type OverlayContext } from "../../types";
 
 export default defineComponent({
-  name: "MonsetraApp",
+  name: "MonsteraApp",
   components: {
     ProgressIndicator,
-    MonsetraSnackbar
+    MonsteraSnackbar
   },
   props: {
     theme: {

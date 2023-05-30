@@ -20,8 +20,8 @@ export default defineConfig({
     lib: {
       entry: "./src/index.ts",
       formats: ["es", "cjs"],
-      name: "Monsetra Vue",
-      fileName: format => `monsetra-vue.${format}.js`
+      name: "Monstera Vue",
+      fileName: format => `monstera-vue.${format}.js`
     },
     rollupOptions: {
       external: ["vue"],

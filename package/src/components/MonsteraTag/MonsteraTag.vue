@@ -12,7 +12,7 @@ import { defineComponent, type PropType } from "vue";
 import { Colours } from "../../types";
 
 export default defineComponent({
-  name: "MonsetraBadge",
+  name: "MonsteraBadge",
   props: {
     label: {
       type: String,

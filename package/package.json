@@ -1,19 +1,19 @@
 {
   "private": false,
-  "name": "monsetra-vue",
-  "version": "0.8.0",
-  "description": "Monsetra UI is a Vue 3 components library designed and developed based on the Monsetra Design principles.",
+  "name": "@flora-so/monstera-vue",
+  "version": "0.1.0",
+  "description": "Monstera UI is a Vue 3 components library designed and developed based on the Monstera Design principles.",
   "type": "module",
   "author": {
-    "name": "Pilea",
-    "email": "developers@pilea.so",
-    "url": "https://pilea.so"
+    "name": "Flora",
+    "email": "developers@flora.so",
+    "url": "https://flora.so"
   },
   "license": "MIT license",
-  "homepage": "https://monsetra.io",
+  "homepage": "https://monstera.flora.so",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pilea-eco/Monsetra"
+    "url": "https://github.com/flora-so/Monstera"
   },
   "keywords": [
     "vue",
@@ -21,8 +21,8 @@
     "ui",
     "library",
     "framework",
-    "monsetra",
-    "monsetra-vue",
+    "monstera",
+    "monstera-vue",
     "design",
     "typescript",
     "vue3",
@@ -34,13 +34,13 @@
     "dist/",
     "src/"
   ],
-  "main": "./dist/monsetra-vue.cjs.js",
-  "module": "./dist/monsetra-vue.es.js",
+  "main": "./dist/monstera-vue.cjs.js",
+  "module": "./dist/monstera-vue.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/monsetra-vue.es.js",
-      "require": "./dist/monsetra-vue.es.js"
+      "import": "./dist/monstera-vue.es.js",
+      "require": "./dist/monstera-vue.es.js"
     },
     "./dist/style.css": "./dist/style.css"
   },

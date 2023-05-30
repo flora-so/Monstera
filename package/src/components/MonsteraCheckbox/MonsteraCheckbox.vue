@@ -26,7 +26,7 @@ import { defineComponent, type PropType } from "vue";
 import { Colours } from "../../types";
 
 export default defineComponent({
-  name: "MonsetraCheckbox",
+  name: "MonsteraCheckbox",
   props: {
     label: {
       type: String,

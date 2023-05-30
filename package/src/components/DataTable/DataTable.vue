@@ -6,8 +6,8 @@
           <tr class="msr-table__row">
             <th v-if="checkbox" class="msr-table__column msr-table__column_checkbox">
               <div class="msr-table__checkbox">
-                <monsetra-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" v-model="_allChecked">
-                </monsetra-checkbox>
+                <monstera-checkbox ref="checkbox" :colour="colour" :intermediate="_intermediate" v-model="_allChecked">
+                </monstera-checkbox>
               </div>
             </th>
             <th class="msr-table__column" v-for="(col, index) of _colName" :key="index" :focus-col="focusCol == index">
@@ -20,7 +20,7 @@
           <tr class="msr-table__row" :row-check="rowCheck" v-for="row in _currentData(_page).data" :key="row.id">
             <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
               <div class="msr-table__checkbox">
-                <monsetra-checkbox :colour="colour" :value="row.id" v-model="selected"></monsetra-checkbox>
+                <monstera-checkbox :colour="colour" :value="row.id" v-model="selected"></monstera-checkbox>
               </div>
             </td>
             <td class="msr-table__data" v-for="col in dataframe.columns" :key="col" @click="_rowSelected(row)">
@@ -82,7 +82,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import MonsetraCheckbox from "../MonsetraCheckbox/MonsetraCheckbox.vue";
+import MonsteraCheckbox from "../monsteraCheckbox/MonsteraCheckbox.vue";
 import DropdownList from "../DropdownList/DropdownList.vue";
 import IconButton from "../IconButton/IconButton.vue";
 import LinkButton from "../LinkButton/LinkButton.vue";
@@ -91,7 +91,7 @@ import { type DataFrame, type ActionItem, type DropdownItem, Colours, DropdownAl
 export default defineComponent({
   name: "DataTable",
   components: {
-    MonsetraCheckbox,
+    MonsteraCheckbox,
     DropdownList,
     IconButton,
     LinkButton,
