@@ -17,7 +17,7 @@
         </thead>
 
         <tbody class="msr-table__body" :pagination="pagination">
-          <tr class="msr-table__row" :row-check="rowCheck" v-for="row in _currentData(_page)" :key="row.id">
+          <tr class="msr-table__row" :row-check="rowCheck" v-for="row in _currentData(_page).data" :key="row.id">
             <td v-if="checkbox" class="msr-table__data" :row-check="rowCheck">
               <div class="msr-table__checkbox">
                 <monsetra-checkbox :colour="colour" :value="row.id" v-model="selected"></monsetra-checkbox>
@@ -48,7 +48,7 @@
       </table>
 
       <div class="msr-table__pagination" v-if="pagination">
-        <div>
+        <div class="msr-table__pagination_number">
           Showing {{ (_page * rowCount) + 1 }} - {{ (_page * rowCount) + _currentData(_page).length }} of {{ _total }}
         </div>
         <div class="msr-table__pagination_arrows">
@@ -63,7 +63,7 @@
             </template>
           </icon-button>
 
-          <icon-button @click="_updatePage(1)" :disabled="_page == _maxPage || _total < rowCount">
+          <icon-button @click="_updatePage(1)" :disabled="_page == _maxPage || (_total as number) < rowCount">
             <template #icon="{ width, height, colour }">
               <svg :fill="colour" :width="width" :height="height" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true">
@@ -122,7 +122,7 @@ export default defineComponent({
       default: 20,
     },
     pageAction: Function as PropType<(page: number) => Promise<void>>,
-    modelValue: Array,
+    modelValue: Array as PropType<string[]>,
     actions: Array as PropType<ActionItem[]>,
     pagination: Boolean,
     checkbox: Boolean,
@@ -163,13 +163,14 @@ export default defineComponent({
     },
     _allChecked: {
       get() {
-        return this.selected.length == this.dataframe.length;
+        // return this.selected.length == this.dataframe.length;
+        return this._currentData(this._page).id.every((id) => this.selected.includes(id));
       },
       set(value: boolean) {
         if (value) {
-          this.selected = this.dataframe.id;
+          this.selected = [...this.selected, ...this._currentData(this._page).id];
         } else {
-          this.selected = [];
+          this.selected = this.selected.filter((id) => !this._currentData(this._page).id.includes(id));
         }
       }
     },
@@ -179,7 +180,7 @@ export default defineComponent({
       });
     },
     _intermediate() {
-      return Object.keys(this.selected).length > 0;
+      return this._currentData(this._page).id.some((id) => this.selected.includes(id));
     },
     _actions(): DropdownItem[] {
       if (!this.actions) {
@@ -197,11 +198,11 @@ export default defineComponent({
     _currentData() {
       return (page: number) => {
         if (!this.pagination) {
-          return this.dataframe.data;
+          return this.dataframe;
         }
 
         const start = page * this.rowCount;
-        return this.dataframe.data.slice(start, this.rowCount * (page + 1));
+        return this.dataframe.slice(start, this.rowCount * (page + 1));
       }
     },
     _total() {
@@ -237,6 +238,10 @@ export default defineComponent({
       const newPage = this._page + page;
       if (this._currentData(newPage).length > 0) {
         this._page = this._page + page;
+
+        if (this._currentData(newPage).length < this.rowCount) {
+          this._maxPage = this._page;
+        }
       } else if (this._currentData(newPage).length == 0
         && page == 1) {
         this._maxPage = this._page;
@@ -337,6 +342,15 @@ export default defineComponent({
 
   border-top: 1px solid #7f7f7f36;
   padding: 3px;
+}
+
+.msr-table__border .msr-table__pagination .msr-table__pagination_number {
+  font-size: 0.875rem;
+  line-height: 1.188rem;
+
+  color: #7f7f7f;
+
+  padding-left: 13px;
 }
 
 .msr-table__border .msr-table__pagination .msr-table__pagination_arrows {
