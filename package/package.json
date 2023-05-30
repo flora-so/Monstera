@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@flora-so/monstera-vue",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Monstera UI is a Vue 3 components library designed and developed based on the Monstera Design principles.",
   "type": "module",
   "author": {
