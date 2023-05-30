@@ -32,26 +32,26 @@ import {
   DataTable,
   FloatingCard,
   OutlinedCard,
-  MonsetraTag,
+  MonsteraTag,
   ListView,
 } from "../package/src/index";
 
 // Informative
 import {
-  MonsetraDialog,
-  MonsetraBanner,
+  MonsteraDialog,
+  MonsteraBanner,
   ProgressIndicator,
-  MonsetraSnackbar,
+  MonsteraSnackbar,
   BottomSheet,
   CircularProgress
 } from "../package/src/index";
 
 // Inputs
 import {
-  MonsetraApp,
+  MonsteraApp,
   AnimatedInput,
   AnimatedDateInput,
-  MonsetraCheckbox,
+  MonsteraCheckbox,
   ChoiceChips,
   DropdownList,
   DropdownListItem,
@@ -124,7 +124,7 @@ let log = (value: any) => {
 </script>
 
 <template>
-  <monsetra-app :theme="state.isDark ? Theme.dark : Theme.light">
+  <monstera-app :theme="state.isDark ? Theme.dark : Theme.light">
 
 
     <header>
@@ -223,7 +223,7 @@ let log = (value: any) => {
           <p>Hey, I am inside an outlined card!</p>
         </outlined-card>
 
-        <monsetra-tag label="Tag"></monsetra-tag>
+        <monstera-tag label="Tag"></monstera-tag>
 
         <outlined-button @click="ctx_bottomSheet.show()" class="cpt-margin" label="Bottom Sheet" />
 
@@ -258,7 +258,7 @@ let log = (value: any) => {
         <static-date-input label="Static Date Input"></static-date-input>
 
         <!-- <div> -->
-        <monsetra-checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></monsetra-checkbox>
+        <monstera-checkbox class="cpt-margin" :colour="Colours.primary" :size="18" checked></monstera-checkbox>
         <!-- </div> -->
 
         <choice-chips class="cpt-margin" label="Chips" group="chips" :colour="Colours.primary"></choice-chips>
@@ -302,8 +302,8 @@ let log = (value: any) => {
         <outlined-button @click="ctx_alertDialog.show()" class="cpt-margin" label="Alert Dialog" />
 
         <outlined-button @click="ctx_banner.show()" class="cpt-margin" label="Banner" />
-        <monsetra-banner title="Banner" content="This is a banner." :colour="Colours.primary" :duration="5000"
-          @context="ctx => ctx_banner = ctx"></monsetra-banner>
+        <monstera-banner title="Banner" content="This is a banner." :colour="Colours.primary" :duration="5000"
+          @context="ctx => ctx_banner = ctx"></monstera-banner>
 
         <circular-progress></circular-progress>
 
@@ -311,16 +311,16 @@ let log = (value: any) => {
       </div>
     </div>
 
-    <monsetra-dialog title="Alert Dialog" content="This is an alert dialog." @context="ctx => ctx_alertDialog = ctx">
-    </monsetra-dialog>
+    <monstera-dialog title="Alert Dialog" content="This is an alert dialog." @context="ctx => ctx_alertDialog = ctx">
+    </monstera-dialog>
 
     <bottom-sheet title="Bottom Sheet" @context="ctx => ctx_bottomSheet = ctx" dismissible :height="677">
       <p>Hello world</p>
     </bottom-sheet>
 
-    <monsetra-snackbar class="cpt-margin" content="This is a snackbar." colour="#ffffff"
-      :backgroundColour="Colours.primary" :duration="5000" @context="ctx => ctx_snackbar = ctx"></monsetra-snackbar>
-  </monsetra-app>
+    <monstera-snackbar class="cpt-margin" content="This is a snackbar." colour="#ffffff"
+      :backgroundColour="Colours.primary" :duration="5000" @context="ctx => ctx_snackbar = ctx"></monstera-snackbar>
+  </monstera-app>
 </template>
 
 <style>
