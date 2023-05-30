@@ -82,7 +82,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
-import MonsteraCheckbox from "../monsteraCheckbox/MonsteraCheckbox.vue";
+import MonsteraCheckbox from "../MonsteraCheckbox/MonsteraCheckbox.vue";
 import DropdownList from "../DropdownList/DropdownList.vue";
 import IconButton from "../IconButton/IconButton.vue";
 import LinkButton from "../LinkButton/LinkButton.vue";
