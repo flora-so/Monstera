@@ -1,5 +1,5 @@
 <template>
-  <div class="msr-app" v-bind="$attrs">
+  <div ref="msrApp" class="msr-app" v-bind="$attrs" @scroll="(e) => onScroll(e)">
     <slot></slot>
     <progress-indicator v-if="loading" infinite></progress-indicator>
     <monstera-snackbar :content="snackbar.content" :background-colour="snackbar.colour"
@@ -67,6 +67,10 @@ export default defineComponent({
         content: "",
         colour: Colours.primary,
         context: null as OverlayContext | null,
+      },
+      scroll: {
+        x: 0,
+        y: 0
       }
     }
   },
@@ -92,6 +96,8 @@ export default defineComponent({
       msr__theme: computed(() => this.theme),
       msr__loading: this.setLoading,
       msr__snackbar: this.showSnackbar,
+      msr__scroll: computed(() => this.scroll),
+      msr__context: computed(() => this.$refs.msrApp)
     }
   },
   methods: {
@@ -106,6 +112,12 @@ export default defineComponent({
       this.snackbar.colour = colour;
 
       (this.snackbar.context! as OverlayContext).show();
+    },
+    onScroll(e: UIEvent) {
+      this.scroll = {
+        x: (e.target as HTMLElement).scrollLeft,
+        y: (e.target as HTMLElement).scrollTop
+      }
     }
   },
   created() {
@@ -135,9 +147,27 @@ export default defineComponent({
   font-family: v-bind(bodyFamily);
 
   transition: all 500ms ease-in-out;
+
+  height: 100vh;
+  width: 100vw;
+
+  overflow: auto;
 }
 
 .msr-heading {
   font-family: v-bind(headingFamily);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #7f7f7f1a;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: #7f7f7f7f;
 }
 </style>
