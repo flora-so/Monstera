@@ -1,7 +1,7 @@
 export class DataFrame {
   id: string[];
   columns: string[];
-  _data: { [key: string]: number | string, id: string }[];
+  private _data: { [key: string]: number | string, id: string }[];
 
   constructor(columns: string[], data: { [key: string]: number | string, id: string }[]) {
     this.columns = columns;
@@ -33,6 +33,10 @@ export class DataFrame {
     }
 
     return this._data[index];
+  }
+
+  slice(start: number, end?: number) {
+    return new DataFrame(this.columns, this._data.slice(start, end));
   }
 }
 
