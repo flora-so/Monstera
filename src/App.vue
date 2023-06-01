@@ -65,6 +65,7 @@ import {
   AnimatedDatalist,
   AnimatedTextarea,
   RadioButton,
+  FileInputWrapper
 } from "../package/src/index";
 
 let state = reactive({
@@ -294,6 +295,10 @@ let log = (value: any) => {
         <radio-button label="Two"></radio-button>
 
         {{ data.select }}
+
+        <file-input-wrapper multiple @change="file => log(file)">
+          <outlined-button label="File Input" :colour="Colours.primary"></outlined-button>
+        </file-input-wrapper>
 
         <hr class="divider" />
 
