@@ -77,6 +77,8 @@ export type InputContext = {
   setError: (message: string) => void,
 }
 
+export type FileInputValidator = (file: File) => string;
+
 export type InputValidator = (value: string) => string;
 
 export type DropdownItem = {
