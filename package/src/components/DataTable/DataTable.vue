@@ -1,7 +1,7 @@
 <template>
   <div class="msr-table__wrapper">
-    <div class="msr-table__border">
-      <table class="msr-table" :full-width="fullWidth">
+    <div class="msr-table__border" :full-width="fullWidth">
+      <table class="msr-table">
         <thead class="msr-table__head">
           <tr class="msr-table__row">
             <th v-if="checkbox" class="msr-table__column msr-table__column_checkbox">
@@ -263,13 +263,20 @@ export default defineComponent({
 }
 
 .msr-table__wrapper .msr-table__border {
+  display: table;
+
   border: 1px solid #7f7f7f36;
   border-radius: 8px;
 }
 
-.msr-table[full-width="true"] {
+.msr-table__wrapper .msr-table__border[full-width="true"] {
   width: 100%;
 }
+
+/* 
+.msr-table__border[full-width="true"] .msr-table {
+  width: 100%;
+} */
 
 .msr-table .msr-table__head .msr-table__row .msr-table__column,
 .msr-table .msr-table__body .msr-table__row .msr-table__data,
@@ -287,7 +294,7 @@ export default defineComponent({
   padding: 16px 16px;
 }
 
-.msr-table[full-width="true"] .msr-table__head .msr-table__row .msr-table__column[focus-col="true"] {
+.msr-table__border[full-width="true"] .msr-table .msr-table__head .msr-table__row .msr-table__column[focus-col="true"] {
   width: 100%;
 }
 

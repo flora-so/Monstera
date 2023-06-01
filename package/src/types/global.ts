@@ -49,6 +49,8 @@ export enum InjectedKeys {
   theme = "msr__theme",
   loading = "msr__loading",
   snackbar = "msr__snackbar",
+  scroll = "msr__scroll",
+  context = "msr__context",
 }
 
 export enum InputType {

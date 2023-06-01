@@ -1,5 +1,5 @@
 <template>
-  <div class="msr-list-view">
+  <div class="msr-list-view" ref="msrListView">
     <ul>
       <li class="msr-list-view__wrapper" v-for="data of dataframe.data" :key="data.id">
         <div class="msr-list-view__item" :selected="selected.indexOf(data.id) > -1" @click="_rowSelected(data)">
@@ -49,6 +49,10 @@
 
         <hr :image="image" :divider="divider">
       </li>
+
+      <li v-if="loading">
+        <circular-progress></circular-progress>
+      </li>
     </ul>
   </div>
 </template>
@@ -60,6 +64,7 @@ import { type DataFrame, type ActionItem, type DropdownItem, Colours, Theme, Dro
 import ListViewImage from "./ListViewImage.vue";
 import DropdownList from "../DropdownList/DropdownList.vue";
 import IconButton from "../IconButton/IconButton.vue";
+import CircularProgress from "../CircularProgress/CircularProgress.vue";
 
 export default defineComponent({
   name: "ListView",
@@ -67,10 +72,17 @@ export default defineComponent({
     ListViewImage,
     DropdownList,
     IconButton,
+    CircularProgress,
   },
   inject: {
     theme: {
       from: InjectedKeys.theme
+    },
+    scroll: {
+      from: InjectedKeys.scroll
+    },
+    context: {
+      from: InjectedKeys.context
     }
   },
   props: {
@@ -101,7 +113,16 @@ export default defineComponent({
       type: String,
       default: ""
     },
+    rowCount: {
+      type: Number,
+      default: 20,
+    },
+    lazyLoad: {
+      type: Boolean,
+      default: false,
+    },
     modelValue: Array,
+    pageAction: Function as PropType<(page: number) => Promise<void>>,
     actions: Array as PropType<ActionItem[]>,
     checkbox: Boolean,
     divider: Boolean,
@@ -120,6 +141,9 @@ export default defineComponent({
   data() {
     return {
       _selected: [] as string[],
+      _page: 0,
+      _maxPage: -1,
+      loading: false,
     }
   },
   computed: {
@@ -163,6 +187,23 @@ export default defineComponent({
     },
     _iconColour() {
       return (this as any)['theme'] == Theme.dark ? "#ffffff" : "#000000";
+    },
+    _currentData() {
+      return (page: number) => {
+        if (!this.lazyLoad) {
+          return this.dataframe;
+        }
+
+        const start = page * this.rowCount;
+        return this.dataframe.slice(start, this.rowCount * (page + 1));
+      }
+    },
+  },
+  watch: {
+    scroll() {
+      if ((this.$refs.msrListView as HTMLElement).getBoundingClientRect().bottom < (window.innerHeight + 89)) {
+        this._loadMore(1);
+      }
     }
   },
   methods: {
@@ -175,6 +216,28 @@ export default defineComponent({
           return item.method(data);
         }
       });
+    },
+    async _loadMore(page: number) {
+      if (!this.lazyLoad || this._page == this._maxPage || this.loading) {
+        return;
+      }
+
+      this.loading = true;
+      await this.pageAction?.(page);
+
+      const newPage = this._page + page;
+      if (this._currentData(newPage).length > 0) {
+        this._page = this._page + page;
+
+        if (this._currentData(newPage).length < this.rowCount) {
+          this._maxPage = this._page;
+        }
+      } else if (this._currentData(newPage).length == 0
+        && page == 1) {
+        this._maxPage = this._page;
+      }
+
+      this.loading = false;
     }
   }
 });
