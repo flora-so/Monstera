@@ -10,6 +10,7 @@ export { default as CircularProgress } from "./CircularProgress/CircularProgress
 export { default as DataTable } from "./DataTable/DataTable.vue";
 export { default as DropdownList } from "./DropdownList/DropdownList.vue";
 export { default as DropdownListItem } from "./DropdownListItem/DropdownListItem.vue";
+export { default as FileInputWrapper } from "./FileInputWrapper/FileInputWrapper.vue";
 export { default as FloatingCard } from "./FloatingCard/FloatingCard.vue";
 export { default as IconButton } from "./IconButton/IconButton.vue";
 export { default as LinkButton } from "./LinkButton/LinkButton.vue";

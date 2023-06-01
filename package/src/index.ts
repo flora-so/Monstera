@@ -13,6 +13,7 @@ import {
   DataTable,
   DropdownList,
   DropdownListItem,
+  FileInputWrapper,
   FloatingCard,
   IconButton,
   LinkButton,
@@ -60,6 +61,7 @@ export default {
     Vue.component(DataTable.name, DataTable);
     Vue.component(DropdownList.name, DropdownList);
     Vue.component(DropdownListItem.name, DropdownListItem);
+    Vue.component(FileInputWrapper.name, FileInputWrapper);
     Vue.component(FloatingCard.name, FloatingCard);
     Vue.component(IconButton.name, IconButton);
     Vue.component(LinkButton.name, LinkButton);
@@ -101,6 +103,7 @@ export {
   DataTable,
   DropdownList,
   DropdownListItem,
+  FileInputWrapper,
   FloatingCard,
   IconButton,
   LinkButton,
