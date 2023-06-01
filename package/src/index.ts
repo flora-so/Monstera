@@ -11,6 +11,7 @@ import {
   ChoiceChips,
   CircularProgress,
   DataTable,
+  DateInputWrapper,
   DropdownList,
   DropdownListItem,
   FileInputWrapper,
@@ -59,6 +60,7 @@ export default {
     Vue.component(ChoiceChips.name, ChoiceChips);
     Vue.component(CircularProgress.name, CircularProgress);
     Vue.component(DataTable.name, DataTable);
+    Vue.component(DateInputWrapper.name, DateInputWrapper);
     Vue.component(DropdownList.name, DropdownList);
     Vue.component(DropdownListItem.name, DropdownListItem);
     Vue.component(FileInputWrapper.name, FileInputWrapper);
@@ -101,6 +103,7 @@ export {
   ChoiceChips,
   CircularProgress,
   DataTable,
+  DateInputWrapper,
   DropdownList,
   DropdownListItem,
   FileInputWrapper,

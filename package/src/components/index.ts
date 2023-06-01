@@ -8,6 +8,7 @@ export { default as BottomSheet } from "./BottomSheet/BottomSheet.vue";
 export { default as ChoiceChips } from "./ChoiceChips/ChoiceChips.vue";
 export { default as CircularProgress } from "./CircularProgress/CircularProgress.vue";
 export { default as DataTable } from "./DataTable/DataTable.vue";
+export { default as DateInputWrapper } from "./DateInputWrapper/DateInputWrapper.vue";
 export { default as DropdownList } from "./DropdownList/DropdownList.vue";
 export { default as DropdownListItem } from "./DropdownListItem/DropdownListItem.vue";
 export { default as FileInputWrapper } from "./FileInputWrapper/FileInputWrapper.vue";
