@@ -63,7 +63,8 @@
             </template>
           </icon-button>
 
-          <icon-button @click="_updatePage(1)" :disabled="_page == _maxPage || (_total as number) < rowCount">
+          <icon-button v-if="!_loading" @click="_updatePage(1)"
+            :disabled="_page == _maxPage || (_total as number) < rowCount">
             <template #icon="{ width, height, colour }">
               <svg :fill="colour" :width="width" :height="height" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true">
@@ -73,6 +74,8 @@
               </svg>
             </template>
           </icon-button>
+
+          <circular-progress v-else :size="34" :thickness="5"></circular-progress>
         </div>
       </div>
     </div>
@@ -82,6 +85,7 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 
+import CircularProgress from "../CircularProgress/CircularProgress.vue";
 import MonsteraCheckbox from "../MonsteraCheckbox/MonsteraCheckbox.vue";
 import DropdownList from "../DropdownList/DropdownList.vue";
 import IconButton from "../IconButton/IconButton.vue";
@@ -95,6 +99,7 @@ export default defineComponent({
     DropdownList,
     IconButton,
     LinkButton,
+    CircularProgress,
   },
   inject: {
     theme: {
@@ -131,6 +136,7 @@ export default defineComponent({
   },
   data() {
     return {
+      _loading: false,
       _selected: [] as string[],
       _page: 0,
       _maxPage: -1,
@@ -233,7 +239,9 @@ export default defineComponent({
       });
     },
     async _updatePage(page: number) {
+      this._loading = true;
       await this.pageAction?.(page);
+      this._loading = false;
 
       const newPage = this._page + page;
       if (this._currentData(newPage).length > 0) {
