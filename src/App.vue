@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { reactive, inject } from "vue";
 
-import Example from "./Example.vue";
-
 import {
   type OverlayContext,
   DataFrame,
@@ -14,7 +12,7 @@ import {
   DropdownPosition,
   type InputValidator,
   type ActionItem,
-} from "../package/src/types/index";
+} from "./index";
 
 // Buttons
 import {
@@ -25,7 +23,7 @@ import {
   TextButton,
   IconButton,
   TabButton
-} from "../package/src/index";
+} from "./index";
 
 // Content
 import {
@@ -34,7 +32,7 @@ import {
   OutlinedCard,
   MonsteraTag,
   ListView,
-} from "../package/src/index";
+} from "./index";
 
 // Informative
 import {
@@ -44,7 +42,7 @@ import {
   MonsteraSnackbar,
   BottomSheet,
   CircularProgress
-} from "../package/src/index";
+} from "./index";
 
 // Inputs
 import {
@@ -67,7 +65,7 @@ import {
   RadioButton,
   FileInputWrapper,
   DateInputWrapper,
-} from "../package/src/index";
+} from "./index";
 
 let state = reactive({
   isDark: false
