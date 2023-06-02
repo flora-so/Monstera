@@ -39,7 +39,8 @@
   "exports": {
     ".": {
       "import": "./dist/monstera-vue.js",
-      "require": "./dist/monstera-vue.umd.cjs"
+      "require": "./dist/monstera-vue.umd.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./style.css": "./dist/style.css"
   },
