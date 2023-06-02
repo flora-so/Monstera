@@ -136,7 +136,6 @@ let log = (value: any) => {
 
     <div id="main">
       <div class="container">
-        <example></example>
         <!-- ===== Buttons ===== -->
 
         <big-button label="Big Button" colour="#ffffff" :backgroundColour="Colours.primary">
