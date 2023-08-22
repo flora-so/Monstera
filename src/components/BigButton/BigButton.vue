@@ -1,7 +1,7 @@
 <template>
   <button class="msr-big-button" :disabled="disabled" :ignore="ignore">
     <slot name="leading" width="20px" height="20px" :colour="colour" :tailwind="_tailwind"></slot>
-    <h4 class="msr-big-button__label">{{ label }}</h4>
+    <h4 class="msr-label msr-big-button__label">{{ label }}</h4>
     <slot name="trailing" width="20px" height="20px" :colour="colour" :tailwind="_tailwind"></slot>
   </button>
 </template>
@@ -36,14 +36,14 @@ export default defineComponent({
   computed: {
     _backgroundColour() {
       if (Object.keys(Colours).includes(this.backgroundColour)) {
-        return `rgb(var(--${this.backgroundColour}))`;
+        return `var(--${this.backgroundColour})`;
       } else {
         return this.backgroundColour;
       }
     },
     _shadowColour() {
       if (Object.keys(Colours).includes(this.backgroundColour)) {
-        return `rgba(var(--${this.backgroundColour}), 0.34)`;
+        return `var(--${this.backgroundColour})`;
       } else {
         return `${this.backgroundColour}57`;
       }
@@ -75,10 +75,10 @@ export default defineComponent({
   box-shadow: 0px 5px 13px -5px v-bind(_backgroundColour);
 
   user-select: none;
-  color: v-bind(colour);
+  /* color: v-bind(colour);
   font-size: 1rem;
   line-height: 1.25rem;
-  font-weight: 500;
+  font-weight: 500; */
   white-space: nowrap;
 
   transition: all ease-out 300ms;

@@ -124,7 +124,7 @@ let log = (value: any) => {
 </script>
 
 <template>
-  <monstera-app :theme="state.isDark ? Theme.dark : Theme.light">
+  <monstera-app>
 
 
     <header>
@@ -331,8 +331,6 @@ let log = (value: any) => {
 </template>
 
 <style>
-@import "./styles/reset.css";
-
 #main>.container {
   max-width: 677px;
   margin: 0px auto;
